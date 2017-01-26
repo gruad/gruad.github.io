@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://gruad.github.io/"/>
-  <updated>2017-01-26T02:35:18.409Z</updated>
+  <updated>2017-01-26T02:40:21.066Z</updated>
   <id>http://gruad.github.io/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://gruad.github.io/2017/01/26/%E7%AC%AC%E4%B8%80%E7%AF%87%E6%96%87%E7%AB%A0markdown%E8%AF%AD%E6%B3%95/"/>
     <id>http://gruad.github.io/2017/01/26/第一篇文章markdown语法/</id>
     <published>2017-01-26T02:30:34.000Z</published>
-    <updated>2017-01-26T02:35:18.409Z</updated>
+    <updated>2017-01-26T02:40:21.066Z</updated>
     
     <content type="html"><![CDATA[<p>我们理解您需要更便捷更高效的工具记录思想，整理笔记、知识，并将其中承载的价值传播给他人，<strong>Cmd Markdown</strong> 是我们给出的答案 —— 我们为记录思想和分享知识提供更专业的工具。 您可以使用 Cmd Markdown：</p>
 <blockquote>
@@ -114,6 +114,8 @@
     
     </summary>
     
+      <category term="技术基础" scheme="http://gruad.github.io/categories/%E6%8A%80%E6%9C%AF%E5%9F%BA%E7%A1%80/"/>
+    
     
       <category term="markdown语法" scheme="http://gruad.github.io/tags/markdown%E8%AF%AD%E6%B3%95/"/>
     
@@ -124,7 +126,7 @@
     <link href="http://gruad.github.io/2016/12/27/hello-world/"/>
     <id>http://gruad.github.io/2016/12/27/hello-world/</id>
     <published>2016-12-27T06:41:27.121Z</published>
-    <updated>2017-01-26T02:35:02.190Z</updated>
+    <updated>2017-01-26T02:40:18.142Z</updated>
     
     <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
 <h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
