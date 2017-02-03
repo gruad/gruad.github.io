@@ -14,18 +14,16 @@
     
     <meta name="description" content="个人原创，全是实践的结果，欢迎阅读 
 
-###1.当class=plugin-modal-dialog的标签width=0和height=0的时候，使用cssSelector方法是无法找到它所包含的字标签的。所以无法操作，提示错误：element is unvisible
-
-###2.查阅资料，问题可能原因  解决思路有两种 一 在webdriver中运行javascript代码，修改相应父标签">
+1. 当class=plugin-modal-dialog的标签width=0和height=0的时候，使用cssSelector方法是无法找到它所包含的字标签的。所以无法操作，提示错误：element is unvisible
+2. 查阅资料，问题可能原因  解决思路有两种 一 在webdriver中运行javascript代码，修改相应父标签的属性wi">
 <meta property="og:type" content="article">
 <meta property="og:title" content="selenium中webdriver中父标签的width=0和height=0，子标签无法操作的个人理解">
 <meta property="og:url" content="http://gruad.github.io/2017/02/03/selenium中webdriver中父标签的width-0和height-0，子标签无法操作的个人理解/index.html">
 <meta property="og:site_name" content="小锋子">
 <meta property="og:description" content="个人原创，全是实践的结果，欢迎阅读 
 
-###1.当class=plugin-modal-dialog的标签width=0和height=0的时候，使用cssSelector方法是无法找到它所包含的字标签的。所以无法操作，提示错误：element is unvisible
-
-###2.查阅资料，问题可能原因  解决思路有两种 一 在webdriver中运行javascript代码，修改相应父标签">
+1. 当class=plugin-modal-dialog的标签width=0和height=0的时候，使用cssSelector方法是无法找到它所包含的字标签的。所以无法操作，提示错误：element is unvisible
+2. 查阅资料，问题可能原因  解决思路有两种 一 在webdriver中运行javascript代码，修改相应父标签的属性wi">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/2101255-0859fbfb81ad6d79.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/2101255-3858d2826c4d45fd.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/2101255-b6b7fad411bd1912.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
@@ -34,14 +32,13 @@
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/2101255-72548b1dfe2a07d8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/2101255-c53ed4517347c99b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/2101255-fb624a63e71a012d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:updated_time" content="2017-02-03T10:35:44.242Z">
+<meta property="og:updated_time" content="2017-02-03T10:52:38.854Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="selenium中webdriver中父标签的width=0和height=0，子标签无法操作的个人理解">
 <meta name="twitter:description" content="个人原创，全是实践的结果，欢迎阅读 
 
-###1.当class=plugin-modal-dialog的标签width=0和height=0的时候，使用cssSelector方法是无法找到它所包含的字标签的。所以无法操作，提示错误：element is unvisible
-
-###2.查阅资料，问题可能原因  解决思路有两种 一 在webdriver中运行javascript代码，修改相应父标签">
+1. 当class=plugin-modal-dialog的标签width=0和height=0的时候，使用cssSelector方法是无法找到它所包含的字标签的。所以无法操作，提示错误：element is unvisible
+2. 查阅资料，问题可能原因  解决思路有两种 一 在webdriver中运行javascript代码，修改相应父标签的属性wi">
 <meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/2101255-0859fbfb81ad6d79.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 
     
@@ -124,44 +121,51 @@
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			
+			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-当class-plugin-modal-dialog的标签width-0和height-0的时候，使用cssSelector方法是无法找到它所包含的字标签的。所以无法操作，提示错误：element-is-unvisible"><span class="toc-number">1.</span> <span class="toc-text">1. 当class=plugin-modal-dialog的标签width=0和height=0的时候，使用cssSelector方法是无法找到它所包含的字标签的。所以无法操作，提示错误：element is unvisible</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-查阅资料，问题可能原因-解决思路有两种"><span class="toc-number">2.</span> <span class="toc-text">2. 查阅资料，问题可能原因  解决思路有两种</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#根据上述思路一，解决问题步骤"><span class="toc-number">3.</span> <span class="toc-text">根据上述思路一，解决问题步骤</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#根据上述思路二，解决问题步骤"><span class="toc-number">4.</span> <span class="toc-text">根据上述思路二，解决问题步骤</span></a></li></ol>
 		
 		</div>
 		
 		<ul>
 <li>个人原创，全是实践的结果，欢迎阅读 </li>
 </ul>
-<p>###1.当class=plugin-modal-dialog的标签width=0和height=0的时候，使用cssSelector方法是无法找到它所包含的字标签的。所以无法操作，提示错误：element is unvisible</p>
-<p><img src="http://upload-images.jianshu.io/upload_images/2101255-0859fbfb81ad6d79.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
-<p>###2.查阅资料，<a href="http://www.51testing.com/html/91/79191-829759.html" target="_blank" rel="external">问题可能原因</a>  解决思路有两种<br><strong> 一 </strong>在webdriver中运行javascript代码，修改相应父标签的属性width和height<br><strong> 二 </strong>既然width=0的标签可以选择到，那么是否可以根据父元素递归找到子元素，进行操作。</p>
-<p>###根据上述思路一，解决问题步骤</p>
-<blockquote>
-<p>1.webdriver中运行javascript代码方法：<a href="http://lijingshou.iteye.com/blog/2018929" target="_blank" rel="external">参考链接</a></p>
+<h3 id="1-当class-plugin-modal-dialog的标签width-0和height-0的时候，使用cssSelector方法是无法找到它所包含的字标签的。所以无法操作，提示错误：element-is-unvisible"><a href="#1-当class-plugin-modal-dialog的标签width-0和height-0的时候，使用cssSelector方法是无法找到它所包含的字标签的。所以无法操作，提示错误：element-is-unvisible" class="headerlink" title="1. 当class=plugin-modal-dialog的标签width=0和height=0的时候，使用cssSelector方法是无法找到它所包含的字标签的。所以无法操作，提示错误：element is unvisible"></a>1. 当class=plugin-modal-dialog的标签width=0和height=0的时候，使用cssSelector方法是无法找到它所包含的字标签的。所以无法操作，提示错误：element is unvisible</h3><p><img src="http://upload-images.jianshu.io/upload_images/2101255-0859fbfb81ad6d79.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<h3 id="2-查阅资料，问题可能原因-解决思路有两种"><a href="#2-查阅资料，问题可能原因-解决思路有两种" class="headerlink" title="2. 查阅资料，问题可能原因  解决思路有两种"></a>2. 查阅资料，<a href="http://www.51testing.com/html/91/79191-829759.html" target="_blank" rel="external">问题可能原因</a>  解决思路有两种</h3><p><strong> 一 </strong>在webdriver中运行javascript代码，修改相应父标签的属性width和height<br><strong> 二 </strong>既然width=0的标签可以选择到，那么是否可以根据父元素递归找到子元素，进行操作。</p>
+<h3 id="根据上述思路一，解决问题步骤"><a href="#根据上述思路一，解决问题步骤" class="headerlink" title="根据上述思路一，解决问题步骤"></a>根据上述思路一，解决问题步骤</h3><blockquote>
+<ol>
+<li>webdriver中运行javascript代码方法：<a href="http://lijingshou.iteye.com/blog/2018929" target="_blank" rel="external">参考链接</a></li>
+</ol>
 </blockquote>
 <p><img src="http://upload-images.jianshu.io/upload_images/2101255-3858d2826c4d45fd.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
 <blockquote>
-<p>2.运行结果，显示成功</p>
+<ol>
+<li>运行结果，显示成功</li>
+</ol>
 </blockquote>
 <p><img src="http://upload-images.jianshu.io/upload_images/2101255-b6b7fad411bd1912.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
 <blockquote>
-<p>3.修改成功后，再次运行cssSelector方法，之后操作并不成功。</p>
+<ol>
+<li>修改成功后，再次运行cssSelector方法，之后操作并不成功。</li>
+</ol>
 </blockquote>
-<p>###根据上述思路二，解决问题步骤</p>
-<blockquote>
-<p>1.首先父元素可以获取到，如下图</p>
+<h3 id="根据上述思路二，解决问题步骤"><a href="#根据上述思路二，解决问题步骤" class="headerlink" title="根据上述思路二，解决问题步骤"></a>根据上述思路二，解决问题步骤</h3><blockquote>
+<ol>
+<li>首先父元素可以获取到，如下图</li>
+</ol>
 </blockquote>
 <p><img src="http://upload-images.jianshu.io/upload_images/2101255-14e9466c8d2f7259.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""><br>运行结果：</p>
 <p><img src="http://upload-images.jianshu.io/upload_images/2101255-d8f2c1ba7b7dc4c6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
 <blockquote>
-<p>2.根据可以获得父元素，递归找到子元素（尝试）<br>2.1首先获取父元素</p>
+<ol>
+<li>根据可以获得父元素，递归找到子元素（尝试）<br>2.1 首先获取父元素</li>
+</ol>
 </blockquote>
 <p><img src="http://upload-images.jianshu.io/upload_images/2101255-72548b1dfe2a07d8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
 <blockquote>
-<p>2.2然后递归获取子元素</p>
+<p>2.2 然后递归获取子元素</p>
 </blockquote>
 <p><img src="http://upload-images.jianshu.io/upload_images/2101255-c53ed4517347c99b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
 <blockquote>
-<p>2.3运行结果，显示获取成功，所以可以成功操作父元素的width=0和height=0时候，子元素无法获取的问题。</p>
+<p>2.3 运行结果，显示获取成功，所以可以成功操作父元素的width=0和height=0时候，子元素无法获取的问题。</p>
 </blockquote>
 <p><img src="http://upload-images.jianshu.io/upload_images/2101255-fb624a63e71a012d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
   
@@ -222,7 +226,7 @@
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- 
+ <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-当class-plugin-modal-dialog的标签width-0和height-0的时候，使用cssSelector方法是无法找到它所包含的字标签的。所以无法操作，提示错误：element-is-unvisible"><span class="toc-number">1.</span> <span class="toc-text">1. 当class=plugin-modal-dialog的标签width=0和height=0的时候，使用cssSelector方法是无法找到它所包含的字标签的。所以无法操作，提示错误：element is unvisible</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-查阅资料，问题可能原因-解决思路有两种"><span class="toc-number">2.</span> <span class="toc-text">2. 查阅资料，问题可能原因  解决思路有两种</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#根据上述思路一，解决问题步骤"><span class="toc-number">3.</span> <span class="toc-text">根据上述思路一，解决问题步骤</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#根据上述思路二，解决问题步骤"><span class="toc-number">4.</span> <span class="toc-text">根据上述思路二，解决问题步骤</span></a></li></ol>
  
   </div>
 
@@ -279,11 +283,11 @@
 			
 		
 			
-				<li><a href="/tags/markdown语法/" title="markdown语法">markdown语法<sup>1</sup></a></li>
+				<li><a href="/tags/学习方式/" title="学习方式">学习方式<sup>1</sup></a></li>
 			
 		
 			
-				<li><a href="/tags/学习方式/" title="学习方式">学习方式<sup>1</sup></a></li>
+				<li><a href="/tags/markdown语法/" title="markdown语法">markdown语法<sup>1</sup></a></li>
 			
 		
 		</ul>
