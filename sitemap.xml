@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://gruad.github.io/read/index.html</loc>
+    
+    <lastmod>2017-02-03T11:06:37.390Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://gruad.github.io/2017/02/03/selenium%E4%B8%ADwebdriver%E4%B8%AD%E7%88%B6%E6%A0%87%E7%AD%BE%E7%9A%84width-0%E5%92%8Cheight-0%EF%BC%8C%E5%AD%90%E6%A0%87%E7%AD%BE%E6%97%A0%E6%B3%95%E6%93%8D%E4%BD%9C%E7%9A%84%E4%B8%AA%E4%BA%BA%E7%90%86%E8%A7%A3/</loc>
     
     <lastmod>2017-02-03T10:52:38.854Z</lastmod>
@@ -26,13 +33,6 @@
     <loc>http://gruad.github.io/2017/01/26/JavaScript%E5%AE%9E%E7%8E%B0%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95%E7%9A%84%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/</loc>
     
     <lastmod>2017-01-26T08:40:42.462Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://gruad.github.io/read/index.html</loc>
-    
-    <lastmod>2017-01-26T02:51:08.001Z</lastmod>
     
   </url>
   
