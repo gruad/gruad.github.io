@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://gruad.github.io/"/>
-  <updated>2017-02-03T10:52:38.854Z</updated>
+  <updated>2017-02-06T10:18:23.181Z</updated>
   <id>http://gruad.github.io/</id>
   
   <author>
@@ -14,6 +14,24 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>bootstrap-table中data-row-style的实战应用</title>
+    <link href="http://gruad.github.io/2017/02/06/bootstrap-table%E4%B8%ADdata-row-style%E7%9A%84%E5%AE%9E%E6%88%98%E5%BA%94%E7%94%A8/"/>
+    <id>http://gruad.github.io/2017/02/06/bootstrap-table中data-row-style的实战应用/</id>
+    <published>2017-02-06T10:16:54.000Z</published>
+    <updated>2017-02-06T10:18:23.181Z</updated>
+    
+    <summary type="html">
+    
+    </summary>
+    
+      <category term="boostrap" scheme="http://gruad.github.io/categories/boostrap/"/>
+    
+    
+      <category term="boostrap-table" scheme="http://gruad.github.io/tags/boostrap-table/"/>
+    
+  </entry>
   
   <entry>
     <title>selenium中webdriver中父标签的width=0和height=0，子标签无法操作的个人理解</title>
