@@ -38,7 +38,7 @@
     <link href="http://gruad.github.io/2017/02/06/bootstrap-table%E4%B8%ADdata-row-style%E7%9A%84%E5%AE%9E%E6%88%98%E5%BA%94%E7%94%A8/"/>
     <id>http://gruad.github.io/2017/02/06/bootstrap-table中data-row-style的实战应用/</id>
     <published>2017-02-06T10:16:54.000Z</published>
-    <updated>2017-02-06T10:37:26.012Z</updated>
+    <updated>2017-02-07T07:28:12.815Z</updated>
     
     <content type="html"><![CDATA[<h3 id="1-bootstrap-table的table代码"><a href="#1-bootstrap-table的table代码" class="headerlink" title="1. bootstrap-table的table代码"></a>1. bootstrap-table的table代码</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">&lt;table id=<span class="string">"table"</span> </div><div class="line">	data-toggle=<span class="string">"table"</span></div><div class="line">   	data-toolbar=<span class="string">"#toolbar"</span></div><div class="line">	data-pagination=<span class="string">"true"</span></div><div class="line">	data-row-style=<span class="string">"rowStyle"</span></div><div class="line">    data-show-<span class="keyword">export</span>=<span class="string">"true"</span></div><div class="line">    data-show-pagination-<span class="keyword">switch</span>=<span class="string">"true"</span>	&gt;</div><div class="line">    ...省略代码</div><div class="line">&lt;<span class="regexp">/table&gt;</span></div></pre></td></tr></table></figure>
 <h3 id="2-rowStyle代码"><a href="#2-rowStyle代码" class="headerlink" title="2. rowStyle代码"></a>2. rowStyle代码</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">rowStyle</span>(<span class="params">row, style</span>) </span>&#123;</div><div class="line">    <span class="keyword">return</span> &#123;</div><div class="line">        <span class="attr">css</span>: &#123;</div><div class="line">            <span class="string">"font-size"</span>: <span class="string">"14px"</span>,</div><div class="line">            <span class="string">"white-space"</span>:<span class="string">"nowrap"</span></div><div class="line">        &#125;</div><div class="line">    &#125;;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
@@ -51,10 +51,10 @@
     
     </summary>
     
-      <category term="boostrap" scheme="http://gruad.github.io/categories/boostrap/"/>
+      <category term="bootstrap" scheme="http://gruad.github.io/categories/bootstrap/"/>
     
     
-      <category term="boostrap-table" scheme="http://gruad.github.io/tags/boostrap-table/"/>
+      <category term="bootstrap-table" scheme="http://gruad.github.io/tags/bootstrap-table/"/>
     
   </entry>
   
