@@ -5,25 +5,23 @@
 <meta name="baidu-site-verification" content="c0Q0WMMclc" />
   <meta charset="UTF-8">
   
-    <title>bootstrap-table中data-row-style的实战应用 | 小锋子</title>
+    <title>JavaScript的attr()函数和val()函数和css()函数比较 | 小锋子</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="gruad">
     
 
     
-    <meta name="description" content="1. bootstrap-table的table代码123456789&amp;lt;table id=&quot;table&quot; 	data-toggle=&quot;table&quot;   	data-toolbar=&quot;#toolbar&quot;	data-pagination=&quot;true&quot;	data-row-style=&quot;rowStyle&quot;    data-show-export=&quot;true&quot;    data-show-paginat">
+    <meta name="description" content="欢迎，这是我第一次利用github建立博客。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="bootstrap-table中data-row-style的实战应用">
-<meta property="og:url" content="http://gruad.github.io/2017/02/06/bootstrap-table中data-row-style的实战应用/index.html">
+<meta property="og:title" content="JavaScript的attr()函数和val()函数和css()函数比较">
+<meta property="og:url" content="http://gruad.github.io/2017/02/09/JavaScript的attr-函数和val-函数和css-函数比较/index.html">
 <meta property="og:site_name" content="小锋子">
-<meta property="og:description" content="1. bootstrap-table的table代码123456789&amp;lt;table id=&quot;table&quot; 	data-toggle=&quot;table&quot;   	data-toolbar=&quot;#toolbar&quot;	data-pagination=&quot;true&quot;	data-row-style=&quot;rowStyle&quot;    data-show-export=&quot;true&quot;    data-show-paginat">
-<meta property="og:image" content="http://gruad.github.io/img/bootstraptable.png">
-<meta property="og:updated_time" content="2017-02-07T07:28:12.815Z">
+<meta property="og:description" content="欢迎，这是我第一次利用github建立博客。">
+<meta property="og:updated_time" content="2017-02-09T07:54:14.845Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="bootstrap-table中data-row-style的实战应用">
-<meta name="twitter:description" content="1. bootstrap-table的table代码123456789&amp;lt;table id=&quot;table&quot; 	data-toggle=&quot;table&quot;   	data-toolbar=&quot;#toolbar&quot;	data-pagination=&quot;true&quot;	data-row-style=&quot;rowStyle&quot;    data-show-export=&quot;true&quot;    data-show-paginat">
-<meta name="twitter:image" content="http://gruad.github.io/img/bootstraptable.png">
+<meta name="twitter:title" content="JavaScript的attr()函数和val()函数和css()函数比较">
+<meta name="twitter:description" content="欢迎，这是我第一次利用github建立博客。">
 
     
     <link rel="alternative" href="/atom.xml" title="小锋子" type="application/atom+xml">
@@ -89,14 +87,14 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2017/02/06/bootstrap-table中data-row-style的实战应用/" title="bootstrap-table中data-row-style的实战应用" itemprop="url">bootstrap-table中data-row-style的实战应用</a>
+      <a href="/2017/02/09/JavaScript的attr-函数和val-函数和css-函数比较/" title="JavaScript的attr()函数和val()函数和css()函数比较" itemprop="url">JavaScript的attr()函数和val()函数和css()函数比较</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="gruad" target="_blank" itemprop="author">gruad</a>
 		
   <p class="article-time">
-    <time datetime="2017-02-06T10:16:54.000Z" itemprop="datePublished"> 发表于 2017-02-06</time>
+    <time datetime="2017-02-09T07:54:14.000Z" itemprop="datePublished"> 发表于 2017-02-09</time>
     
   </p>
 </header>
@@ -105,28 +103,15 @@
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-bootstrap-table的table代码"><span class="toc-number">1.</span> <span class="toc-text">1. bootstrap-table的table代码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-rowStyle代码"><span class="toc-number">2.</span> <span class="toc-text">2. rowStyle代码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-运行结果"><span class="toc-number">3.</span> <span class="toc-text">3. 运行结果</span></a></li></ol>
+			
 		
 		</div>
 		
-		<h3 id="1-bootstrap-table的table代码"><a href="#1-bootstrap-table的table代码" class="headerlink" title="1. bootstrap-table的table代码"></a>1. bootstrap-table的table代码</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">&lt;table id=<span class="string">"table"</span> </div><div class="line">	data-toggle=<span class="string">"table"</span></div><div class="line">   	data-toolbar=<span class="string">"#toolbar"</span></div><div class="line">	data-pagination=<span class="string">"true"</span></div><div class="line">	data-row-style=<span class="string">"rowStyle"</span></div><div class="line">    data-show-<span class="keyword">export</span>=<span class="string">"true"</span></div><div class="line">    data-show-pagination-<span class="keyword">switch</span>=<span class="string">"true"</span>	&gt;</div><div class="line">    ...省略代码</div><div class="line">&lt;<span class="regexp">/table&gt;</span></div></pre></td></tr></table></figure>
-<h3 id="2-rowStyle代码"><a href="#2-rowStyle代码" class="headerlink" title="2. rowStyle代码"></a>2. rowStyle代码</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">rowStyle</span>(<span class="params">row, style</span>) </span>&#123;</div><div class="line">    <span class="keyword">return</span> &#123;</div><div class="line">        <span class="attr">css</span>: &#123;</div><div class="line">            <span class="string">"font-size"</span>: <span class="string">"14px"</span>,</div><div class="line">            <span class="string">"white-space"</span>:<span class="string">"nowrap"</span></div><div class="line">        &#125;</div><div class="line">    &#125;;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="3-运行结果"><a href="#3-运行结果" class="headerlink" title="3. 运行结果"></a>3. 运行结果</h3><p><img src="/img/bootstraptable.png" alt=""></p>
-  
+		  
 	</div>
 		<footer class="article-footer clearfix">
 <div class="article-catetags">
 
-<div class="article-categories">
-  <span></span>
-  <a class="article-category-link" href="/categories/bootstrap/">bootstrap</a>
-</div>
-
-
-  <div class="article-tags">
-  
-  <span></span> <a href="/tags/bootstrap-table/">bootstrap-table</a>
-  </div>
 
 </div>
 
@@ -134,7 +119,7 @@
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://gruad.github.io/2017/02/06/bootstrap-table中data-row-style的实战应用/" data-title="bootstrap-table中data-row-style的实战应用 | 小锋子" data-tsina="2783871312" class="share clearfix">
+	  <div data-url="http://gruad.github.io/2017/02/09/JavaScript的attr-函数和val-函数和css-函数比较/" data-title="JavaScript的attr()函数和val()函数和css()函数比较 | 小锋子" data-tsina="2783871312" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -147,19 +132,11 @@
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2017/02/07/bootstrap-table-学习与实践/" title="bootstrap table 学习与实践">
-  <strong>上一篇：</strong><br/>
-  <span>
-  bootstrap table 学习与实践</span>
-</a>
-</div>
-
 
 <div class="next">
-<a href="/2017/02/03/selenium中webdriver中父标签的width-0和height-0，子标签无法操作的个人理解/"  title="selenium中webdriver中父标签的width=0和height=0，子标签无法操作的个人理解">
+<a href="/2017/02/07/bootstrap-table-学习与实践/"  title="bootstrap table 学习与实践">
  <strong>下一篇：</strong><br/> 
- <span>selenium中webdriver中父标签的width=0和height=0，子标签无法操作的个人理解
+ <span>bootstrap table 学习与实践
 </span>
 </a>
 </div>
@@ -168,7 +145,7 @@
 
 	
 <section id="comments" class="comment">
-	<div class="ds-thread" data-thread-key="2017/02/06/bootstrap-table中data-row-style的实战应用/" data-title="bootstrap-table中data-row-style的实战应用" data-url="http://gruad.github.io/2017/02/06/bootstrap-table中data-row-style的实战应用/"></div>
+	<div class="ds-thread" data-thread-key="2017/02/09/JavaScript的attr-函数和val-函数和css-函数比较/" data-title="JavaScript的attr()函数和val()函数和css()函数比较" data-url="http://gruad.github.io/2017/02/09/JavaScript的attr-函数和val-函数和css-函数比较/"></div>
 </section>
 
 
@@ -178,7 +155,7 @@
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-bootstrap-table的table代码"><span class="toc-number">1.</span> <span class="toc-text">1. bootstrap-table的table代码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-rowStyle代码"><span class="toc-number">2.</span> <span class="toc-text">2. rowStyle代码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-运行结果"><span class="toc-number">3.</span> <span class="toc-text">3. 运行结果</span></a></li></ol>
+ 
  
   </div>
 

@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://gruad.github.io/"/>
-  <updated>2017-02-07T10:57:29.914Z</updated>
+  <updated>2017-02-09T07:54:14.845Z</updated>
   <id>http://gruad.github.io/</id>
   
   <author>
@@ -14,6 +14,20 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>JavaScript的attr()函数和val()函数和css()函数比较</title>
+    <link href="http://gruad.github.io/2017/02/09/JavaScript%E7%9A%84attr-%E5%87%BD%E6%95%B0%E5%92%8Cval-%E5%87%BD%E6%95%B0%E5%92%8Ccss-%E5%87%BD%E6%95%B0%E6%AF%94%E8%BE%83/"/>
+    <id>http://gruad.github.io/2017/02/09/JavaScript的attr-函数和val-函数和css-函数比较/</id>
+    <published>2017-02-09T07:54:14.000Z</published>
+    <updated>2017-02-09T07:54:14.845Z</updated>
+    
+    <summary type="html">
+    
+    </summary>
+    
+    
+  </entry>
   
   <entry>
     <title>bootstrap table 学习与实践</title>
