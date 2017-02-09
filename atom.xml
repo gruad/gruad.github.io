@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://gruad.github.io/"/>
-  <updated>2017-02-09T07:54:14.845Z</updated>
+  <updated>2017-02-09T09:45:19.538Z</updated>
   <id>http://gruad.github.io/</id>
   
   <author>
@@ -16,16 +16,20 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>JavaScript的attr()函数和val()函数和css()函数比较</title>
-    <link href="http://gruad.github.io/2017/02/09/JavaScript%E7%9A%84attr-%E5%87%BD%E6%95%B0%E5%92%8Cval-%E5%87%BD%E6%95%B0%E5%92%8Ccss-%E5%87%BD%E6%95%B0%E6%AF%94%E8%BE%83/"/>
-    <id>http://gruad.github.io/2017/02/09/JavaScript的attr-函数和val-函数和css-函数比较/</id>
+    <title>Jquery的attr()函数和val()函数和css()函数比较</title>
+    <link href="http://gruad.github.io/2017/02/09/Jquery%E7%9A%84attr-%E5%87%BD%E6%95%B0%E5%92%8Cval-%E5%87%BD%E6%95%B0%E5%92%8Ccss-%E5%87%BD%E6%95%B0%E6%AF%94%E8%BE%83/"/>
+    <id>http://gruad.github.io/2017/02/09/Jquery的attr-函数和val-函数和css-函数比较/</id>
     <published>2017-02-09T07:54:14.000Z</published>
-    <updated>2017-02-09T07:54:14.845Z</updated>
+    <updated>2017-02-09T09:45:19.538Z</updated>
     
     <summary type="html">
     
     </summary>
     
+      <category term="技术基础" scheme="http://gruad.github.io/categories/%E6%8A%80%E6%9C%AF%E5%9F%BA%E7%A1%80/"/>
+    
+    
+      <category term="jquery" scheme="http://gruad.github.io/tags/jquery/"/>
     
   </entry>
   
