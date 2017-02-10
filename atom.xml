@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://gruad.github.io/"/>
-  <updated>2017-02-10T01:20:08.149Z</updated>
+  <updated>2017-02-10T01:46:44.646Z</updated>
   <id>http://gruad.github.io/</id>
   
   <author>
@@ -20,12 +20,16 @@
     <link href="http://gruad.github.io/2017/02/10/react%E5%AD%A6%E4%B9%A0%E6%97%A5%E5%BF%97%E7%AC%AC%E4%B8%80%E5%A4%A9/"/>
     <id>http://gruad.github.io/2017/02/10/react学习日志第一天/</id>
     <published>2017-02-10T01:20:08.000Z</published>
-    <updated>2017-02-10T01:20:08.149Z</updated>
+    <updated>2017-02-10T01:46:44.646Z</updated>
     
     <summary type="html">
     
     </summary>
     
+      <category term="react学习" scheme="http://gruad.github.io/categories/react%E5%AD%A6%E4%B9%A0/"/>
+    
+    
+      <category term="react" scheme="http://gruad.github.io/tags/react/"/>
     
   </entry>
   
