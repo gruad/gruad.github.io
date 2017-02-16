@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://gruad.github.io/"/>
-  <updated>2017-02-16T10:01:40.049Z</updated>
+  <updated>2017-02-16T10:04:40.145Z</updated>
   <id>http://gruad.github.io/</id>
   
   <author>
@@ -20,14 +20,14 @@
     <link href="http://gruad.github.io/2017/02/16/Vue-js%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
     <id>http://gruad.github.io/2017/02/16/Vue-js学习笔记/</id>
     <published>2017-02-16T09:55:54.000Z</published>
-    <updated>2017-02-16T10:01:40.049Z</updated>
+    <updated>2017-02-16T10:04:40.145Z</updated>
     
     <content type="html"><![CDATA[<h3 id="常见的标签指令含义"><a href="#常见的标签指令含义" class="headerlink" title="常见的标签指令含义"></a>常见的标签指令含义</h3><ol>
 <li>v-bind<br>简写：:id=”message”<br>绑定标签属性的</li>
 <li>v-model<br>双向数据绑定的</li>
 <li>v-for<br>列表渲染用的</li>
 <li>v-if<br>条件渲染用的</li>
-<li>v-on<br>简写：@:click=”method”<br>绑定事件的</li>
+<li>v-on<br>简写：@click=”method”<br>绑定事件的</li>
 </ol>
 ]]></content>
     
