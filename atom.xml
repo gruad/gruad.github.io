@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://gruad.github.io/"/>
-  <updated>2017-02-16T10:04:40.145Z</updated>
+  <updated>2017-03-03T08:11:12.784Z</updated>
   <id>http://gruad.github.io/</id>
   
   <author>
@@ -14,6 +14,33 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>JavaScript实现数组去重</title>
+    <link href="http://gruad.github.io/2017/03/03/JavaScript%E5%AE%9E%E7%8E%B0%E6%95%B0%E7%BB%84%E5%8E%BB%E9%87%8D/"/>
+    <id>http://gruad.github.io/2017/03/03/JavaScript实现数组去重/</id>
+    <published>2017-03-03T07:56:20.000Z</published>
+    <updated>2017-03-03T08:11:12.784Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="1-背景"><a href="#1-背景" class="headerlink" title="1. 背景"></a>1. 背景</h3><p>数组去重的方法网上有很多，至少有五种之多，具体可查阅百度。<br>因为最近自己在做项目，需要写一个省市区的联动选择控件，所以需要用到去重，于是自己就思考着写了一个。</p>
+<h3 id="2-源码"><a href="#2-源码" class="headerlink" title="2. 源码"></a>2. 源码</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">uniqueArray</span>(<span class="params">array</span>)</span>&#123;</div><div class="line">	<span class="keyword">var</span> arr=[];</div><div class="line">	<span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>,len=array.length;i&lt;len;i++)&#123;</div><div class="line">	<span class="keyword">for</span>(<span class="keyword">var</span> j=i+<span class="number">1</span>;j&lt;len;j++)&#123;</div><div class="line">		<span class="keyword">if</span>(array[i]===array[j])</div><div class="line">		j=++i;</div><div class="line">	&#125;</div><div class="line">	arr.push(array[i]);</div><div class="line">	&#125;</div><div class="line">	<span class="keyword">return</span> arr</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="3-源码截图"><a href="#3-源码截图" class="headerlink" title="3. 源码截图"></a>3. 源码截图</h3><p><img src="/img/unique1.png" alt=""></p>
+<h3 id="4-测试数组"><a href="#4-测试数组" class="headerlink" title="4. 测试数组"></a>4. 测试数组</h3><p><img src="/img/unique2.png" alt=""></p>
+<h3 id="5-运行结果"><a href="#5-运行结果" class="headerlink" title="5. 运行结果"></a>5. 运行结果</h3><p><img src="/img/unique3.png" alt=""></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;1-背景&quot;&gt;&lt;a href=&quot;#1-背景&quot; class=&quot;headerlink&quot; title=&quot;1. 背景&quot;&gt;&lt;/a&gt;1. 背景&lt;/h3&gt;&lt;p&gt;数组去重的方法网上有很多，至少有五种之多，具体可查阅百度。&lt;br&gt;因为最近自己在做项目，需要写一个省市区的联动选择控件，
+    
+    </summary>
+    
+      <category term="算法" scheme="http://gruad.github.io/categories/%E7%AE%97%E6%B3%95/"/>
+    
+    
+      <category term="数组去重" scheme="http://gruad.github.io/tags/%E6%95%B0%E7%BB%84%E5%8E%BB%E9%87%8D/"/>
+    
+  </entry>
   
   <entry>
     <title>Vue.js学习笔记</title>
