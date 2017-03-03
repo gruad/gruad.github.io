@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://gruad.github.io/about/index.html</loc>
+    
+    <lastmod>2017-03-03T08:29:13.568Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://gruad.github.io/2017/03/03/JavaScript%E5%AE%9E%E7%8E%B0%E6%95%B0%E7%BB%84%E5%8E%BB%E9%87%8D/</loc>
     
     <lastmod>2017-03-03T08:11:12.784Z</lastmod>
@@ -40,13 +47,6 @@
     <loc>http://gruad.github.io/2017/02/06/bootstrap-table%E4%B8%ADdata-row-style%E7%9A%84%E5%AE%9E%E6%88%98%E5%BA%94%E7%94%A8/</loc>
     
     <lastmod>2017-02-07T07:28:12.815Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://gruad.github.io/about/index.html</loc>
-    
-    <lastmod>2017-02-04T07:13:30.601Z</lastmod>
     
   </url>
   
