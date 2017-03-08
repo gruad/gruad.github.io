@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://gruad.github.io/"/>
-  <updated>2017-03-08T09:29:57.015Z</updated>
+  <updated>2017-03-08T09:36:06.357Z</updated>
   <id>http://gruad.github.io/</id>
   
   <author>
@@ -20,14 +20,14 @@
     <link href="http://gruad.github.io/2017/03/08/%E5%89%8D%E7%AB%AF%E5%90%84%E7%A7%8D%E9%AB%98%E5%BA%A6%E5%AE%BD%E5%BA%A6%E6%80%BB%E7%BB%93-%E6%8C%81%E7%BB%AD%E7%A7%AF%E7%B4%AF%E6%9B%B4%E6%96%B0%E4%B8%AD/"/>
     <id>http://gruad.github.io/2017/03/08/前端各种高度宽度总结-持续积累更新中/</id>
     <published>2017-03-08T09:20:06.000Z</published>
-    <updated>2017-03-08T09:29:57.015Z</updated>
+    <updated>2017-03-08T09:36:06.357Z</updated>
     
-    <content type="html"><![CDATA[<p><img src="/img/widthAndHeight.png" alt=""><br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="number">1.</span> <span class="built_in">document</span>.body.offsetWidth	网页可见区域宽度（包括滚动条和边框）</div><div class="line"><span class="number">2.</span> <span class="built_in">document</span>.body.scrollWidth    网页正文全文宽度</div><div class="line"><span class="number">3.</span> <span class="built_in">document</span>.body.clientWidth    网页可见区域宽度</div><div class="line"><span class="number">4.</span> <span class="built_in">document</span>.body.scrollTop	<span class="built_in">document</span>.documentElement.scrollTop (IE)	网页被卷去的高度</div><div class="line"><span class="number">5.</span> <span class="built_in">document</span>.body.scrollLeft  	网页被卷去的左</div><div class="line"><span class="number">6.</span> <span class="built_in">window</span>.sreenTop 				网页正文部分上</div><div class="line"><span class="number">7.</span> <span class="built_in">window</span>.screenLeft			网页正文部分左</div><div class="line"><span class="number">8.</span> obj.offsetWidth 				某个元素的宽</div><div class="line"><span class="number">9.</span> 	某个元素的上边界到body最顶部的距离：obj.offsetTop;（在元素的包含元素不含滚动条的情况下）</div><div class="line"><span class="number">10.</span> 某个元素的左边界到body最左边的距离：obj.offsetLeft;（在元素的包含元素不含滚动条的情况下）</div><div class="line"><span class="number">11.</span> 返回当前元素的上边界到它的包含元素的上边界的偏移量：obj.offsetTop（在元素的包含元素含滚动条的情况下）</div><div class="line"><span class="number">12.</span> 返回当前元素的左边界到它的包含元素的左边界的偏移量：obj.offsetLeft（在元素的包含元素含滚动条的情况下）</div></pre></td></tr></table></figure></p>
+    <content type="html"><![CDATA[<p><img src="/img/123.png" alt=""><br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="number">1.</span> <span class="built_in">document</span>.body.offsetWidth	网页可见区域宽度（包括滚动条和边框）</div><div class="line"><span class="number">2.</span> <span class="built_in">document</span>.body.scrollWidth    网页正文全文宽度</div><div class="line"><span class="number">3.</span> <span class="built_in">document</span>.body.clientWidth    网页可见区域宽度</div><div class="line"><span class="number">4.</span> <span class="built_in">document</span>.body.scrollTop	<span class="built_in">document</span>.documentElement.scrollTop (IE)	网页被卷去的高度</div><div class="line"><span class="number">5.</span> <span class="built_in">document</span>.body.scrollLeft  	网页被卷去的左</div><div class="line"><span class="number">6.</span> <span class="built_in">window</span>.sreenTop 				网页正文部分上</div><div class="line"><span class="number">7.</span> <span class="built_in">window</span>.screenLeft			网页正文部分左</div><div class="line"><span class="number">8.</span> obj.offsetWidth 				某个元素的宽</div><div class="line"><span class="number">9.</span> 	某个元素的上边界到body最顶部的距离：obj.offsetTop;（在元素的包含元素不含滚动条的情况下）</div><div class="line"><span class="number">10.</span> 某个元素的左边界到body最左边的距离：obj.offsetLeft;（在元素的包含元素不含滚动条的情况下）</div><div class="line"><span class="number">11.</span> 返回当前元素的上边界到它的包含元素的上边界的偏移量：obj.offsetTop（在元素的包含元素含滚动条的情况下）</div><div class="line"><span class="number">12.</span> 返回当前元素的左边界到它的包含元素的左边界的偏移量：obj.offsetLeft（在元素的包含元素含滚动条的情况下）</div></pre></td></tr></table></figure></p>
 ]]></content>
     
     <summary type="html">
     
-      &lt;p&gt;&lt;img src=&quot;/img/widthAndHeight.png&quot; alt=&quot;&quot;&gt;&lt;br&gt;&lt;figure class=&quot;highlight javascript&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1
+      &lt;p&gt;&lt;img src=&quot;/img/123.png&quot; alt=&quot;&quot;&gt;&lt;br&gt;&lt;figure class=&quot;highlight javascript&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div 
     
     </summary>
     
