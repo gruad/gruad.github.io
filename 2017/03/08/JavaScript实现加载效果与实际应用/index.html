@@ -12,21 +12,21 @@
     
 
     
-    <meta name="description" content="1. 背景 最近实习在做一个项目，需求：需要在一个页面点击按钮加载出包括表格和几张图表（图表为ajax动态请求数据和highchart画出）所以需要等待加载状态，提示用户正在加载，增强用户交互体验和友好度。类似效果：
-2. 实现过程实现一个加载效果不难，重要的是要把页面中每个的图表都加上加载效果，需要考虑每个图表的高度（不同）和宽度，还有初始化显示的位置。代码如下：1234567891011121">
+    <meta name="description" content="1. 背景最近实习在做一个项目，需求：需要在一个页面点击按钮加载出包括表格和几张图表（图表为ajax动态请求数据和highchart画出）所以需要等待加载状态，提示用户正在加载，增强用户交互体验和友好度。类似效果：
+2. 实现过程实现一个加载效果不难，重要的是要把页面中每个的图表都加上加载效果，需要考虑每个图表的高度（不同）和宽度，还有初始化显示的位置。代码如下：12345678910111213">
 <meta property="og:type" content="article">
 <meta property="og:title" content="JavaScript实现加载效果与实际应用">
 <meta property="og:url" content="http://gruad.github.io/2017/03/08/JavaScript实现加载效果与实际应用/index.html">
 <meta property="og:site_name" content="小锋子">
-<meta property="og:description" content="1. 背景 最近实习在做一个项目，需求：需要在一个页面点击按钮加载出包括表格和几张图表（图表为ajax动态请求数据和highchart画出）所以需要等待加载状态，提示用户正在加载，增强用户交互体验和友好度。类似效果：
-2. 实现过程实现一个加载效果不难，重要的是要把页面中每个的图表都加上加载效果，需要考虑每个图表的高度（不同）和宽度，还有初始化显示的位置。代码如下：1234567891011121">
+<meta property="og:description" content="1. 背景最近实习在做一个项目，需求：需要在一个页面点击按钮加载出包括表格和几张图表（图表为ajax动态请求数据和highchart画出）所以需要等待加载状态，提示用户正在加载，增强用户交互体验和友好度。类似效果：
+2. 实现过程实现一个加载效果不难，重要的是要把页面中每个的图表都加上加载效果，需要考虑每个图表的高度（不同）和宽度，还有初始化显示的位置。代码如下：12345678910111213">
 <meta property="og:image" content="http://gruad.github.io/img/loading.png">
 <meta property="og:image" content="http://gruad.github.io/img/loading1.jpg">
-<meta property="og:updated_time" content="2017-03-08T09:19:04.158Z">
+<meta property="og:updated_time" content="2017-03-08T09:28:04.883Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JavaScript实现加载效果与实际应用">
-<meta name="twitter:description" content="1. 背景 最近实习在做一个项目，需求：需要在一个页面点击按钮加载出包括表格和几张图表（图表为ajax动态请求数据和highchart画出）所以需要等待加载状态，提示用户正在加载，增强用户交互体验和友好度。类似效果：
-2. 实现过程实现一个加载效果不难，重要的是要把页面中每个的图表都加上加载效果，需要考虑每个图表的高度（不同）和宽度，还有初始化显示的位置。代码如下：1234567891011121">
+<meta name="twitter:description" content="1. 背景最近实习在做一个项目，需求：需要在一个页面点击按钮加载出包括表格和几张图表（图表为ajax动态请求数据和highchart画出）所以需要等待加载状态，提示用户正在加载，增强用户交互体验和友好度。类似效果：
+2. 实现过程实现一个加载效果不难，重要的是要把页面中每个的图表都加上加载效果，需要考虑每个图表的高度（不同）和宽度，还有初始化显示的位置。代码如下：12345678910111213">
 <meta name="twitter:image" content="http://gruad.github.io/img/loading.png">
 
     
@@ -109,11 +109,11 @@
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-背景-最近实习在做一个项目，需求：需要在一个页面点击按钮加载出包括表格和几张图表（图表为ajax动态请求数据和highchart画出）"><span class="toc-number">1.</span> <span class="toc-text">1. 背景 最近实习在做一个项目，需求：需要在一个页面点击按钮加载出包括表格和几张图表（图表为ajax动态请求数据和highchart画出）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-实现过程"><span class="toc-number">2.</span> <span class="toc-text">2. 实现过程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-效果"><span class="toc-number">3.</span> <span class="toc-text">3. 效果</span></a></li></ol>
+			<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-背景"><span class="toc-number">1.</span> <span class="toc-text">1. 背景</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-实现过程"><span class="toc-number">2.</span> <span class="toc-text">2. 实现过程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-效果"><span class="toc-number">3.</span> <span class="toc-text">3. 效果</span></a></li></ol>
 		
 		</div>
 		
-		<h3 id="1-背景-最近实习在做一个项目，需求：需要在一个页面点击按钮加载出包括表格和几张图表（图表为ajax动态请求数据和highchart画出）"><a href="#1-背景-最近实习在做一个项目，需求：需要在一个页面点击按钮加载出包括表格和几张图表（图表为ajax动态请求数据和highchart画出）" class="headerlink" title="1. 背景 最近实习在做一个项目，需求：需要在一个页面点击按钮加载出包括表格和几张图表（图表为ajax动态请求数据和highchart画出）"></a>1. 背景 最近实习在做一个项目，需求：需要在一个页面点击按钮加载出包括表格和几张图表（图表为ajax动态请求数据和highchart画出）</h3><p>所以需要等待加载状态，提示用户正在加载，增强用户交互体验和友好度。<br>类似效果：<br><img src="/img/loading.png" alt=""></p>
+		<h3 id="1-背景"><a href="#1-背景" class="headerlink" title="1. 背景"></a>1. 背景</h3><p>最近实习在做一个项目，需求：需要在一个页面点击按钮加载出包括表格和几张图表（图表为ajax动态请求数据和highchart画出）<br>所以需要等待加载状态，提示用户正在加载，增强用户交互体验和友好度。<br>类似效果：<br><img src="/img/loading.png" alt=""></p>
 <h3 id="2-实现过程"><a href="#2-实现过程" class="headerlink" title="2. 实现过程"></a>2. 实现过程</h3><p>实现一个加载效果不难，重要的是要把页面中每个的图表都加上加载效果，需要考虑每个图表的高度（不同）和宽度，还有初始化显示的位置。<br>代码如下：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// showMask</span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">showMask</span>(<span class="params">n</span>) </span>&#123;</div><div class="line">	<span class="comment">// 每个container图表的顶部距离body的高度</span></div><div class="line">	<span class="keyword">var</span> top = $(<span class="string">"#container"</span> + n).offset().top;</div><div class="line">	<span class="comment">// 每个container图表的高度</span></div><div class="line">	<span class="keyword">var</span> height = $(<span class="string">"#container"</span> + n).height();</div><div class="line">	<span class="comment">// 定义mask遮蔽层并初始化</span></div><div class="line">	<span class="keyword">var</span> mask = $(<span class="string">'&lt;div id="mask'</span> + n + <span class="string">'"&gt;&lt;/div&gt;'</span>).css(&#123;</div><div class="line">		<span class="attr">display</span> : <span class="string">"block"</span>,</div><div class="line">		<span class="attr">position</span> : <span class="string">"absolute"</span>,</div><div class="line">		<span class="attr">background</span> : <span class="string">"#F2F2F2"</span>,</div><div class="line">		<span class="attr">opacity</span>:<span class="number">0.4</span>,</div><div class="line">		<span class="attr">width</span> : <span class="string">"100%"</span>,</div><div class="line">		<span class="attr">height</span> : height,</div><div class="line">		<span class="attr">top</span> : top</div><div class="line">	&#125;).appendTo($(<span class="string">"body"</span>));</div><div class="line">	<span class="comment">// 定义加载提示信息并初始化</span></div><div class="line">	$(<span class="string">'&lt;div id="msg'</span> + n + <span class="string">'"&gt;&lt;/div&gt;'</span>)</div><div class="line">			.html(<span class="string">"&lt;i class='fa fa-spinner fa-spin'&gt;&lt;/i&gt;&lt;span id='span1'&gt;正在处理，请稍候。。。&lt;/span&gt;"</span>)</div><div class="line">			.appendTo($(<span class="string">"body"</span>)).css(&#123;</div><div class="line">				<span class="attr">display</span> : <span class="string">"block"</span>,</div><div class="line">				<span class="attr">position</span> : <span class="string">"absolute"</span>,</div><div class="line">				<span class="string">'font-size'</span> : <span class="string">"16px"</span>,</div><div class="line">				<span class="attr">left</span> : $(<span class="string">"#mask"</span> + n).width() / <span class="number">2</span> - $(<span class="string">"#span1"</span>).width() / <span class="number">2</span>,</div><div class="line">				<span class="attr">top</span> : top + $(<span class="string">"#mask"</span> + n).height() / <span class="number">2</span></div><div class="line">			&#125;);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 <h3 id="3-效果"><a href="#3-效果" class="headerlink" title="3. 效果"></a>3. 效果</h3><p><img src="/img/loading1.jpg" alt=""></p>
   
@@ -182,7 +182,7 @@
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-背景-最近实习在做一个项目，需求：需要在一个页面点击按钮加载出包括表格和几张图表（图表为ajax动态请求数据和highchart画出）"><span class="toc-number">1.</span> <span class="toc-text">1. 背景 最近实习在做一个项目，需求：需要在一个页面点击按钮加载出包括表格和几张图表（图表为ajax动态请求数据和highchart画出）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-实现过程"><span class="toc-number">2.</span> <span class="toc-text">2. 实现过程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-效果"><span class="toc-number">3.</span> <span class="toc-text">3. 效果</span></a></li></ol>
+ <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-背景"><span class="toc-number">1.</span> <span class="toc-text">1. 背景</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-实现过程"><span class="toc-number">2.</span> <span class="toc-text">2. 实现过程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-效果"><span class="toc-number">3.</span> <span class="toc-text">3. 效果</span></a></li></ol>
  
   </div>
 
@@ -255,11 +255,11 @@
 			
 		
 			
-				<li><a href="/tags/数组去重/" title="数组去重">数组去重<sup>1</sup></a></li>
+				<li><a href="/tags/快速排序/" title="快速排序">快速排序<sup>1</sup></a></li>
 			
 		
 			
-				<li><a href="/tags/快速排序/" title="快速排序">快速排序<sup>1</sup></a></li>
+				<li><a href="/tags/数组去重/" title="数组去重">数组去重<sup>1</sup></a></li>
 			
 		
 			
