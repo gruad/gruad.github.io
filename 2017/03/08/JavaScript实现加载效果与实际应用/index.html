@@ -5,37 +5,29 @@
 <meta name="baidu-site-verification" content="c0Q0WMMclc" />
   <meta charset="UTF-8">
   
-    <title>JavaScript实现快速排序算法的最佳实践 | 小锋子</title>
+    <title>JavaScript实现加载效果与实际应用 | 小锋子</title>
     <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
     
     <meta name="author" content="gruad">
     
 
     
-    <meta name="description" content="1. 快速排序的基本思想长话短说，排序算法中快速排序的性能还是不错的，今天我就讲讲javascript中实现快速排序算法。
-
-它的基本思想是：，选择一个基准，通过一趟排序将要排序的数据分割成独立的两部分，其中一部分的所有数据都比另外一部分的所有数据都要小，然后再按此方法对这两部分数据分别进行快速排序，整个排序过程可以递归进行，以此达到整个数据变成有序序列。
-
-2. JavaScript的实现代码我">
+    <meta name="description" content="###1. 背景 最近实习在做一个项目，需求：需要在一个页面点击按钮加载出包括表格和几张图表（图表为ajax动态请求数据和highchart画出）所以需要等待加载状态，提示用户正在加载，增强用户交互体验和友好度。类似效果：
+###2. 实现过程实现一个加载效果不难，重要的是要把页面中每个的图表都加上加载效果，需要考虑每个图表的高度（不同）和宽度，还有初始化显示的位置。代码如下：1234567891">
 <meta property="og:type" content="article">
-<meta property="og:title" content="JavaScript实现快速排序算法的最佳实践">
-<meta property="og:url" content="http://gruad.github.io/2017/01/26/JavaScript实现快速排序算法的最佳实践/index.html">
+<meta property="og:title" content="JavaScript实现加载效果与实际应用">
+<meta property="og:url" content="http://gruad.github.io/2017/03/08/JavaScript实现加载效果与实际应用/index.html">
 <meta property="og:site_name" content="小锋子">
-<meta property="og:description" content="1. 快速排序的基本思想长话短说，排序算法中快速排序的性能还是不错的，今天我就讲讲javascript中实现快速排序算法。
-
-它的基本思想是：，选择一个基准，通过一趟排序将要排序的数据分割成独立的两部分，其中一部分的所有数据都比另外一部分的所有数据都要小，然后再按此方法对这两部分数据分别进行快速排序，整个排序过程可以递归进行，以此达到整个数据变成有序序列。
-
-2. JavaScript的实现代码我">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/2101255-3eee152b124ea7f5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:updated_time" content="2017-01-26T08:40:42.462Z">
+<meta property="og:description" content="###1. 背景 最近实习在做一个项目，需求：需要在一个页面点击按钮加载出包括表格和几张图表（图表为ajax动态请求数据和highchart画出）所以需要等待加载状态，提示用户正在加载，增强用户交互体验和友好度。类似效果：
+###2. 实现过程实现一个加载效果不难，重要的是要把页面中每个的图表都加上加载效果，需要考虑每个图表的高度（不同）和宽度，还有初始化显示的位置。代码如下：1234567891">
+<meta property="og:image" content="http://gruad.github.io/img/loading.png">
+<meta property="og:image" content="http://gruad.github.io/img/loading1.jpg">
+<meta property="og:updated_time" content="2017-03-08T09:16:40.651Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="JavaScript实现快速排序算法的最佳实践">
-<meta name="twitter:description" content="1. 快速排序的基本思想长话短说，排序算法中快速排序的性能还是不错的，今天我就讲讲javascript中实现快速排序算法。
-
-它的基本思想是：，选择一个基准，通过一趟排序将要排序的数据分割成独立的两部分，其中一部分的所有数据都比另外一部分的所有数据都要小，然后再按此方法对这两部分数据分别进行快速排序，整个排序过程可以递归进行，以此达到整个数据变成有序序列。
-
-2. JavaScript的实现代码我">
-<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/2101255-3eee152b124ea7f5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta name="twitter:title" content="JavaScript实现加载效果与实际应用">
+<meta name="twitter:description" content="###1. 背景 最近实习在做一个项目，需求：需要在一个页面点击按钮加载出包括表格和几张图表（图表为ajax动态请求数据和highchart画出）所以需要等待加载状态，提示用户正在加载，增强用户交互体验和友好度。类似效果：
+###2. 实现过程实现一个加载效果不难，重要的是要把页面中每个的图表都加上加载效果，需要考虑每个图表的高度（不同）和宽度，还有初始化显示的位置。代码如下：1234567891">
+<meta name="twitter:image" content="http://gruad.github.io/img/loading.png">
 
     
     <link rel="alternative" href="/atom.xml" title="小锋子" type="application/atom+xml">
@@ -101,14 +93,14 @@
 		<header class="article-info clearfix">
   <h1 itemprop="name">
     
-      <a href="/2017/01/26/JavaScript实现快速排序算法的最佳实践/" title="JavaScript实现快速排序算法的最佳实践" itemprop="url">JavaScript实现快速排序算法的最佳实践</a>
+      <a href="/2017/03/08/JavaScript实现加载效果与实际应用/" title="JavaScript实现加载效果与实际应用" itemprop="url">JavaScript实现加载效果与实际应用</a>
   </h1>
   <p class="article-author">By
        
 		<a href="/about" title="gruad" target="_blank" itemprop="author">gruad</a>
 		
   <p class="article-time">
-    <time datetime="2017-01-26T08:30:07.000Z" itemprop="datePublished"> 发表于 2017-01-26</time>
+    <time datetime="2017-03-08T08:41:17.000Z" itemprop="datePublished"> 发表于 2017-03-08</time>
     
   </p>
 </header>
@@ -117,19 +109,13 @@
 		<div id="toc" class="toc-article">
 			<strong class="toc-title">文章目录</strong>
 		
-			<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#1-快速排序的基本思想"><span class="toc-number">1.</span> <span class="toc-text">1. 快速排序的基本思想</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-JavaScript的实现代码"><span class="toc-number">2.</span> <span class="toc-text">2. JavaScript的实现代码</span></a></li></ol>
+			
 		
 		</div>
 		
-		<h1 id="1-快速排序的基本思想"><a href="#1-快速排序的基本思想" class="headerlink" title="1. 快速排序的基本思想"></a>1. 快速排序的基本思想</h1><p>长话短说，排序算法中快速排序的性能还是不错的，今天我就讲讲javascript中实现快速排序算法。</p>
-<blockquote>
-<p>它的基本思想是：，选择一个基准，通过一趟排序将要排序的数据分割成独立的两部分，其中一部分的所有数据都比另外一部分的所有数据都要小，然后再按此方法对这两部分数据分别进行快速排序，整个排序过程可以<a href="http://baike.baidu.com/view/96473.htm" target="_blank" rel="external">递归</a>进行，以此达到整个数据变成有序<a href="http://baike.baidu.com/subview/71968/12546268.htm" target="_blank" rel="external">序列</a>。</p>
-</blockquote>
-<h1 id="2-JavaScript的实现代码"><a href="#2-JavaScript的实现代码" class="headerlink" title="2. JavaScript的实现代码"></a>2. JavaScript的实现代码</h1><p>我觉得这段程序完美的诠释了算法思想和算法实践》堪称完美<br>另外附上测试数组加结果截图。</p>
-<blockquote>
-<p>个人代码实践截图<br><img src="http://upload-images.jianshu.io/upload_images/2101255-3eee152b124ea7f5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
-</blockquote>
-<p>—————————–原文是我的简书博客：<a href="http://www.jianshu.com/p/345f12016a1f" target="_blank" rel="external">我的简书博客</a></p>
+		<p>###1. 背景 最近实习在做一个项目，需求：需要在一个页面点击按钮加载出包括表格和几张图表（图表为ajax动态请求数据和highchart画出）<br>所以需要等待加载状态，提示用户正在加载，增强用户交互体验和友好度。<br>类似效果：<br><img src="/img/loading.png" alt=""></p>
+<p>###2. 实现过程<br>实现一个加载效果不难，重要的是要把页面中每个的图表都加上加载效果，需要考虑每个图表的高度（不同）和宽度，还有初始化显示的位置。<br>代码如下：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// showMask</span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">showMask</span>(<span class="params">n</span>) </span>&#123;</div><div class="line">	<span class="comment">// 每个container图表的顶部距离body的高度</span></div><div class="line">	<span class="keyword">var</span> top = $(<span class="string">"#container"</span> + n).offset().top;</div><div class="line">	<span class="comment">// 每个container图表的高度</span></div><div class="line">	<span class="keyword">var</span> height = $(<span class="string">"#container"</span> + n).height();</div><div class="line">	<span class="comment">// 定义mask遮蔽层并初始化</span></div><div class="line">	<span class="keyword">var</span> mask = $(<span class="string">'&lt;div id="mask'</span> + n + <span class="string">'"&gt;&lt;/div&gt;'</span>).css(&#123;</div><div class="line">		<span class="attr">display</span> : <span class="string">"block"</span>,</div><div class="line">		<span class="attr">position</span> : <span class="string">"absolute"</span>,</div><div class="line">		<span class="attr">background</span> : <span class="string">"#F2F2F2"</span>,</div><div class="line">		<span class="attr">opacity</span>:<span class="number">0.4</span>,</div><div class="line">		<span class="attr">width</span> : <span class="string">"100%"</span>,</div><div class="line">		<span class="attr">height</span> : height,</div><div class="line">		<span class="attr">top</span> : top</div><div class="line">	&#125;).appendTo($(<span class="string">"body"</span>));</div><div class="line">	<span class="comment">// 定义加载提示信息并初始化</span></div><div class="line">	$(<span class="string">'&lt;div id="msg'</span> + n + <span class="string">'"&gt;&lt;/div&gt;'</span>)</div><div class="line">			.html(<span class="string">"&lt;i class='fa fa-spinner fa-spin'&gt;&lt;/i&gt;&lt;span id='span1'&gt;正在处理，请稍候。。。&lt;/span&gt;"</span>)</div><div class="line">			.appendTo($(<span class="string">"body"</span>)).css(&#123;</div><div class="line">				<span class="attr">display</span> : <span class="string">"block"</span>,</div><div class="line">				<span class="attr">position</span> : <span class="string">"absolute"</span>,</div><div class="line">				<span class="string">'font-size'</span> : <span class="string">"16px"</span>,</div><div class="line">				<span class="attr">left</span> : $(<span class="string">"#mask"</span> + n).width() / <span class="number">2</span> - $(<span class="string">"#span1"</span>).width() / <span class="number">2</span>,</div><div class="line">				<span class="attr">top</span> : top + $(<span class="string">"#mask"</span> + n).height() / <span class="number">2</span></div><div class="line">			&#125;);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>###3. 效果<br><img src="/img/loading1.jpg" alt=""></p>
   
 	</div>
 		<footer class="article-footer clearfix">
@@ -137,13 +123,13 @@
 
 <div class="article-categories">
   <span></span>
-  <a class="article-category-link" href="/categories/算法/">算法</a>
+  <a class="article-category-link" href="/categories/携程实习/">携程实习</a>
 </div>
 
 
   <div class="article-tags">
   
-  <span></span> <a href="/tags/快速排序/">快速排序</a>
+  <span></span> <a href="/tags/加载效果/">加载效果</a>
   </div>
 
 </div>
@@ -152,7 +138,7 @@
 
 	<div class="article-share" id="share">
 	
-	  <div data-url="http://gruad.github.io/2017/01/26/JavaScript实现快速排序算法的最佳实践/" data-title="JavaScript实现快速排序算法的最佳实践 | 小锋子" data-tsina="2783871312" class="share clearfix">
+	  <div data-url="http://gruad.github.io/2017/03/08/JavaScript实现加载效果与实际应用/" data-title="JavaScript实现加载效果与实际应用 | 小锋子" data-tsina="2783871312" class="share clearfix">
 	  </div>
 	
 	</div>
@@ -165,19 +151,11 @@
 	
 <nav class="article-nav clearfix">
  
- <div class="prev" >
- <a href="/2017/02/03/selenium中webdriver中父标签的width-0和height-0，子标签无法操作的个人理解/" title="selenium中webdriver中父标签的width=0和height=0，子标签无法操作的个人理解">
-  <strong>上一篇：</strong><br/>
-  <span>
-  selenium中webdriver中父标签的width=0和height=0，子标签无法操作的个人理解</span>
-</a>
-</div>
-
 
 <div class="next">
-<a href="/2017/01/26/从玩魔方看我的学习思维/"  title="从玩魔方看我的学习思维">
+<a href="/2017/03/03/JavaScript实现数组去重/"  title="JavaScript实现数组去重">
  <strong>下一篇：</strong><br/> 
- <span>从玩魔方看我的学习思维
+ <span>JavaScript实现数组去重
 </span>
 </a>
 </div>
@@ -186,7 +164,7 @@
 
 	
 <section id="comments" class="comment">
-	<div class="ds-thread" data-thread-key="2017/01/26/JavaScript实现快速排序算法的最佳实践/" data-title="JavaScript实现快速排序算法的最佳实践" data-url="http://gruad.github.io/2017/01/26/JavaScript实现快速排序算法的最佳实践/"></div>
+	<div class="ds-thread" data-thread-key="2017/03/08/JavaScript实现加载效果与实际应用/" data-title="JavaScript实现加载效果与实际应用" data-url="http://gruad.github.io/2017/03/08/JavaScript实现加载效果与实际应用/"></div>
 </section>
 
 
@@ -196,7 +174,7 @@
   <div id="toc" class="toc-aside">
   <strong class="toc-title">文章目录</strong>
  
- <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#1-快速排序的基本思想"><span class="toc-number">1.</span> <span class="toc-text">1. 快速排序的基本思想</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-JavaScript的实现代码"><span class="toc-number">2.</span> <span class="toc-text">2. JavaScript的实现代码</span></a></li></ol>
+ 
  
   </div>
 

@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://gruad.github.io/"/>
-  <updated>2017-03-03T08:11:12.784Z</updated>
+  <updated>2017-03-08T09:16:40.651Z</updated>
   <id>http://gruad.github.io/</id>
   
   <author>
@@ -14,6 +14,31 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>JavaScript实现加载效果与实际应用</title>
+    <link href="http://gruad.github.io/2017/03/08/JavaScript%E5%AE%9E%E7%8E%B0%E5%8A%A0%E8%BD%BD%E6%95%88%E6%9E%9C%E4%B8%8E%E5%AE%9E%E9%99%85%E5%BA%94%E7%94%A8/"/>
+    <id>http://gruad.github.io/2017/03/08/JavaScript实现加载效果与实际应用/</id>
+    <published>2017-03-08T08:41:17.000Z</published>
+    <updated>2017-03-08T09:16:40.651Z</updated>
+    
+    <content type="html"><![CDATA[<p>###1. 背景 最近实习在做一个项目，需求：需要在一个页面点击按钮加载出包括表格和几张图表（图表为ajax动态请求数据和highchart画出）<br>所以需要等待加载状态，提示用户正在加载，增强用户交互体验和友好度。<br>类似效果：<br><img src="/img/loading.png" alt=""></p>
+<p>###2. 实现过程<br>实现一个加载效果不难，重要的是要把页面中每个的图表都加上加载效果，需要考虑每个图表的高度（不同）和宽度，还有初始化显示的位置。<br>代码如下：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// showMask</span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">showMask</span>(<span class="params">n</span>) </span>&#123;</div><div class="line">	<span class="comment">// 每个container图表的顶部距离body的高度</span></div><div class="line">	<span class="keyword">var</span> top = $(<span class="string">"#container"</span> + n).offset().top;</div><div class="line">	<span class="comment">// 每个container图表的高度</span></div><div class="line">	<span class="keyword">var</span> height = $(<span class="string">"#container"</span> + n).height();</div><div class="line">	<span class="comment">// 定义mask遮蔽层并初始化</span></div><div class="line">	<span class="keyword">var</span> mask = $(<span class="string">'&lt;div id="mask'</span> + n + <span class="string">'"&gt;&lt;/div&gt;'</span>).css(&#123;</div><div class="line">		<span class="attr">display</span> : <span class="string">"block"</span>,</div><div class="line">		<span class="attr">position</span> : <span class="string">"absolute"</span>,</div><div class="line">		<span class="attr">background</span> : <span class="string">"#F2F2F2"</span>,</div><div class="line">		<span class="attr">opacity</span>:<span class="number">0.4</span>,</div><div class="line">		<span class="attr">width</span> : <span class="string">"100%"</span>,</div><div class="line">		<span class="attr">height</span> : height,</div><div class="line">		<span class="attr">top</span> : top</div><div class="line">	&#125;).appendTo($(<span class="string">"body"</span>));</div><div class="line">	<span class="comment">// 定义加载提示信息并初始化</span></div><div class="line">	$(<span class="string">'&lt;div id="msg'</span> + n + <span class="string">'"&gt;&lt;/div&gt;'</span>)</div><div class="line">			.html(<span class="string">"&lt;i class='fa fa-spinner fa-spin'&gt;&lt;/i&gt;&lt;span id='span1'&gt;正在处理，请稍候。。。&lt;/span&gt;"</span>)</div><div class="line">			.appendTo($(<span class="string">"body"</span>)).css(&#123;</div><div class="line">				<span class="attr">display</span> : <span class="string">"block"</span>,</div><div class="line">				<span class="attr">position</span> : <span class="string">"absolute"</span>,</div><div class="line">				<span class="string">'font-size'</span> : <span class="string">"16px"</span>,</div><div class="line">				<span class="attr">left</span> : $(<span class="string">"#mask"</span> + n).width() / <span class="number">2</span> - $(<span class="string">"#span1"</span>).width() / <span class="number">2</span>,</div><div class="line">				<span class="attr">top</span> : top + $(<span class="string">"#mask"</span> + n).height() / <span class="number">2</span></div><div class="line">			&#125;);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>###3. 效果<br><img src="/img/loading1.jpg" alt=""></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;###1. 背景 最近实习在做一个项目，需求：需要在一个页面点击按钮加载出包括表格和几张图表（图表为ajax动态请求数据和highchart画出）&lt;br&gt;所以需要等待加载状态，提示用户正在加载，增强用户交互体验和友好度。&lt;br&gt;类似效果：&lt;br&gt;&lt;img src=&quot;/img
+    
+    </summary>
+    
+      <category term="携程实习" scheme="http://gruad.github.io/categories/%E6%90%BA%E7%A8%8B%E5%AE%9E%E4%B9%A0/"/>
+    
+    
+      <category term="加载效果" scheme="http://gruad.github.io/tags/%E5%8A%A0%E8%BD%BD%E6%95%88%E6%9E%9C/"/>
+    
+  </entry>
   
   <entry>
     <title>JavaScript实现数组去重</title>
