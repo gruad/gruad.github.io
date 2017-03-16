@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://gruad.github.io/"/>
-  <updated>2017-03-08T09:58:27.793Z</updated>
+  <updated>2017-03-16T10:17:23.848Z</updated>
   <id>http://gruad.github.io/</id>
   
   <author>
@@ -14,6 +14,30 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>webpack学习one day</title>
+    <link href="http://gruad.github.io/2017/03/16/webpack%E5%AD%A6%E4%B9%A0one-day/"/>
+    <id>http://gruad.github.io/2017/03/16/webpack学习one-day/</id>
+    <published>2017-03-16T10:06:58.000Z</published>
+    <updated>2017-03-16T10:17:23.848Z</updated>
+    
+    <content type="html"><![CDATA[<p><a href="http://webpackdoc.com/" target="_blank" rel="external">webpack中文学习文档</a></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;a href=&quot;http://webpackdoc.com/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;webpack中文学习文档&lt;/a&gt;&lt;/p&gt;
+
+    
+    </summary>
+    
+      <category term="打包webpack 模块化管理module" scheme="http://gruad.github.io/categories/%E6%89%93%E5%8C%85webpack-%E6%A8%A1%E5%9D%97%E5%8C%96%E7%AE%A1%E7%90%86module/"/>
+    
+    
+      <category term="webpack" scheme="http://gruad.github.io/tags/webpack/"/>
+    
+  </entry>
   
   <entry>
     <title>究竟要行过多少路，做过什么事，才能做起来毫不费力和开心</title>

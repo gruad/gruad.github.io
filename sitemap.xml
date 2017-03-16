@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://gruad.github.io/2017/03/16/webpack%E5%AD%A6%E4%B9%A0one-day/</loc>
+    
+    <lastmod>2017-03-16T10:17:23.848Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://gruad.github.io/about/index.html</loc>
     
     <lastmod>2017-03-16T07:37:04.402Z</lastmod>
