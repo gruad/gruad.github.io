@@ -201,11 +201,11 @@
   </entry>
   
   <entry>
-    <title>Vue.js学习笔记</title>
+    <title>Vue.js学习笔记（一）</title>
     <link href="http://gruad.github.io/2017/02/16/Vue-js%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0(%E4%B8%80)/"/>
     <id>http://gruad.github.io/2017/02/16/Vue-js学习笔记(一)/</id>
     <published>2017-02-16T09:55:54.000Z</published>
-    <updated>2017-02-16T10:04:40.145Z</updated>
+    <updated>2017-03-21T02:57:36.459Z</updated>
     
     <content type="html"><![CDATA[<h3 id="常见的标签指令含义"><a href="#常见的标签指令含义" class="headerlink" title="常见的标签指令含义"></a>常见的标签指令含义</h3><ol>
 <li>v-bind<br>简写：:id=”message”<br>绑定标签属性的</li>
