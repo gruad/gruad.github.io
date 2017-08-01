@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+
+
+  <html class="light page-post">
+
+
+<head>
+  <meta charset="utf-8">
+  
+  <title>selenium中webdriver中父标签的width=0和height=0，子标签无法操作的个人理解 | 小锋子</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="java 自动化测试 前端测试," />
+  
+
+  <meta name="description" content="个人原创，全是实践的结果，欢迎阅读   1. 当class=plugin-modal-dialog的标签width=0和height=0的时候，使用cssSelector方法是无法找到它所包含的字标签的。所以无法操作，提示错误：element is unvisible 2. 查阅资料，问题可能原因  解决思路有两种 一 在webdriver中运行javascript代码，修改相应父标签的属性wi">
+<meta name="keywords" content="java 自动化测试 前端测试">
+<meta property="og:type" content="article">
+<meta property="og:title" content="selenium中webdriver中父标签的width=0和height=0，子标签无法操作的个人理解">
+<meta property="og:url" content="http://gruad.github.io/2017/02/03/selenium中webdriver中父标签的width-0和height-0，子标签无法操作的个人理解/index.html">
+<meta property="og:site_name" content="小锋子">
+<meta property="og:description" content="个人原创，全是实践的结果，欢迎阅读   1. 当class=plugin-modal-dialog的标签width=0和height=0的时候，使用cssSelector方法是无法找到它所包含的字标签的。所以无法操作，提示错误：element is unvisible 2. 查阅资料，问题可能原因  解决思路有两种 一 在webdriver中运行javascript代码，修改相应父标签的属性wi">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/2101255-0859fbfb81ad6d79.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/2101255-3858d2826c4d45fd.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/2101255-b6b7fad411bd1912.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/2101255-14e9466c8d2f7259.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/2101255-d8f2c1ba7b7dc4c6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/2101255-72548b1dfe2a07d8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/2101255-c53ed4517347c99b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/2101255-fb624a63e71a012d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2017-02-03T10:52:40.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="selenium中webdriver中父标签的width=0和height=0，子标签无法操作的个人理解">
+<meta name="twitter:description" content="个人原创，全是实践的结果，欢迎阅读   1. 当class=plugin-modal-dialog的标签width=0和height=0的时候，使用cssSelector方法是无法找到它所包含的字标签的。所以无法操作，提示错误：element is unvisible 2. 查阅资料，问题可能原因  解决思路有两种 一 在webdriver中运行javascript代码，修改相应父标签的属性wi">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/2101255-0859fbfb81ad6d79.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+
+  
+
+  
+    <link rel="icon" href="/images/favicon.ico">
+  
+
+  <link href="/css/styles.css?v=c114cbe6" rel="stylesheet">
+
+
+  
+
+  
+
+  
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?0efcf264890b4bd5a8ae5f834bad299c";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+	(function(){
+	    var bp = document.createElement('script');
+	    var curProtocol = window.location.protocol.split(':')[0];
+	    if (curProtocol === 'https') {
+	        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+	    }
+	    else {
+	        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+	    }
+	    var s = document.getElementsByTagName("script")[0];
+	    s.parentNode.insertBefore(bp, s);
+	})();
+  </script>
+
+
+
+  
+    <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+
+  
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+</head>
+
+<body>
+
+
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">导航</span>
+  
+
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">导航</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/archives/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            博客
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/category/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            分类
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/tag/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            标签
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/link/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            友链
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/about/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            关于我
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/atom.xml"
+            rel="noopener noreferrer"
+            target="_blank"
+            >
+            RSS
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/search/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-当class-plugin-modal-dialog的标签width-0和height-0的时候，使用cssSelector方法是无法找到它所包含的字标签的。所以无法操作，提示错误：element-is-unvisible"><span class="toc-text">1. 当class=plugin-modal-dialog的标签width=0和height=0的时候，使用cssSelector方法是无法找到它所包含的字标签的。所以无法操作，提示错误：element is unvisible</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-查阅资料，问题可能原因-解决思路有两种"><span class="toc-text">2. 查阅资料，问题可能原因  解决思路有两种</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#根据上述思路一，解决问题步骤"><span class="toc-text">根据上述思路一，解决问题步骤</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#根据上述思路二，解决问题步骤"><span class="toc-text">根据上述思路二，解决问题步骤</span></a></li></ol>
+  </div>
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-selenium中webdriver中父标签的width-0和height-0，子标签无法操作的个人理解" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">selenium中webdriver中父标签的width=0和height=0，子标签无法操作的个人理解</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2017.02.03</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>gruad</span>
+        </span>
+      
+
+      
+  <span class="article-category">
+    <i class="icon-list"></i>
+    <a class="article-category-link" href="/categories/百度实习/">百度实习</a>
+  </span>
+
+
+
+      
+
+      
+      <i class="fa fa-eye"></i> 
+        <span id="busuanzi_container_page_pv">
+           &nbsp热度 <span id="busuanzi_value_page_pv">
+           <i class="fa fa-spinner fa-spin"></i></span>℃
+        </span>
+      
+
+      
+      
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <ul>
+<li>个人原创，全是实践的结果，欢迎阅读 </li>
+</ul>
+<h3 id="1-当class-plugin-modal-dialog的标签width-0和height-0的时候，使用cssSelector方法是无法找到它所包含的字标签的。所以无法操作，提示错误：element-is-unvisible"><a href="#1-当class-plugin-modal-dialog的标签width-0和height-0的时候，使用cssSelector方法是无法找到它所包含的字标签的。所以无法操作，提示错误：element-is-unvisible" class="headerlink" title="1. 当class=plugin-modal-dialog的标签width=0和height=0的时候，使用cssSelector方法是无法找到它所包含的字标签的。所以无法操作，提示错误：element is unvisible"></a>1. 当class=plugin-modal-dialog的标签width=0和height=0的时候，使用cssSelector方法是无法找到它所包含的字标签的。所以无法操作，提示错误：element is unvisible</h3><p><img src="http://upload-images.jianshu.io/upload_images/2101255-0859fbfb81ad6d79.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<h3 id="2-查阅资料，问题可能原因-解决思路有两种"><a href="#2-查阅资料，问题可能原因-解决思路有两种" class="headerlink" title="2. 查阅资料，问题可能原因  解决思路有两种"></a>2. 查阅资料，<a href="http://www.51testing.com/html/91/79191-829759.html" target="_blank" rel="external">问题可能原因</a>  解决思路有两种</h3><p><strong> 一 </strong>在webdriver中运行javascript代码，修改相应父标签的属性width和height<br><strong> 二 </strong>既然width=0的标签可以选择到，那么是否可以根据父元素递归找到子元素，进行操作。</p>
+<h3 id="根据上述思路一，解决问题步骤"><a href="#根据上述思路一，解决问题步骤" class="headerlink" title="根据上述思路一，解决问题步骤"></a>根据上述思路一，解决问题步骤</h3><blockquote>
+<ol>
+<li>webdriver中运行javascript代码方法：<a href="http://lijingshou.iteye.com/blog/2018929" target="_blank" rel="external">参考链接</a></li>
+</ol>
+</blockquote>
+<p><img src="http://upload-images.jianshu.io/upload_images/2101255-3858d2826c4d45fd.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<blockquote>
+<ol>
+<li>运行结果，显示成功</li>
+</ol>
+</blockquote>
+<p><img src="http://upload-images.jianshu.io/upload_images/2101255-b6b7fad411bd1912.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<blockquote>
+<ol>
+<li>修改成功后，再次运行cssSelector方法，之后操作并不成功。</li>
+</ol>
+</blockquote>
+<h3 id="根据上述思路二，解决问题步骤"><a href="#根据上述思路二，解决问题步骤" class="headerlink" title="根据上述思路二，解决问题步骤"></a>根据上述思路二，解决问题步骤</h3><blockquote>
+<ol>
+<li>首先父元素可以获取到，如下图</li>
+</ol>
+</blockquote>
+<p><img src="http://upload-images.jianshu.io/upload_images/2101255-14e9466c8d2f7259.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""><br>运行结果：</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/2101255-d8f2c1ba7b7dc4c6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<blockquote>
+<ol>
+<li>根据可以获得父元素，递归找到子元素（尝试）<br>2.1 首先获取父元素</li>
+</ol>
+</blockquote>
+<p><img src="http://upload-images.jianshu.io/upload_images/2101255-72548b1dfe2a07d8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<blockquote>
+<p>2.2 然后递归获取子元素</p>
+</blockquote>
+<p><img src="http://upload-images.jianshu.io/upload_images/2101255-c53ed4517347c99b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<blockquote>
+<p>2.3 运行结果，显示获取成功，所以可以成功操作父元素的width=0和height=0时候，子元素无法获取的问题。</p>
+</blockquote>
+<p><img src="http://upload-images.jianshu.io/upload_images/2101255-fb624a63e71a012d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+
+    
+  </div>
+</article>
+
+
+   
+  <div class="text-center donation">
+    <div class="inner-donation">
+      <span class="btn-donation">支持一下</span>
+      <div class="donation-body">
+        <div class="tip text-center">扫一扫，支持forsigner</div>
+        <ul class="theme.donation.items.length">
+        
+          <li class="item">
+            <img src="/images/wechat.jpeg" alt="">
+          </li>
+        
+          <li class="item">
+            <img src="/images/alipay.jpeg" alt="">
+          </li>
+        
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+   
+  <div class="box-prev-next clearfix">
+    <a class="show pull-left" href="/2017/01/26/JavaScript实现快速排序算法的最佳实践/">
+        <i class="icon icon-angle-left"></i>
+    </a>
+    <a class="show pull-right" href="/2017/02/06/bootstrap-table中data-row-style的实战应用/">
+        <i class="icon icon-angle-right"></i>
+    </a>
+  </div>
+
+
+
+
+</div>
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/archives/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/category/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              分类
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/tag/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              标签
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/link/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              友链
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/about/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              关于我
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/atom.xml"
+              rel="noopener noreferrer"
+              target="_blank"
+              >
+              RSS
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/search/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              搜索
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+      <div class="fexo-comments comments-post">
+    
+
+    
+
+
+
+
+    
+
+    
+	
+  </div>
+
+  
+
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>

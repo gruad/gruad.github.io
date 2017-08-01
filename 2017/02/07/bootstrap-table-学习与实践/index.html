@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+
+
+  <html class="light page-post">
+
+
+<head>
+  <meta charset="utf-8">
+  
+  <title>bootstrap table 学习与实践 | 小锋子</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="bootstrap-table," />
+  
+
+  <meta name="description" content="1. bootstrap-table学习参考文档地址bootstrap-table官方英文文档bootstrap-table官方中文文档bootstrap-table的github文档 2. 引入依赖的资源文件 3. 有两种table构建方式3.1 代码写好表头  思路是前端布局好格式(包括表头结构)，后端用异步请求获取数据，填充表格  方式一：如下图 前端代码123456789101112131">
+<meta name="keywords" content="bootstrap-table">
+<meta property="og:type" content="article">
+<meta property="og:title" content="bootstrap table 学习与实践">
+<meta property="og:url" content="http://gruad.github.io/2017/02/07/bootstrap-table-学习与实践/index.html">
+<meta property="og:site_name" content="小锋子">
+<meta property="og:description" content="1. bootstrap-table学习参考文档地址bootstrap-table官方英文文档bootstrap-table官方中文文档bootstrap-table的github文档 2. 引入依赖的资源文件 3. 有两种table构建方式3.1 代码写好表头  思路是前端布局好格式(包括表头结构)，后端用异步请求获取数据，填充表格  方式一：如下图 前端代码123456789101112131">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://gruad.github.io/img/bootstrap1.png">
+<meta property="og:image" content="http://gruad.github.io/img/bootstrap2.png">
+<meta property="og:image" content="http://gruad.github.io/img/bootstrap3.png">
+<meta property="og:image" content="http://gruad.github.io/img/bootstrap4.png">
+<meta property="og:image" content="http://gruad.github.io/img/bootstrap5.png">
+<meta property="og:updated_time" content="2017-02-07T10:57:30.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="bootstrap table 学习与实践">
+<meta name="twitter:description" content="1. bootstrap-table学习参考文档地址bootstrap-table官方英文文档bootstrap-table官方中文文档bootstrap-table的github文档 2. 引入依赖的资源文件 3. 有两种table构建方式3.1 代码写好表头  思路是前端布局好格式(包括表头结构)，后端用异步请求获取数据，填充表格  方式一：如下图 前端代码123456789101112131">
+<meta name="twitter:image" content="http://gruad.github.io/img/bootstrap1.png">
+
+  
+
+  
+    <link rel="icon" href="/images/favicon.ico">
+  
+
+  <link href="/css/styles.css?v=c114cbe6" rel="stylesheet">
+
+
+  
+
+  
+
+  
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?0efcf264890b4bd5a8ae5f834bad299c";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+	(function(){
+	    var bp = document.createElement('script');
+	    var curProtocol = window.location.protocol.split(':')[0];
+	    if (curProtocol === 'https') {
+	        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+	    }
+	    else {
+	        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+	    }
+	    var s = document.getElementsByTagName("script")[0];
+	    s.parentNode.insertBefore(bp, s);
+	})();
+  </script>
+
+
+
+  
+    <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+
+  
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+</head>
+
+<body>
+
+
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">导航</span>
+  
+
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">导航</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/archives/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            博客
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/category/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            分类
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/tag/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            标签
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/link/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            友链
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/about/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            关于我
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/atom.xml"
+            rel="noopener noreferrer"
+            target="_blank"
+            >
+            RSS
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/search/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-bootstrap-table学习参考文档地址"><span class="toc-text">1. bootstrap-table学习参考文档地址</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-引入依赖的资源文件"><span class="toc-text">2. 引入依赖的资源文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-有两种table构建方式"><span class="toc-text">3. 有两种table构建方式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-bootstrap-table简单学习，后续持续更新"><span class="toc-text">4. bootstrap-table简单学习，后续持续更新</span></a></li></ol>
+  </div>
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-bootstrap-table-学习与实践" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">bootstrap table 学习与实践</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2017.02.07</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>gruad</span>
+        </span>
+      
+
+      
+  <span class="article-category">
+    <i class="icon-list"></i>
+    <a class="article-category-link" href="/categories/携程实习/">携程实习</a>
+  </span>
+
+
+
+      
+
+      
+      <i class="fa fa-eye"></i> 
+        <span id="busuanzi_container_page_pv">
+           &nbsp热度 <span id="busuanzi_value_page_pv">
+           <i class="fa fa-spinner fa-spin"></i></span>℃
+        </span>
+      
+
+      
+      
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <h3 id="1-bootstrap-table学习参考文档地址"><a href="#1-bootstrap-table学习参考文档地址" class="headerlink" title="1. bootstrap-table学习参考文档地址"></a>1. bootstrap-table学习参考文档地址</h3><p><a href="http://bootstrap-table.wenzhixin.net.cn/documentation/" target="_blank" rel="external">bootstrap-table官方英文文档</a><br><a href="http://bootstrap-table.wenzhixin.net.cn/zh-cn/documentation/" target="_blank" rel="external">bootstrap-table官方中文文档</a><br><a href="https://github.com/wenzhixin/bootstrap-table/" target="_blank" rel="external">bootstrap-table的github文档</a></p>
+<h3 id="2-引入依赖的资源文件"><a href="#2-引入依赖的资源文件" class="headerlink" title="2. 引入依赖的资源文件"></a>2. 引入依赖的资源文件</h3><p><img src="/img/bootstrap1.png" alt=""></p>
+<h3 id="3-有两种table构建方式"><a href="#3-有两种table构建方式" class="headerlink" title="3. 有两种table构建方式"></a>3. 有两种table构建方式</h3><p>3.1 代码写好表头</p>
+<blockquote>
+<p>思路是前端布局好格式(包括表头结构)，后端用异步请求获取数据，填充表格</p>
+</blockquote>
+<p>方式一：如下图<br><img src="/img/bootstrap2.png" alt=""></p>
+<p>前端代码<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line">&lt;table id=<span class="string">"table"</span></div><div class="line">	 data-toggle=<span class="string">"table"</span></div><div class="line">	 data-toolbar=<span class="string">"#toolbar"</span></div><div class="line">	 data-pagination=<span class="string">"true"</span> </div><div class="line">	 data-search=<span class="string">"true"</span> </div><div class="line">	 data-row-style=<span class="string">"rowStyle"</span></div><div class="line">	 data-filter-control=<span class="string">"true"</span></div><div class="line">	 data-filter-show-clear=<span class="string">"true"</span> </div><div class="line">	 data-show-pagination-<span class="keyword">switch</span>=<span class="string">"true"</span></div><div class="line">	 data-detail-view=<span class="literal">true</span></div><div class="line">	 data-detail-formatter=<span class="string">"detailFormatter"</span></div><div class="line">	 data-row-style=<span class="string">"rowStyle"</span>&gt;</div><div class="line">		&lt;thead&gt;</div><div class="line">			&lt;tr&gt;</div><div class="line">				&lt;th data-formatter=<span class="string">"runningFormatter"</span> data-align=<span class="string">"center"</span>&gt;&lt;/th&gt;</div><div class="line">				&lt;th data-field=<span class="string">"P_Id"</span> data-visible=<span class="string">"false"</span>&gt;ID&lt;<span class="regexp">/th&gt;</span></div><div class="line"><span class="regexp">				&lt;th data-field="SubjectSort" data-sortable="true"&gt;文本&lt;/</span>th&gt;</div><div class="line">				&lt;th data-field=<span class="string">"Subject"</span> data-sortable=<span class="string">"true"</span>data-filter-control=<span class="string">"select"</span>&gt;文本&lt;<span class="regexp">/th&gt;</span></div><div class="line"><span class="regexp">				&lt;th data-field="Remarks" data-sortable="true" data-formatter="remarksFormatter"&gt;文本&lt;/</span>th&gt;</div><div class="line">				&lt;th data-field=<span class="string">"Author"</span> data-sortable=<span class="string">"true"</span> data-filter-control=<span class="string">"select"</span>&gt;文本&lt;<span class="regexp">/th&gt;</span></div><div class="line"><span class="regexp">			    &lt;th data-field="Tag" data-sortable="true" data-formatter="tagsFormatter" data-filter-control="input" data-events="tagsEvents"&gt;文本&lt;/</span>th&gt;</div><div class="line">				&lt;th data-field=<span class="string">"Attachment"</span> data-formatter=<span class="string">"attachmentFormatter"</span></div><div class="line">					data-align=<span class="string">"center"</span>&gt;文本&lt;<span class="regexp">/th&gt;</span></div><div class="line"><span class="regexp">				&lt;th data-field="CreateDT" data-sortable="true" data-width="160px"&gt;文本&lt;/</span>th&gt;</div><div class="line">				&lt;th data-field=<span class="string">"UpdatedDT"</span> data-sortable=<span class="string">"true"</span> data-width=<span class="string">"160px"</span>&gt;文本&lt;<span class="regexp">/th&gt;</span></div><div class="line"><span class="regexp">			&lt;/</span>tr&gt;</div><div class="line">		&lt;<span class="regexp">/thead&gt;</span></div><div class="line"><span class="regexp">&lt;/</span>table&gt;</div></pre></td></tr></table></figure></p>
+<p>js代码<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//异步请求获取数据，填充表格	</span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">getMemos</span>(<span class="params"></span>) </span>&#123;</div><div class="line">	$.ajax(&#123;</div><div class="line">		type : <span class="string">"GET"</span>,</div><div class="line">		asyn : <span class="literal">true</span>,</div><div class="line">		url : <span class="string">"&lt;c:url value='/getMemos'/&gt;"</span> + <span class="string">"?date="</span></div><div class="line">				+ <span class="keyword">new</span> <span class="built_in">Date</span>().getTime(),</div><div class="line">		success : <span class="function"><span class="keyword">function</span>(<span class="params">datas</span>) </span>&#123;</div><div class="line">			<span class="keyword">var</span> data = datas.rows;</div><div class="line">			$(<span class="string">'#table'</span>).bootstrapTable(<span class="string">'load'</span>, data);</div><div class="line">		&#125;</div><div class="line">	&#125;);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>运行结果<br><img src="/img/bootstrap3.png" alt=""></p>
+<p>3.2 无表头，自动构建表头</p>
+<blockquote>
+<p>思路是前端只定义表格，后端用异步请求获取数据，构造表格结构和填充表格</p>
+</blockquote>
+<p>方式二：如下图<br><img src="/img/bootstrap4.png" alt=""></p>
+<p>前端代码<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">&lt;table id=<span class="string">"table"</span></div><div class="line">	   data-toggle=<span class="string">"table"</span></div><div class="line">	   data-toolbar=<span class="string">"#toolbar"</span></div><div class="line">	   data-pagination=<span class="string">"true"</span></div><div class="line">	   data-page-size=<span class="string">"20"</span></div><div class="line">	   data-row-style=<span class="string">"rowStyle"</span></div><div class="line">	   data-<span class="literal">undefined</span>-text=<span class="string">""</span></div><div class="line">       data-show-<span class="keyword">export</span>=<span class="string">"true"</span>&gt;</div><div class="line">&lt;<span class="regexp">/table&gt;</span></div></pre></td></tr></table></figure></p>
+<p>js代码<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">getHeaderAndData</span>(<span class="params"></span>) </span>&#123;</div><div class="line">	</div><div class="line">    $.ajax(&#123;</div><div class="line">        type: <span class="string">"POST"</span>,</div><div class="line">        url: <span class="string">"../headerAndData/groupPriceMapping"</span> + <span class="string">"?date="</span> + <span class="keyword">new</span> <span class="built_in">Date</span>().getTime(),</div><div class="line">        data: &#123;</div><div class="line">            start_dt: start_dt,</div><div class="line">            end_dt: end_dt</div><div class="line">        &#125;,  </div><div class="line">        beforeSend: <span class="function"><span class="keyword">function</span>(<span class="params">xhr</span>) </span>&#123;</div><div class="line">            xhr.setRequestHeader(header, token);</div><div class="line">        &#125;,</div><div class="line">        success: <span class="function"><span class="keyword">function</span>(<span class="params">datas</span>) </span>&#123;</div><div class="line">        	<span class="built_in">console</span>.log(datas);</div><div class="line">            <span class="keyword">var</span> data = datas.data[<span class="number">0</span>].rows;</div><div class="line">            datas.columns.unshift(&#123;</div><div class="line">    			    field : <span class="string">'Index'</span>,</div><div class="line">    			    title : <span class="string">'序号'</span>,</div><div class="line">    			    sortable : <span class="literal">true</span></div><div class="line">    			&#125;);</div><div class="line">    		<span class="comment">//console.log(datas.columns);</span></div><div class="line">    		    $.each(data, <span class="function"><span class="keyword">function</span>(<span class="params">index, obj</span>) </span>&#123;   		</div><div class="line">    				data[index].Index=index+<span class="number">1</span>;</div><div class="line">    		    &#125;);</div><div class="line">    		<span class="comment">//console.log(data);</span></div><div class="line">            $(<span class="string">'#table'</span>).bootstrapTable(<span class="string">'destroy'</span>).bootstrapTable(&#123;</div><div class="line">    			columns : datas.columns,</div><div class="line">    			data : data</div><div class="line">    		    &#125;);            </div><div class="line">        &#125;,</div><div class="line">    	error : <span class="function"><span class="keyword">function</span>(<span class="params">xhr, status, e</span>) </span>&#123;</div><div class="line">			$.messager.alert(<span class="string">'Alert'</span>,status,<span class="string">'error'</span>);</div><div class="line">		&#125;</div><div class="line">    &#125;);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>运行结果<br><img src="/img/bootstrap5.png" alt=""></p>
+<h3 id="4-bootstrap-table简单学习，后续持续更新"><a href="#4-bootstrap-table简单学习，后续持续更新" class="headerlink" title="4. bootstrap-table简单学习，后续持续更新"></a>4. bootstrap-table简单学习，后续持续更新</h3><p>原创内容，欢迎学习和交流</p>
+
+    
+  </div>
+</article>
+
+
+   
+  <div class="text-center donation">
+    <div class="inner-donation">
+      <span class="btn-donation">支持一下</span>
+      <div class="donation-body">
+        <div class="tip text-center">扫一扫，支持forsigner</div>
+        <ul class="theme.donation.items.length">
+        
+          <li class="item">
+            <img src="/images/wechat.jpeg" alt="">
+          </li>
+        
+          <li class="item">
+            <img src="/images/alipay.jpeg" alt="">
+          </li>
+        
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+   
+  <div class="box-prev-next clearfix">
+    <a class="show pull-left" href="/2017/02/06/bootstrap-table中data-row-style的实战应用/">
+        <i class="icon icon-angle-left"></i>
+    </a>
+    <a class="show pull-right" href="/2017/02/09/Jquery的attr-函数和val-函数和css-函数比较/">
+        <i class="icon icon-angle-right"></i>
+    </a>
+  </div>
+
+
+
+
+</div>
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/archives/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/category/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              分类
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/tag/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              标签
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/link/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              友链
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/about/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              关于我
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/atom.xml"
+              rel="noopener noreferrer"
+              target="_blank"
+              >
+              RSS
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/search/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              搜索
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+      <div class="fexo-comments comments-post">
+    
+
+    
+
+
+
+
+    
+
+    
+	
+  </div>
+
+  
+
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>
