@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+
+
+  <html class="light page-post">
+
+
+<head>
+  <meta charset="utf-8">
+  
+  <title>JavaScript作用域链理解 | 小锋子</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="JavaScript作用域链," />
+  
+
+  <meta name="description" content="之前读高性能JavaScript一书的理解，一直没有总结，今天总结一下作用域链。 作用域的影响从确定哪些变量可以被函数访问，到this的确定，JavaScript作用域也关系到性能，要理解速度与作用域的关系，首先要理解作用域的工作原理。 作用域链和标识符解析（Scope Chains and Identifier Resolution）每个JavaScript函数都是一个对象，即一个函数对象实例。">
+<meta name="keywords" content="JavaScript作用域链">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JavaScript作用域链理解">
+<meta property="og:url" content="http://gruad.github.io/2017/08/04/JavaScript作用域链理解/index.html">
+<meta property="og:site_name" content="小锋子">
+<meta property="og:description" content="之前读高性能JavaScript一书的理解，一直没有总结，今天总结一下作用域链。 作用域的影响从确定哪些变量可以被函数访问，到this的确定，JavaScript作用域也关系到性能，要理解速度与作用域的关系，首先要理解作用域的工作原理。 作用域链和标识符解析（Scope Chains and Identifier Resolution）每个JavaScript函数都是一个对象，即一个函数对象实例。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://gruad.github.io/img/chain.png">
+<meta property="og:image" content="http://gruad.github.io/img/chain2.png">
+<meta property="og:updated_time" content="2017-08-07T04:07:42.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JavaScript作用域链理解">
+<meta name="twitter:description" content="之前读高性能JavaScript一书的理解，一直没有总结，今天总结一下作用域链。 作用域的影响从确定哪些变量可以被函数访问，到this的确定，JavaScript作用域也关系到性能，要理解速度与作用域的关系，首先要理解作用域的工作原理。 作用域链和标识符解析（Scope Chains and Identifier Resolution）每个JavaScript函数都是一个对象，即一个函数对象实例。">
+<meta name="twitter:image" content="http://gruad.github.io/img/chain.png">
+
+  
+
+  
+    <link rel="icon" href="/images/favicon.ico">
+  
+
+  <link href="/css/styles.css?v=c114cbe6" rel="stylesheet">
+
+
+  
+
+  
+
+  
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?0efcf264890b4bd5a8ae5f834bad299c";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+	(function(){
+	    var bp = document.createElement('script');
+	    var curProtocol = window.location.protocol.split(':')[0];
+	    if (curProtocol === 'https') {
+	        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+	    }
+	    else {
+	        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+	    }
+	    var s = document.getElementsByTagName("script")[0];
+	    s.parentNode.insertBefore(bp, s);
+	})();
+  </script>
+
+
+
+  
+    <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+
+  
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+</head>
+
+<body>
+
+
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">导航</span>
+  
+
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">导航</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/archives/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            博客
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/category/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            分类
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/tag/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            标签
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/link/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            友链
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/about/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            关于我
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/atom.xml"
+            rel="noopener noreferrer"
+            target="_blank"
+            >
+            RSS
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/search/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#作用域的影响"><span class="toc-text">作用域的影响</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#作用域链和标识符解析（Scope-Chains-and-Identifier-Resolution）"><span class="toc-text">作用域链和标识符解析（Scope Chains and Identifier Resolution）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#作用域链和可变对象定义"><span class="toc-text">作用域链和可变对象定义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#运行期上下文"><span class="toc-text">运行期上下文</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#活动对象"><span class="toc-text">活动对象</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#函数运行过程作用域链的作用"><span class="toc-text">函数运行过程作用域链的作用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#改进方法与应用"><span class="toc-text">改进方法与应用</span></a></li></ol>
+  </div>
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-JavaScript作用域链理解" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">JavaScript作用域链理解</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2017.08.04</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>gruad</span>
+        </span>
+      
+
+      
+  <span class="article-category">
+    <i class="icon-list"></i>
+    <a class="article-category-link" href="/categories/概念理解/">概念理解</a>
+  </span>
+
+
+
+      
+
+      
+      <i class="fa fa-eye"></i> 
+        <span id="busuanzi_container_page_pv">
+           &nbsp热度 <span id="busuanzi_value_page_pv">
+           <i class="fa fa-spinner fa-spin"></i></span>℃
+        </span>
+      
+
+      
+      
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <p>之前读高性能JavaScript一书的理解，一直没有总结，今天总结一下作用域链。</p>
+<h3 id="作用域的影响"><a href="#作用域的影响" class="headerlink" title="作用域的影响"></a>作用域的影响</h3><p>从确定哪些变量可以被函数访问，到this的确定，JavaScript作用域也关系到性能，要理解速度与作用域的关系，首先要理解作用域的工作原理。</p>
+<h3 id="作用域链和标识符解析（Scope-Chains-and-Identifier-Resolution）"><a href="#作用域链和标识符解析（Scope-Chains-and-Identifier-Resolution）" class="headerlink" title="作用域链和标识符解析（Scope Chains and Identifier Resolution）"></a>作用域链和标识符解析（Scope Chains and Identifier Resolution）</h3><p>每个JavaScript函数都是一个对象，即一个函数对象实例。对象都拥有你可以编程访问的属性和内部属性，内部属性供JavaScript引擎使用，其中一个内部属性是：[[Scope]]，由 ECMA-262第三版标准定义。</p>
+<h3 id="作用域链和可变对象定义"><a href="#作用域链和可变对象定义" class="headerlink" title="作用域链和可变对象定义"></a>作用域链和可变对象定义</h3><ul>
+<li>The internal [[Scope]] property contains a collection of objects representing the scope in which the function was created. This collection is called the function’s scope chain and it determines the data that a function can access. * Each object in the function’s scope chain is called a variable object, and each of these contains entries for variables in the form of key-value pairs. When a function is created, its scope chain is populated with objects representing the data that is accessible in the scope in which the function was created.<br>函数的内部属性[Scope]包含一个集合——里面是对象，这个集合就是作用域链，可以决定哪些数据可由函数访问，<br>集合里的内一个对象叫——可变对象。当一个函数被创建后，集合开始填充对象。这些对象代表此函数中可以访问的数据。<br>比如全局函数：<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">add</span>(<span class="params">num1,num2</span>)</span>&#123;</div><div class="line"><span class="keyword">var</span> sum=num1+num2;</div><div class="line"><span class="keyword">return</span> sum;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>When the add() function is created, its scope chain is populated with a single variable object: the global object representing all of the variables that are globally defined. This global object contains entries for window, navigator, and document, to name a few.<br>如图：<img src="/img/chain.png" alt="add（）函数的作用域链"><br>add函数的作用域链将会在运行时候用到。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> total=add(<span class="number">5</span>,<span class="number">10</span>);</div></pre></td></tr></table></figure></p>
+<h3 id="运行期上下文"><a href="#运行期上下文" class="headerlink" title="运行期上下文"></a>运行期上下文</h3><p>Executing the add function triggers the creation of an internal object called an execution context.运行add函数时将建立一个内部对象，称做“运行期上下文”，每次运行都将创建一个独一无二的“运行期上下文”，当函数运行完毕，运行期上下文销毁。An exe context defines the environment in which a function is being executed. Each execution context is unique to one particular execution of the function, and so multiple calls to the same function result in multiple execution contexts being created. The execution context is destroyed once the function has been completely executed.</p>
+<h3 id="活动对象"><a href="#活动对象" class="headerlink" title="活动对象"></a>活动对象</h3><p>一个运行期上下文有它自己的作用域链（对象集合），用于标识符解析。当运行期上下文被创建，作用域链被初始化，连同运行函数的[scope]属性中包含的对象。这些值按照他们在函数中出现的顺序，被复制到运行期上下文的作用域链中。<br>Once this is complete, a new object called the activation object is created for the execution context. The activation object acts as the variable object for this execution and contains entries for all local variables, named arguments, the arguments collection, and this. This object is then pushed to the front of the scope chain. When the execution context is destroyed, so is the activation object.<br>如图：<img src="/img/chain2.png" alt="运行add（）时的作用域链"></p>
+<h3 id="函数运行过程作用域链的作用"><a href="#函数运行过程作用域链的作用" class="headerlink" title="函数运行过程作用域链的作用"></a>函数运行过程作用域链的作用</h3><p>在函数运行过程中，每遇到一个变量，标识符要决定从哪里获取和存储数据。此过程搜索运行期上下文的作用域链。搜索过程从运行函数的激活对象目标的作用域链的前端开始，如果找到了，就使用这个具体的标识符指定的变量。如果没有找到，这进入下一个作用域链的对象，此过程持续运行，知道标识符被找到。或者没有被找到。这种情况标识符被定义问未定义。正式这个过程，所以影响了性能。</p>
+<h3 id="改进方法与应用"><a href="#改进方法与应用" class="headerlink" title="改进方法与应用"></a>改进方法与应用</h3><ol>
+<li>少使用全局变量，尽量把全局变量存储在一个局部变量内。</li>
+<li>改变作用域链。</li>
+<li>动态作用域链</li>
+<li>闭包，作用域，内存。</li>
+</ol>
+
+    
+  </div>
+</article>
+
+
+   
+  <div class="text-center donation">
+    <div class="inner-donation">
+      <span class="btn-donation">支持一下</span>
+      <div class="donation-body">
+        <div class="tip text-center">扫一扫，支持peck</div>
+        <ul class="theme.donation.items.length">
+        
+          <li class="item">
+            <img src="/images/wechat.jpeg" alt="">
+          </li>
+        
+          <li class="item">
+            <img src="/images/alipay.jpeg" alt="">
+          </li>
+        
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+   
+  <div class="box-prev-next clearfix">
+    <a class="show pull-left" href="/2017/03/16/webpack学习笔记（一）/">
+        <i class="icon icon-angle-left"></i>
+    </a>
+    <a class="hide pull-right" href="/">
+        <i class="icon icon-angle-right"></i>
+    </a>
+  </div>
+
+
+
+
+</div>
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/archives/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/category/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              分类
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/tag/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              标签
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/link/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              友链
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/about/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              关于我
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/atom.xml"
+              rel="noopener noreferrer"
+              target="_blank"
+              >
+              RSS
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/search/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              搜索
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+      <div class="fexo-comments comments-post">
+    
+
+    
+
+
+
+
+    
+
+    
+	
+  </div>
+
+  
+
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>
