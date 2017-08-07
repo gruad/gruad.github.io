@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+
+
+  <html class="light page-post">
+
+
+<head>
+  <meta charset="utf-8">
+  
+  <title>javaScript中this的理解 | 小锋子</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="JavaScript闭包," />
+  
+
+  <meta name="description" content="本来要总结的，才发现这个博主总结和理解的太好了深入浅出JavaScript中的this如需理解，还请转入原博主,就像作者说的过段时间又会忘了，所以要深刻理解消化掉。以下我粗略记一下笔记 this出现的背景在Java等面向对象的语言中，this关键字含义明确且具体，即指代当前对象，一般在编译期确定下来，而JavaScript中this是动态的，在运行期才确定下来。在Java中定义类经常用到关键字th">
+<meta name="keywords" content="JavaScript闭包">
+<meta property="og:type" content="article">
+<meta property="og:title" content="javaScript中this的理解">
+<meta property="og:url" content="http://gruad.github.io/2017/08/07/javaScript中this的理解/index.html">
+<meta property="og:site_name" content="小锋子">
+<meta property="og:description" content="本来要总结的，才发现这个博主总结和理解的太好了深入浅出JavaScript中的this如需理解，还请转入原博主,就像作者说的过段时间又会忘了，所以要深刻理解消化掉。以下我粗略记一下笔记 this出现的背景在Java等面向对象的语言中，this关键字含义明确且具体，即指代当前对象，一般在编译期确定下来，而JavaScript中this是动态的，在运行期才确定下来。在Java中定义类经常用到关键字th">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2017-08-07T13:06:28.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="javaScript中this的理解">
+<meta name="twitter:description" content="本来要总结的，才发现这个博主总结和理解的太好了深入浅出JavaScript中的this如需理解，还请转入原博主,就像作者说的过段时间又会忘了，所以要深刻理解消化掉。以下我粗略记一下笔记 this出现的背景在Java等面向对象的语言中，this关键字含义明确且具体，即指代当前对象，一般在编译期确定下来，而JavaScript中this是动态的，在运行期才确定下来。在Java中定义类经常用到关键字th">
+
+  
+
+  
+    <link rel="icon" href="/images/favicon.ico">
+  
+
+  <link href="/css/styles.css?v=c114cbe6" rel="stylesheet">
+
+
+  
+
+  
+
+  
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?0efcf264890b4bd5a8ae5f834bad299c";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+	(function(){
+	    var bp = document.createElement('script');
+	    var curProtocol = window.location.protocol.split(':')[0];
+	    if (curProtocol === 'https') {
+	        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+	    }
+	    else {
+	        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+	    }
+	    var s = document.getElementsByTagName("script")[0];
+	    s.parentNode.insertBefore(bp, s);
+	})();
+  </script>
+
+
+
+  
+    <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+
+  
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+</head>
+
+<body>
+
+
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">导航</span>
+  
+
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">导航</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/archives/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            博客
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/category/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            分类
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/tag/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            标签
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/link/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            友链
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/about/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            关于我
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/atom.xml"
+            rel="noopener noreferrer"
+            target="_blank"
+            >
+            RSS
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/search/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#this出现的背景"><span class="toc-text">this出现的背景</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#JavaScript中this"><span class="toc-text">JavaScript中this</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#JavaScript中函数四种调用方式"><span class="toc-text">JavaScript中函数四种调用方式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#作为对象方法调用"><span class="toc-text">作为对象方法调用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#作为普通函数调用"><span class="toc-text">作为普通函数调用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#（类闭包）不准确哈"><span class="toc-text">（类闭包）不准确哈</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#作为构造函数调用"><span class="toc-text">作为构造函数调用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#使用apply和call调用（Function-prototype-上的-call-或者-apply-方法）"><span class="toc-text">使用apply和call调用（Function.prototype 上的 call 或者 apply 方法）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#为什么javas中this的含义那么丰富"><span class="toc-text">为什么javas中this的含义那么丰富</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#常见误解"><span class="toc-text">常见误解</span></a></li></ol>
+  </div>
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-javaScript中this的理解" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">javaScript中this的理解</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2017.08.07</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>gruad</span>
+        </span>
+      
+
+      
+  <span class="article-category">
+    <i class="icon-list"></i>
+    <a class="article-category-link" href="/categories/JavaScript/">JavaScript</a>
+  </span>
+
+
+
+      
+
+      
+      <i class="fa fa-eye"></i> 
+        <span id="busuanzi_container_page_pv">
+           &nbsp热度 <span id="busuanzi_value_page_pv">
+           <i class="fa fa-spinner fa-spin"></i></span>℃
+        </span>
+      
+
+      
+      
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <p>本来要总结的，才发现这个博主总结和理解的太好了<a href="https://www.ibm.com/developerworks/cn/web/1207_wangqf_jsthis/index.html" target="_blank" rel="external">深入浅出JavaScript中的this</a>如需理解，还请转入原博主,就像作者说的过段时间又会忘了，所以要深刻理解消化掉。<br>以下我粗略记一下笔记</p>
+<h3 id="this出现的背景"><a href="#this出现的背景" class="headerlink" title="this出现的背景"></a>this出现的背景</h3><p>在Java等面向对象的语言中，this关键字含义明确且具体，即指代当前对象，一般在编译期确定下来，而JavaScript中this是动态的，在运行期才确定下来。<br>在Java中定义类经常用到关键字this，多数情况下是为了避免命名冲突。比如在下面例子的中，定义一个 Point 类，很自然的，大家会使用 x，y 为其属性或成员变量命名，在构造函数中，使用 x，y 为参数命名，相比其他的名字，比如 a，b，也更有意义。这时候就需要使用 this 来避免命名上的冲突。另一种情况是为了方便的调用其他构造函数，比如定义在 x 轴上的点，其 x 值默认为 0，使用时只要提供 y 值就可以了，我们可以为此定义一个只需传入一个参数的构造函数。无论哪种情况，this 的含义是一样的，均指当前对象。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Point</span></span>&#123;</div><div class="line">	<span class="keyword">private</span> <span class="keyword">int</span> x=<span class="number">0</span>;</div><div class="line">	<span class="keyword">private</span> <span class="keyword">int</span> y=<span class="number">0</span>;</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="title">Point</span><span class="params">(x,y)</span></span>&#123;</div><div class="line">	<span class="keyword">this</span>.x=x;<span class="comment">// 在构造函数中，使用 x，y 为参数命名，相比其他的名字，比如 a，b，</span></div><div class="line">	<span class="keyword">this</span>.y=y;<span class="comment">// 也更有意义。这时候就需要使用 this来避免命名上的冲突。</span></div><div class="line">	</div><div class="line">&#125;</div><div class="line"><span class="function"><span class="keyword">public</span> <span class="title">Point</span><span class="params">(y)</span></span>&#123;</div><div class="line">	<span class="keyword">this</span>(<span class="number">0</span>,y);</div><div class="line">&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h3 id="JavaScript中this"><a href="#JavaScript中this" class="headerlink" title="JavaScript中this"></a>JavaScript中this</h3><p>由于其运行期绑定的特性，所以JavaScript中this含义丰富的多。它可以是全局对象，当前对象或者任意对象，这完全取决于函数的调用方式。</p>
+<h3 id="JavaScript中函数四种调用方式"><a href="#JavaScript中函数四种调用方式" class="headerlink" title="JavaScript中函数四种调用方式"></a>JavaScript中函数四种调用方式</h3><ol>
+<li>作为对象方法调用。</li>
+<li>作为普通函数调用。</li>
+<li>作为构造函数调用。</li>
+<li>使用apply或call调用。<br>下面我们将按照调用方式的不同，分别讨论 this 的含义。<h3 id="作为对象方法调用"><a href="#作为对象方法调用" class="headerlink" title="作为对象方法调用"></a>作为对象方法调用</h3>在 JavaScript 中，函数也是对象，因此函数可以作为一个对象的属性，此时该函数被称为该对象的方法，在使用这种调用方式时，this 被自然绑定到该对象。<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> point=&#123;</div><div class="line">	x:<span class="number">0</span>,</div><div class="line">	y:<span class="number">0</span>,</div><div class="line">	moveTo:<span class="function"><span class="keyword">function</span>(<span class="params">x,y</span>)</span>&#123;</div><div class="line">		<span class="keyword">this</span>.x=<span class="keyword">this</span>.x+x;</div><div class="line">		<span class="keyword">this</span>.y=<span class="keyword">this</span>.y+y;</div><div class="line">	&#125;</div><div class="line">&#125;;</div><div class="line">point.moveTo(<span class="number">1</span>,<span class="number">1</span>)<span class="comment">// //this 绑定到当前对象，即 point 对象</span></div></pre></td></tr></table></figure>
+</li>
+</ol>
+<h3 id="作为普通函数调用"><a href="#作为普通函数调用" class="headerlink" title="作为普通函数调用"></a>作为普通函数调用</h3><p>函数也可以直接被调用，此时 this 绑定到全局对象。在浏览器中，window 就是该全局对象。比如下面的例子：函数被调用时，this 被绑定到全局对象，接下来执行赋值语句，相当于隐式的声明了一个全局变量，这显然不是调用者希望的。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">makeNoSense</span>(<span class="params">x</span>)</span>&#123;</div><div class="line">	<span class="keyword">this</span>.x=x;</div><div class="line">&#125;</div><div class="line">makeNoSense(<span class="number">5</span>);</div><div class="line">x;<span class="comment">// x 已经成为一个值为 5 的全局变量</span></div></pre></td></tr></table></figure></p>
+<h3 id="（类闭包）不准确哈"><a href="#（类闭包）不准确哈" class="headerlink" title="（类闭包）不准确哈"></a>（类闭包）不准确哈</h3><p>对于内部函数，即声明在另外一个函数体内的函数，这种绑定到全局对象的方式会产生另外一个问题。我们仍然以前面提到的 point 对象为例，这次我们希望在 moveTo 方法内定义两个函数，分别将 x，y 坐标进行平移。结果可能出乎大家意料，不仅 point 对象没有移动，反而多出两个全局变量 x，y。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> point = &#123; </div><div class="line">x : <span class="number">0</span>, </div><div class="line">y : <span class="number">0</span>, </div><div class="line">moveTo : <span class="function"><span class="keyword">function</span>(<span class="params">x, y</span>) </span>&#123; </div><div class="line">    <span class="comment">// 内部函数</span></div><div class="line">    <span class="keyword">var</span> moveX = <span class="function"><span class="keyword">function</span>(<span class="params">x</span>) </span>&#123; </div><div class="line">    <span class="keyword">this</span>.x = x;<span class="comment">//this 绑定到了哪里？</span></div><div class="line">   &#125;; </div><div class="line">   <span class="comment">// 内部函数</span></div><div class="line">   <span class="keyword">var</span> moveY = <span class="function"><span class="keyword">function</span>(<span class="params">y</span>) </span>&#123; </div><div class="line">   <span class="keyword">this</span>.y = y;<span class="comment">//this 绑定到了哪里？</span></div><div class="line">   &#125;; </div><div class="line"> </div><div class="line">   moveX(x); </div><div class="line">   moveY(y); </div><div class="line">   &#125; </div><div class="line">&#125;; </div><div class="line">point.moveTo(<span class="number">1</span>, <span class="number">1</span>); </div><div class="line">point.x; <span class="comment">//==&gt;0 </span></div><div class="line">point.y; <span class="comment">//==&gt;0 </span></div><div class="line">x; <span class="comment">//==&gt;1 </span></div><div class="line">y; <span class="comment">//==&gt;1</span></div></pre></td></tr></table></figure></p>
+<p>这属于 JavaScript 的设计缺陷，正确的设计方式是内部函数的 this 应该绑定到其外层函数对应的对象上，为了规避这一设计缺陷，聪明的 JavaScript 程序员想出了变量替代的方法，约定俗成，该变量一般被命名为 that。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> point = &#123; </div><div class="line">x : <span class="number">0</span>, </div><div class="line">y : <span class="number">0</span>, </div><div class="line">moveTo : <span class="function"><span class="keyword">function</span>(<span class="params">x, y</span>) </span>&#123; </div><div class="line">     <span class="keyword">var</span> that = <span class="keyword">this</span>; </div><div class="line">    <span class="comment">// 内部函数</span></div><div class="line">    <span class="keyword">var</span> moveX = <span class="function"><span class="keyword">function</span>(<span class="params">x</span>) </span>&#123; </div><div class="line">    that.x = x; </div><div class="line">    &#125;; </div><div class="line">    <span class="comment">// 内部函数</span></div><div class="line">    <span class="keyword">var</span> moveY = <span class="function"><span class="keyword">function</span>(<span class="params">y</span>) </span>&#123; </div><div class="line">    that.y = y; </div><div class="line">    &#125; </div><div class="line">    moveX(x); </div><div class="line">    moveY(y); </div><div class="line">    &#125; </div><div class="line">&#125;; </div><div class="line">point.moveTo(<span class="number">1</span>, <span class="number">1</span>); </div><div class="line">point.x; <span class="comment">//==&gt;1 </span></div><div class="line">point.y; <span class="comment">//==&gt;1</span></div></pre></td></tr></table></figure></p>
+<h3 id="作为构造函数调用"><a href="#作为构造函数调用" class="headerlink" title="作为构造函数调用"></a>作为构造函数调用</h3><p>JavaScript 支持面向对象式编程，与主流的面向对象式编程语言不同，JavaScript 并没有类（class）的概念，而是使用基于原型（prototype）的继承方式。相应的，JavaScript 中的构造函数也很特殊，如果不使用 new 调用，则和普通函数一样。作为又一项约定俗成的准则，构造函数以大写字母开头，提醒调用者使用正确的方式调用。如果调用正确，this 绑定到新创建的对象上。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">Point</span>(<span class="params">x,y</span>)</span>&#123;</div><div class="line">	<span class="keyword">this</span>.x=x;</div><div class="line">	<span class="keyword">this</span>.y=y;</div><div class="line">&#125;<span class="comment">// this绑定到新创建的对象上。</span></div></pre></td></tr></table></figure></p>
+<h3 id="使用apply和call调用（Function-prototype-上的-call-或者-apply-方法）"><a href="#使用apply和call调用（Function-prototype-上的-call-或者-apply-方法）" class="headerlink" title="使用apply和call调用（Function.prototype 上的 call 或者 apply 方法）"></a>使用apply和call调用（Function.prototype 上的 call 或者 apply 方法）</h3><p>让我们再一次重申，在 JavaScript 中函数也是对象，对象则有方法，apply 和 call 就是函数对象的方法。这两个方法异常强大，他们允许切换函数执行的上下文环境（context），即 this 绑定的对象。很多 JavaScript 中的技巧以及类库都用到了该方法。让我们看一个具体的例子：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">Point</span>(<span class="params">x,y</span>)</span>&#123;</div><div class="line">	<span class="keyword">this</span>.x=x;</div><div class="line">	<span class="keyword">this</span>.y=y;</div><div class="line">	<span class="keyword">this</span>.moveTo=<span class="function"><span class="keyword">function</span>(<span class="params">x,y</span>)</span>&#123;</div><div class="line">		<span class="keyword">this</span>.x=x;</div><div class="line">		<span class="keyword">this</span>.y=y;</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line"><span class="keyword">var</span> p1=<span class="keyword">new</span> Point(<span class="number">0</span>,<span class="number">0</span>);</div><div class="line"><span class="keyword">var</span> p2=&#123;<span class="attr">x</span>:<span class="number">0</span>,<span class="attr">y</span>:<span class="number">0</span>&#125;;</div><div class="line">p1.moveTo(<span class="number">1</span>,<span class="number">1</span>);</div><div class="line">p1.moveTo.apply(p2,[<span class="number">10</span>,<span class="number">10</span>]);</div></pre></td></tr></table></figure></p>
+<p>在上面的例子中，我们使用构造函数生成了一个对象 p1，该对象同时具有 moveTo 方法；使用对象字面量创建了另一个对象 p2，我们看到使用 apply 可以将 p1 的方法应用到 p2 上，这时候 this 也被绑定到对象 p2 上。另一个方法 call 也具备同样功能，不同的是最后的参数不是作为一个数组统一传入，而是分开传入的。<br>call和apply的理解可以参考我自己的github账号<a href="https://github.com/gruad" target="_blank" rel="external">gruad</a></p>
+<h3 id="为什么javas中this的含义那么丰富"><a href="#为什么javas中this的含义那么丰富" class="headerlink" title="为什么javas中this的含义那么丰富"></a>为什么javas中this的含义那么丰富</h3><p>主要是javas中函数的执行环境和作用域链<br>JavaScript 中的函数既可以被当作普通函数执行，也可以作为对象的方法执行，这是导致 this 含义如此丰富的主要原因。一个函数被执行时，会创建一个执行环境（ExecutionContext），函数的所有的行为均发生在此执行环境中，构建该执行环境时，JavaScript 首先会创建 arguments变量，其中包含调用函数时传入的参数。接下来创建作用域链。然后初始化变量，首先初始化函数的形参表，值为 arguments变量中对应的值，如果 arguments变量中没有对应值，则该形参初始化为 undefined。如果该函数中含有内部函数，则初始化这些内部函数。如果没有，继续初始化该函数内定义的局部变量，需要注意的是此时这些变量初始化为 undefined，其赋值操作在执行环境（ExecutionContext）创建成功后，函数执行时才会执行，这点对于我们理解 JavaScript 中的变量作用域非常重要，鉴于篇幅，我们先不在这里讨论这个话题。最后为 this变量赋值，如前所述，会根据函数调用方式的不同，赋给 this全局对象，当前对象等。至此函数的执行环境（ExecutionContext）创建成功，函数开始逐行执行，所需变量均从之前构建好的执行环境（ExecutionContext）中读取。</p>
+<h3 id="常见误解"><a href="#常见误解" class="headerlink" title="常见误解"></a>常见误解</h3><p>参考<a href="http://bonsaiden.github.io/JavaScript-Garden/zh/#function.this" target="_blank" rel="external">js秘密花园</a><br>方法的赋值表达式<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> test = someObject.methodTest;</div><div class="line">test();<span class="comment">// 上例中，test 就像一个普通的函数被调用；因此，函数内的 this 将不再被指向到 someObject 对象。</span></div></pre></td></tr></table></figure></p>
+<p>虽然 this 的晚绑定特性似乎并不友好，但这确实是基于原型继承赖以生存的土壤。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">Foo</span>(<span class="params"></span>)</span>&#123;&#125;</div><div class="line">Foo.prototype.method=<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;&#125;</div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">Bar</span>(<span class="params"></span>)</span>&#123;&#125;</div><div class="line">Bar.prototype=Foo.prototype;</div><div class="line"><span class="keyword">new</span> Bar().method();<span class="comment">// 当 method 被调用时，this 将会指向 Bar 的实例对象。</span></div></pre></td></tr></table></figure></p>
+<p>另外js秘密花园这门书理解的也很好<a href="http://bonsaiden.github.io/JavaScript-Garden/zh/#function.this" target="_blank" rel="external">js秘密花园</a><br>阮一峰的简单但有语言上的点错误<a href="http://www.ruanyifeng.com/blog/2010/04/using_this_keyword_in_javascript.html" target="_blank" rel="external">Javascript的this用法</a></p>
+
+    
+  </div>
+</article>
+
+
+   
+  <div class="text-center donation">
+    <div class="inner-donation">
+      <span class="btn-donation">支持一下</span>
+      <div class="donation-body">
+        <div class="tip text-center">扫一扫，支持peck</div>
+        <ul class="theme.donation.items.length">
+        
+          <li class="item">
+            <img src="/images/wechat.jpeg" alt="">
+          </li>
+        
+          <li class="item">
+            <img src="/images/alipay.jpeg" alt="">
+          </li>
+        
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+   
+  <div class="box-prev-next clearfix">
+    <a class="show pull-left" href="/2017/08/07/闭包的理解/">
+        <i class="icon icon-angle-left"></i>
+    </a>
+    <a class="show pull-right" href="/2017/08/07/javaScript中原型链的理解/">
+        <i class="icon icon-angle-right"></i>
+    </a>
+  </div>
+
+
+
+
+</div>
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/archives/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/category/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              分类
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/tag/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              标签
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/link/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              友链
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/about/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              关于我
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/atom.xml"
+              rel="noopener noreferrer"
+              target="_blank"
+              >
+              RSS
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/search/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              搜索
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+      <div class="fexo-comments comments-post">
+    
+
+    
+
+
+
+
+    
+
+    
+	
+  </div>
+
+  
+
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>
