@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+
+
+  <html class="light page-post">
+
+
+<head>
+  <meta charset="utf-8">
+  
+  <title>闭包的理解 | 小锋子</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="javascript闭包（closure）," />
+  
+
+  <meta name="description" content="今天抽空总结一下一直使用的闭包，个人理解，可能有所不足，还望包涵。 理解闭包，首先理解函数的生命周期如图： 什么是闭包？简单来说，就是指可以访问另一个函数作用域变量的函数（可以访问函数内部变量的函数），一般是定义在外层函数中的内层函数。 为什么需要闭包？局部变量无法长久的保存和共享，而全局变量可能造成变量污染，所以需要一种机制：可以长久的保存变量又不会污染全局变量 闭包的特点 占用内存 不容易释">
+<meta name="keywords" content="javascript闭包（closure）">
+<meta property="og:type" content="article">
+<meta property="og:title" content="闭包的理解">
+<meta property="og:url" content="http://gruad.github.io/2017/08/07/闭包的理解/index.html">
+<meta property="og:site_name" content="小锋子">
+<meta property="og:description" content="今天抽空总结一下一直使用的闭包，个人理解，可能有所不足，还望包涵。 理解闭包，首先理解函数的生命周期如图： 什么是闭包？简单来说，就是指可以访问另一个函数作用域变量的函数（可以访问函数内部变量的函数），一般是定义在外层函数中的内层函数。 为什么需要闭包？局部变量无法长久的保存和共享，而全局变量可能造成变量污染，所以需要一种机制：可以长久的保存变量又不会污染全局变量 闭包的特点 占用内存 不容易释">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://gruad.github.io/img/function.png">
+<meta property="og:updated_time" content="2017-08-07T11:39:49.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="闭包的理解">
+<meta name="twitter:description" content="今天抽空总结一下一直使用的闭包，个人理解，可能有所不足，还望包涵。 理解闭包，首先理解函数的生命周期如图： 什么是闭包？简单来说，就是指可以访问另一个函数作用域变量的函数（可以访问函数内部变量的函数），一般是定义在外层函数中的内层函数。 为什么需要闭包？局部变量无法长久的保存和共享，而全局变量可能造成变量污染，所以需要一种机制：可以长久的保存变量又不会污染全局变量 闭包的特点 占用内存 不容易释">
+<meta name="twitter:image" content="http://gruad.github.io/img/function.png">
+
+  
+
+  
+    <link rel="icon" href="/images/favicon.ico">
+  
+
+  <link href="/css/styles.css?v=c114cbe6" rel="stylesheet">
+
+
+  
+
+  
+
+  
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?0efcf264890b4bd5a8ae5f834bad299c";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+	(function(){
+	    var bp = document.createElement('script');
+	    var curProtocol = window.location.protocol.split(':')[0];
+	    if (curProtocol === 'https') {
+	        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+	    }
+	    else {
+	        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+	    }
+	    var s = document.getElementsByTagName("script")[0];
+	    s.parentNode.insertBefore(bp, s);
+	})();
+  </script>
+
+
+
+  
+    <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+
+  
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+</head>
+
+<body>
+
+
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">导航</span>
+  
+
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">导航</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/archives/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            博客
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/category/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            分类
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/tag/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            标签
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/link/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            友链
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/about/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            关于我
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/atom.xml"
+            rel="noopener noreferrer"
+            target="_blank"
+            >
+            RSS
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/search/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#什么是闭包？"><span class="toc-text">什么是闭包？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#为什么需要闭包？"><span class="toc-text">为什么需要闭包？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#闭包的特点"><span class="toc-text">闭包的特点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#闭包的理解实例"><span class="toc-text">闭包的理解实例</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#闭包的应用"><span class="toc-text">闭包的应用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#参考链接："><span class="toc-text">参考链接：</span></a></li></ol>
+  </div>
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-闭包的理解" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">闭包的理解</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2017.08.07</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>gruad</span>
+        </span>
+      
+
+      
+  <span class="article-category">
+    <i class="icon-list"></i>
+    <a class="article-category-link" href="/categories/javascript/">javascript</a>
+  </span>
+
+
+
+      
+
+      
+      <i class="fa fa-eye"></i> 
+        <span id="busuanzi_container_page_pv">
+           &nbsp热度 <span id="busuanzi_value_page_pv">
+           <i class="fa fa-spinner fa-spin"></i></span>℃
+        </span>
+      
+
+      
+      
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <p><strong> 今天抽空总结一下一直使用的闭包，个人理解，可能有所不足，还望包涵。 </strong><br>理解闭包，首先理解函数的生命周期<br>如图：<img src="/img/function.png" alt="函数的生命周期"></p>
+<h3 id="什么是闭包？"><a href="#什么是闭包？" class="headerlink" title="什么是闭包？"></a>什么是闭包？</h3><p>简单来说，就是指可以访问另一个函数作用域变量的函数（可以访问函数内部变量的函数），<br>一般是定义在外层函数中的内层函数。</p>
+<h3 id="为什么需要闭包？"><a href="#为什么需要闭包？" class="headerlink" title="为什么需要闭包？"></a>为什么需要闭包？</h3><p>局部变量无法长久的保存和共享，而全局变量可能造成变量污染，所以需要一种机制：可以长久的保存变量又不会污染全局变量</p>
+<h3 id="闭包的特点"><a href="#闭包的特点" class="headerlink" title="闭包的特点"></a>闭包的特点</h3><ul>
+<li>占用内存</li>
+<li>不容易释放<h3 id="闭包的理解实例"><a href="#闭包的理解实例" class="headerlink" title="闭包的理解实例"></a>闭包的理解实例</h3>设想下如果你想统计一些数值，且该计数器在所有函数中都是可用的。<br>你可以使用全局变量，函数设置计数器递增：<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> counter=<span class="number">0</span>;</div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">add</span>(<span class="params"></span>)</span>&#123;</div><div class="line">	<span class="keyword">return</span> counter+=<span class="number">1</span>;</div><div class="line">&#125;</div><div class="line">add();</div><div class="line">add();</div><div class="line">add();</div><div class="line"><span class="comment">// 计数器现在为 3</span></div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>那么问题来了，页面上任何脚本都可以改变计数器，即使没有调用add函数。<br>下面我在函数内声明计数器，如果没有调用函数将无法修改计数器的值<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">add</span>(<span class="params"></span>)</span>&#123;</div><div class="line">	<span class="keyword">var</span> counter=<span class="number">0</span>;</div><div class="line">	counter+=<span class="number">1</span>;</div><div class="line">&#125;</div><div class="line">add();</div><div class="line">add();</div><div class="line">add();</div><div class="line"><span class="comment">// 本意是想输出 3, 但事与愿违，输出的都是 1 !</span></div></pre></td></tr></table></figure></p>
+<p>以上代码将无法正确输出，每次我调用 add() 函数，计数器都会设置为 1。<br>JavaScript 内嵌函数可以解决该问题。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">add</span>(<span class="params"></span>)</span>&#123;</div><div class="line">	<span class="keyword">var</span> counter=<span class="number">0</span>;</div><div class="line">	<span class="function"><span class="keyword">function</span> <span class="title">plus</span>(<span class="params"></span>)</span>&#123;</div><div class="line">	counter+=<span class="number">1</span>;</div><div class="line">	&#125;</div><div class="line">	plus();</div><div class="line">	<span class="keyword">return</span> counter;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>如果我们能在外部访问plus函数，这就可以解决计数器的困境。<br>我们同样需要确保counter=0只执行一次。<br>所以这个时候我们需要闭包。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> add=(<span class="function"><span class="keyword">function</span> (<span class="params"></span>)</span>&#123;</div><div class="line">	<span class="keyword">var</span> counter=<span class="number">0</span>;</div><div class="line">	<span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">	<span class="keyword">return</span> counter+=<span class="number">1</span>;</div><div class="line">	&#125;</div><div class="line">&#125;)();</div><div class="line">add();</div><div class="line">add();</div><div class="line">add();</div><div class="line"><span class="comment">// 计数器为 3</span></div><div class="line"><span class="comment">// 理解这个一定要理解闭包的作用域链和函数的生命周期</span></div></pre></td></tr></table></figure></p>
+<p>实例解析：<br>变量 add 指定了函数自我调用的返回字值。<br>自我调用函数只执行一次。设置计数器为 0。并返回函数表达式。<br>add变量可以作为一个函数使用。非常棒的部分是它可以访问函数上一层作用域的计数器。<br>这个叫作 JavaScript 闭包。它使得函数拥有私有变量变成可能。<br>计数器受匿名函数的作用域保护，只能通过 add 方法修改。</p>
+<h3 id="闭包的应用"><a href="#闭包的应用" class="headerlink" title="闭包的应用"></a>闭包的应用</h3><ol>
+<li>匿名自执行函数</li>
+<li>结果缓存</li>
+<li>（封装）闭包可以用于在对象中创建私有变量<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> person=<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">	<span class="comment">//变量作用域为函数内部，外部无法访问 </span></div><div class="line">	<span class="keyword">var</span> name=<span class="string">"default"</span>;</div><div class="line">	<span class="keyword">return</span> &#123;</div><div class="line">		getName:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">			<span class="keyword">return</span> name;</div><div class="line">		&#125;,</div><div class="line">		setName:<span class="function"><span class="keyword">function</span>(<span class="params">newName</span>)</span>&#123;</div><div class="line">			name=newName;</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">&#125;();</div><div class="line">print(person.name);<span class="comment">//直接访问，结果为undefined    </span></div><div class="line">print(person.getName());    </div><div class="line">person.setName(<span class="string">"abruzzi"</span>);    </div><div class="line">print(person.getName()); </div><div class="line"><span class="comment">// 得到结果如下：  </span></div><div class="line">   </div><div class="line"><span class="comment">// undefined  </span></div><div class="line"><span class="comment">// default  </span></div><div class="line"><span class="comment">// abruzzi</span></div></pre></td></tr></table></figure>
+</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">MyObject</span>(<span class="params"></span>)</span>&#123;</div><div class="line">	<span class="comment">// 私有变量和私有方法</span></div><div class="line">	<span class="keyword">var</span> privateVariable=<span class="number">10</span>;</div><div class="line">	<span class="function"><span class="keyword">function</span> <span class="title">privateFunction</span>(<span class="params"></span>)</span>&#123;</div><div class="line">		<span class="keyword">return</span> <span class="literal">false</span>;</div><div class="line">	&#125;</div><div class="line">	<span class="comment">// 特有方法，调用私有方法，函数</span></div><div class="line">	<span class="keyword">this</span>.publicMethod=<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">		privateVariable++;</div><div class="line">		<span class="keyword">return</span> privateFunction();</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ol>
+<li>实现类与继承</li>
+<li>使用闭包可以在JavaScript中模拟块级作用域（ECMAScript6标准之前的JavaScript本身没有块级作用域的概念）<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">outputNumbers</span>(<span class="params">count</span>)</span>&#123;</div><div class="line">	(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">	<span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;count;i++)&#123;</div><div class="line">	alert(i);</div><div class="line">	&#125;</div><div class="line">	&#125;)();</div><div class="line">	alert(i);<span class="comment">// 将导致一个错误</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>其实没有实战，我还是有点不太明白，以后可以阅读这篇文章<a href="https://github.com/getify/You-Dont-Know-JS/blob/master/scope%20&amp;%20closures/ch5.md" target="_blank" rel="external">you don’t know JS</a></p>
+<h3 id="参考链接："><a href="#参考链接：" class="headerlink" title="参考链接："></a>参考链接：</h3><p><a href="http://www.cnblogs.com/yunfeifei/p/4019504.html" target="_blank" rel="external">大神博客理解闭包</a><br><a href="http://www.runoob.com/js/js-function-closures.html" target="_blank" rel="external">菜鸟教程</a><br><a href="http://www.ruanyifeng.com/blog/2009/08/learning_javascript_closures.html" target="_blank" rel="external">阮一峰闭包理解</a><br><a href="http://bonsaiden.github.io/JavaScript-Garden/zh/#function.closures" target="_blank" rel="external">js秘密花园</a></p>
+
+    
+  </div>
+</article>
+
+
+   
+  <div class="text-center donation">
+    <div class="inner-donation">
+      <span class="btn-donation">支持一下</span>
+      <div class="donation-body">
+        <div class="tip text-center">扫一扫，支持peck</div>
+        <ul class="theme.donation.items.length">
+        
+          <li class="item">
+            <img src="/images/wechat.jpeg" alt="">
+          </li>
+        
+          <li class="item">
+            <img src="/images/alipay.jpeg" alt="">
+          </li>
+        
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+   
+  <div class="box-prev-next clearfix">
+    <a class="show pull-left" href="/2017/08/04/JavaScript作用域链理解/">
+        <i class="icon icon-angle-left"></i>
+    </a>
+    <a class="hide pull-right" href="/">
+        <i class="icon icon-angle-right"></i>
+    </a>
+  </div>
+
+
+
+
+</div>
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/archives/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/category/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              分类
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/tag/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              标签
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/link/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              友链
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/about/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              关于我
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/atom.xml"
+              rel="noopener noreferrer"
+              target="_blank"
+              >
+              RSS
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/search/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              搜索
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+      <div class="fexo-comments comments-post">
+    
+
+    
+
+
+
+
+    
+
+    
+	
+  </div>
+
+  
+
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>
