@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+
+
+  <html class="light page-post">
+
+
+<head>
+  <meta charset="utf-8">
+  
+  <title>前端MVC和前段生态的理解 | 小锋子</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="前端," />
+  
+
+  <meta name="description" content="MVC概念理解： Model:提供/保存数据（管理数据） Controller:数据处理，实现业务逻辑 View：展示数据，提供用户界面 前端发展历程： 以前的前端工程师相当于模板工程师，负责编写前端页面模板 Ajax技术诞生，改变了一切 Web2.0时代到来 Web2.0:动态页面，富交互，前端数据处理 前端 MVC 框架： 前端通过Ajax得到数据，因此也有了处理数据的需求 前端代码变的也需">
+<meta name="keywords" content="前端">
+<meta property="og:type" content="article">
+<meta property="og:title" content="前端MVC和前段生态的理解">
+<meta property="og:url" content="http://gruad.github.io/2017/08/09/前端MVC和前段生态的理解/index.html">
+<meta property="og:site_name" content="小锋子">
+<meta property="og:description" content="MVC概念理解： Model:提供/保存数据（管理数据） Controller:数据处理，实现业务逻辑 View：展示数据，提供用户界面 前端发展历程： 以前的前端工程师相当于模板工程师，负责编写前端页面模板 Ajax技术诞生，改变了一切 Web2.0时代到来 Web2.0:动态页面，富交互，前端数据处理 前端 MVC 框架： 前端通过Ajax得到数据，因此也有了处理数据的需求 前端代码变的也需">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2017-08-09T07:14:23.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="前端MVC和前段生态的理解">
+<meta name="twitter:description" content="MVC概念理解： Model:提供/保存数据（管理数据） Controller:数据处理，实现业务逻辑 View：展示数据，提供用户界面 前端发展历程： 以前的前端工程师相当于模板工程师，负责编写前端页面模板 Ajax技术诞生，改变了一切 Web2.0时代到来 Web2.0:动态页面，富交互，前端数据处理 前端 MVC 框架： 前端通过Ajax得到数据，因此也有了处理数据的需求 前端代码变的也需">
+
+  
+
+  
+    <link rel="icon" href="/images/favicon.ico">
+  
+
+  <link href="/css/styles.css?v=c114cbe6" rel="stylesheet">
+
+
+  
+
+  
+
+  
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?0efcf264890b4bd5a8ae5f834bad299c";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+	(function(){
+	    var bp = document.createElement('script');
+	    var curProtocol = window.location.protocol.split(':')[0];
+	    if (curProtocol === 'https') {
+	        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+	    }
+	    else {
+	        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+	    }
+	    var s = document.getElementsByTagName("script")[0];
+	    s.parentNode.insertBefore(bp, s);
+	})();
+  </script>
+
+
+
+  
+    <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+
+  
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+</head>
+
+<body>
+
+
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">导航</span>
+  
+
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">导航</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/archives/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            博客
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/category/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            分类
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/tag/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            标签
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/link/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            友链
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/about/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            关于我
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/atom.xml"
+            rel="noopener noreferrer"
+            target="_blank"
+            >
+            RSS
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/search/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-前端MVC和前段生态的理解" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">前端MVC和前段生态的理解</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2017.08.09</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>gruad</span>
+        </span>
+      
+
+      
+  <span class="article-category">
+    <i class="icon-list"></i>
+    <a class="article-category-link" href="/categories/前端MVC/">前端MVC</a>
+  </span>
+
+
+
+      
+
+      
+      <i class="fa fa-eye"></i> 
+        <span id="busuanzi_container_page_pv">
+           &nbsp热度 <span id="busuanzi_value_page_pv">
+           <i class="fa fa-spinner fa-spin"></i></span>℃
+        </span>
+      
+
+      
+      
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <p> MVC概念理解：</p>
+<pre><code>Model:提供/保存数据（管理数据）
+Controller:数据处理，实现业务逻辑
+View：展示数据，提供用户界面
+</code></pre><p>前端发展历程：</p>
+<pre><code>以前的前端工程师相当于模板工程师，负责编写前端页面模板
+Ajax技术诞生，改变了一切
+Web2.0时代到来
+Web2.0:动态页面，富交互，前端数据处理
+</code></pre><p>前端 MVC 框架：</p>
+<pre><code>前端通过Ajax得到数据，因此也有了处理数据的需求
+前端代码变的也需要保存数据、处理数据、生成视图，这导致了前端MVC框架的诞生。
+</code></pre><p>MVVM模式：</p>
+<pre><code>View-Model:简化的Controller，唯一作用就是为View提供处理好的数据，不含其它逻辑。
+</code></pre><p>REST接口：</p>
+<pre><code>前后端分离以后，它们之间通过接口通信。
+后端暴露出接口，前端消费后端提供的数据。
+后端接口一般是REST形式，前后端的通信协议一般是HTTP。
+</code></pre><p>Node:</p>
+<pre><code>2009年，Node项目诞生，它是服务器上的JavaScript运行环境。
+Node=javascript+操作系统API
+</code></pre><p>Node的意义：</p>
+<pre><code>javascript成为服务器脚本语言，与Python和Ruby一样
+javascript成为唯一的浏览器和服务器都支持的语言
+前端工程师可以编写后端程序了
+</code></pre><p>前端开发模式的根本改变：</p>
+<pre><code>1.Node环境下开发
+2.大量使用服务器端工具
+3.引入持续集成等软件工程的标准流程
+4.开发完成后，编译成浏览器可以运行的脚本，放上CDN
+</code></pre><p>全栈工程师：</p>
+<pre><code>一个人负责开发前端和后端
+从数据库到UI的所有开发
+</code></pre><p>全栈技能：</p>
+<pre><code>需要掌握的技能:
+
+1.传统前端技能：HTML/JavaScript/CSS
+2.一门后端语言
+3.移动端开发：IOS/Android/HTML5
+4.其他技能：数据库、HTTP等等
+</code></pre><p>未来软件的特点：</p>
+<pre><code>1.联网
+2.高并发
+3.分布式
+4.跨终端
+</code></pre><p>h5提供了两种客户端存储数据的新方法：</p>
+<pre><code>1.localStorage-没有时间限制的数据存储
+2.sessionStorage-针对一个session的数据存储
+</code></pre><p>h5中数据不是由每个服务器请求传递的，而是只有在请求时使用数据，它是的不影响网站性能的情况下存储大量数据成为可能。</p>
+<p>对于不同的网站，数据存储于不同的区域，并且一个网站只能访问其自身的数据。</p>
+<p>h5使用JavaScript来存储数据和访问数据。</p>
+
+    
+  </div>
+</article>
+
+
+   
+  <div class="text-center donation">
+    <div class="inner-donation">
+      <span class="btn-donation">支持一下</span>
+      <div class="donation-body">
+        <div class="tip text-center">扫一扫，支持peck</div>
+        <ul class="theme.donation.items.length">
+        
+          <li class="item">
+            <img src="/images/wechat.jpeg" alt="">
+          </li>
+        
+          <li class="item">
+            <img src="/images/alipay.jpeg" alt="">
+          </li>
+        
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+   
+  <div class="box-prev-next clearfix">
+    <a class="show pull-left" href="/2017/08/08/前端模块化认识/">
+        <i class="icon icon-angle-left"></i>
+    </a>
+    <a class="show pull-right" href="/2017/08/09/JavaScript中回调函数的理解/">
+        <i class="icon icon-angle-right"></i>
+    </a>
+  </div>
+
+
+
+
+</div>
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/archives/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/category/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              分类
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/tag/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              标签
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/link/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              友链
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/about/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              关于我
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/atom.xml"
+              rel="noopener noreferrer"
+              target="_blank"
+              >
+              RSS
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/search/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              搜索
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+      <div class="fexo-comments comments-post">
+    
+
+    
+
+
+
+
+    
+
+    
+	
+  </div>
+
+  
+
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>
