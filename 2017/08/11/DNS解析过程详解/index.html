@@ -23,12 +23,12 @@
 <meta property="og:site_name" content="小锋子">
 <meta property="og:description" content="什么是DNS?NDS(domain name system)域名系统。互联网上计算机通信靠唯一的IP.而计算机是无法识别域名的，或者或人去计IP也不太现实。NDS是应用层的协议，在UDP协议之上。使用端口号53。是Internet网上作为域名和IP地址相互映射的一个分布式数据库。 DNS功能每个IP地址都可以有一个主机名，主机名由一个或多个字符串组成，字符串之间用小数点隔开。有了主机名，就不要死记">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://gruad.github.io/2017/08/11/DNS解析过程详解/images/domain.png">
-<meta property="og:updated_time" content="2017-08-11T13:16:18.000Z">
+<meta property="og:image" content="http://gruad.github.io/img/domain.png">
+<meta property="og:updated_time" content="2017-08-11T13:18:26.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="DNS解析过程详解">
 <meta name="twitter:description" content="什么是DNS?NDS(domain name system)域名系统。互联网上计算机通信靠唯一的IP.而计算机是无法识别域名的，或者或人去计IP也不太现实。NDS是应用层的协议，在UDP协议之上。使用端口号53。是Internet网上作为域名和IP地址相互映射的一个分布式数据库。 DNS功能每个IP地址都可以有一个主机名，主机名由一个或多个字符串组成，字符串之间用小数点隔开。有了主机名，就不要死记">
-<meta name="twitter:image" content="http://gruad.github.io/2017/08/11/DNS解析过程详解/images/domain.png">
+<meta name="twitter:image" content="http://gruad.github.io/img/domain.png">
 
   
 
@@ -235,7 +235,7 @@
     
       <h3 id="什么是DNS"><a href="#什么是DNS" class="headerlink" title="什么是DNS?"></a>什么是DNS?</h3><p>NDS(domain name system)域名系统。互联网上计算机通信靠唯一的IP.而计算机是无法识别域名的，或者或人去计IP也不太现实。<br>NDS是应用层的协议，在UDP协议之上。使用端口号53。是Internet网上作为域名和IP地址相互映射的一个分布式数据库。</p>
 <h3 id="DNS功能"><a href="#DNS功能" class="headerlink" title="DNS功能"></a>DNS功能</h3><p>每个IP地址都可以有一个主机名，主机名由一个或多个字符串组成，字符串之间用小数点隔开。有了主机名，就不要死记硬背每台IP设备的IP地址，<br>只要记住相对直观有意义的主机名就行了。这就是DNS协议所要完成的功能。</p>
-<h3 id="DNS解析过程"><a href="#DNS解析过程" class="headerlink" title="DNS解析过程"></a>DNS解析过程</h3><p>比如在浏览器中输入www.qq.com 域名：<br><img src="images/domain.png" alt=""></p>
+<h3 id="DNS解析过程"><a href="#DNS解析过程" class="headerlink" title="DNS解析过程"></a>DNS解析过程</h3><p>比如在浏览器中输入www.qq.com 域名：<br><img src="/img/domain.png" alt=""></p>
 <ol>
 <li>首先浏览器会调用本机的DNS客户端，发送请求，UDP协议。操作系统会首先检查本地的hosts文件是否有这个网络网址映射，如果有就调用这个IP映射，完成域名解析。</li>
 <li>如果hosts文件没有这个地址映射，这开始查找<strong>本地DNS解析器缓存</strong> 是否有这个网址映射关系，如果有则直接返回，完成解析。</li>
