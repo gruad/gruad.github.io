@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+
+
+  <html class="light page-post">
+
+
+<head>
+  <meta charset="utf-8">
+  
+  <title>如何理解递归和迭代 | 小锋子</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="递归和迭代," />
+  
+
+  <meta name="description" content="递归递归，要理解递归，首先要理解递归。醉了啊。很早之前学习第一门语言C的时候，那个时候刷题，图的广度、深度遍历、动态规划等等对这些应用递归思想的还是蛮熟的，现在回头发现自己应该都没以前熟了，什么回溯了，什么动态规划了，什么迭代了，递归等等，都特么忘差不多啦。本文是简单记录一下，以便以后遇到问题，好查阅。关于引用的，已注明参考文章出处，不做任何商业用途，只是便于自己查阅，如有侵权还望联系本人删除即可">
+<meta name="keywords" content="递归和迭代">
+<meta property="og:type" content="article">
+<meta property="og:title" content="如何理解递归和迭代">
+<meta property="og:url" content="http://gruad.github.io/2017/08/11/如何理解递归和迭代/index.html">
+<meta property="og:site_name" content="小锋子">
+<meta property="og:description" content="递归递归，要理解递归，首先要理解递归。醉了啊。很早之前学习第一门语言C的时候，那个时候刷题，图的广度、深度遍历、动态规划等等对这些应用递归思想的还是蛮熟的，现在回头发现自己应该都没以前熟了，什么回溯了，什么动态规划了，什么迭代了，递归等等，都特么忘差不多啦。本文是简单记录一下，以便以后遇到问题，好查阅。关于引用的，已注明参考文章出处，不做任何商业用途，只是便于自己查阅，如有侵权还望联系本人删除即可">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2017-08-11T13:14:45.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="如何理解递归和迭代">
+<meta name="twitter:description" content="递归递归，要理解递归，首先要理解递归。醉了啊。很早之前学习第一门语言C的时候，那个时候刷题，图的广度、深度遍历、动态规划等等对这些应用递归思想的还是蛮熟的，现在回头发现自己应该都没以前熟了，什么回溯了，什么动态规划了，什么迭代了，递归等等，都特么忘差不多啦。本文是简单记录一下，以便以后遇到问题，好查阅。关于引用的，已注明参考文章出处，不做任何商业用途，只是便于自己查阅，如有侵权还望联系本人删除即可">
+
+  
+
+  
+    <link rel="icon" href="/images/favicon.ico">
+  
+
+  <link href="/css/styles.css?v=c114cbe6" rel="stylesheet">
+
+
+  
+
+  
+
+  
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?0efcf264890b4bd5a8ae5f834bad299c";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+	(function(){
+	    var bp = document.createElement('script');
+	    var curProtocol = window.location.protocol.split(':')[0];
+	    if (curProtocol === 'https') {
+	        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+	    }
+	    else {
+	        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+	    }
+	    var s = document.getElementsByTagName("script")[0];
+	    s.parentNode.insertBefore(bp, s);
+	})();
+  </script>
+
+
+
+  
+    <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+
+  
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+</head>
+
+<body>
+
+
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">导航</span>
+  
+
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">导航</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/archives/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            博客
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/category/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            分类
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/tag/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            标签
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/link/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            友链
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/about/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            关于我
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/atom.xml"
+            rel="noopener noreferrer"
+            target="_blank"
+            >
+            RSS
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/search/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#递归（recursion）-rɪˈkɜ-rʃn"><span class="toc-text">递归（recursion） [rɪˈkɜ:rʃn]</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#迭代（iteration）-ˌɪtəˈreʃən"><span class="toc-text">迭代（iteration） [ˌɪtəˈreʃən]</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#实例"><span class="toc-text">实例</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#使用递归和迭代注意事项"><span class="toc-text">使用递归和迭代注意事项</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#参考"><span class="toc-text">参考</span></a></li></ol>
+  </div>
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-如何理解递归和迭代" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">如何理解递归和迭代</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2017.08.11</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>gruad</span>
+        </span>
+      
+
+      
+  <span class="article-category">
+    <i class="icon-list"></i>
+    <a class="article-category-link" href="/categories/算法/">算法</a>
+  </span>
+
+
+
+      
+
+      
+      <i class="fa fa-eye"></i> 
+        <span id="busuanzi_container_page_pv">
+           &nbsp热度 <span id="busuanzi_value_page_pv">
+           <i class="fa fa-spinner fa-spin"></i></span>℃
+        </span>
+      
+
+      
+      
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <p>递归递归，要理解递归，首先要理解递归。醉了啊。很早之前学习第一门语言C的时候，那个时候刷题，图的广度、深度遍历、动态规划等等<br>对这些应用递归思想的还是蛮熟的，现在回头发现自己应该都没以前熟了，什么回溯了，什么动态规划了，什么迭代了，递归等等，都特么忘差不多啦。<br>本文是简单记录一下，以便以后遇到问题，好查阅。关于引用的，已注明参考文章出处，不做任何商业用途，只是便于自己查阅，如有侵权还望联系本人删除即可。</p>
+<h3 id="递归（recursion）-rɪˈkɜ-rʃn"><a href="#递归（recursion）-rɪˈkɜ-rʃn" class="headerlink" title="递归（recursion） [rɪˈkɜ:rʃn]"></a>递归（recursion） [rɪˈkɜ:rʃn]</h3><p><strong>JavaScript运行的内核引擎都有很严格的堆栈大小限制</strong><br>递归是自己调用自己，不断的缩小问题的规模（将问题不断的缩小更小的规模），遇到递归出口再<strong>原路</strong>返回。因此必须保存这些计算过程中的中间值，<br>这些中间值压如入栈中，因此当问题规模很大时，会占用大量内存。</p>
+<h3 id="迭代（iteration）-ˌɪtəˈreʃən"><a href="#迭代（iteration）-ˌɪtəˈreʃən" class="headerlink" title="迭代（iteration） [ˌɪtəˈreʃən]"></a>迭代（iteration） [ˌɪtəˈreʃən]</h3><p>迭代是不断的调用，目的是无限的接近目标（逐渐逼近），用新值覆盖旧值。不保存中间量，内存利用率高。</p>
+<h3 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//迭代n!</span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">iteration</span>(<span class="params">n</span>)</span>&#123;</div><div class="line">	<span class="keyword">var</span> s=<span class="number">1</span>;</div><div class="line"><span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">1</span>;i&lt;=n;i++)</div><div class="line">	&#123;</div><div class="line">		s*=i;</div><div class="line">	&#125;</div><div class="line"><span class="keyword">return</span> s;</div><div class="line">&#125;</div><div class="line">iteration(<span class="number">4</span>);</div><div class="line"><span class="comment">// 递归n!</span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">recursion</span>(<span class="params">n</span>)</span>&#123;</div><div class="line">	<span class="keyword">if</span>(n==<span class="number">1</span>)&#123;</div><div class="line">		<span class="keyword">return</span> <span class="number">1</span>;</div><div class="line">	&#125;<span class="keyword">else</span>&#123;</div><div class="line">	<span class="keyword">return</span> recursion(n)*recursion(n<span class="number">-1</span>);</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line">recursion(<span class="number">4</span>);</div></pre></td></tr></table></figure>
+<h3 id="使用递归和迭代注意事项"><a href="#使用递归和迭代注意事项" class="headerlink" title="使用递归和迭代注意事项"></a>使用递归和迭代注意事项</h3><ol>
+<li>递归算法与迭代算法的设计思路区别在于：函数或算法是否具备收敛性，当且仅当一个算法存在预期的收敛效果时，<br>采用递归算法才是可行的，否则，就不能使用递归算法。</li>
+<li>当然，从理论上说，所有的递归函数都可以转换为迭代函数，反之亦然，然而代价通常都是比较高的。但从算法结构来说，递归声明的结构并不总能够转换为迭代结构，<br>原因在于结构的引申本身属于递归的概念，用迭代的方法在设计初期根本无法实现，这就像动多态的东西并不总是可以用静多态的方法实现一样。<br>这也是为什么在结构设计时，通常采用递归的方式而不是采用迭代的方式的原因，一个极典型的例子类似于链表，使用递归定义及其简单<br>，但对于内存定义(数组方式)其定义及调用处理说明就变得很晦涩，尤其是在遇到环链、图、网格等问题时，使用迭代方式从描述到实现上都变得很不现实。</li>
+<li>递归其实是方便了程序员难为了机器。它只要得到数学公式就能很方便的写出程序。优点就是易理解，容易编程。但递归是用栈机制实现的，<br>每深入一层，都要占去一块栈数据区域，对嵌套层数深的一些算法，<br>递归会力不从心，空间上会以内存崩溃而告终，而且递归也带来了大量的函数调用，这也有许多额外的时间开销。所以在深度大时，它的时空性就不好了。<br>循环其缺点就是不容易理解，编写复杂问题时困难。优点是效率高。运行时间只因循环次数增加而增加，没什么额外开销。空间上没有什么增加。</li>
+<li>局部变量占用的内存是一次性的，也就是O(1)的空间复杂度，而对于递归（不考虑尾递归优化的情况），每次函数调用都要压栈，那么空间复杂度是O(n)，和递归次数呈线性关系。</li>
+<li>递归程序改用循环实现的话，一般都是要自己维护一个栈的，以便状态的回溯。如果某个递归程序改用循环的时候根本就不需要维护栈，那其实这个递归程序这样写只是意义明显一些，<br>不一定要写成递归形式。但很多递归程序就是为了利用函数自身在系统栈上的auto变量记录状态，以便回溯。</li>
+<li>原理上讲，所有递归都是可以消除的，代价就是可能自己要维护一个栈。而且我个人认为，很多情况下用递归还是必要的，它往往能把复杂问题分解成更为简单的步骤，<br>而且很能反映问题的本质。</li>
+</ol>
+<p>递归其实就是利用系统堆栈，实现函数自身调用，或者是相互调用的过程。在通往边界的过程中，都会把单步地址保存下来，知道等出边界，再按照先进后出的进行运算，<br>这正如我们装木桶一样，每一次都只能把东西方在最上面，而取得时候，先放进取的反而最后取出。递归的数据传送也类似。但是递归不能无限的进行下去，<br>必须在一定条件下停止自身调用，因此它的边界值应是明确的。就向我们装木桶一样，我们不能总是无限制的往里装，必须在一定的时候把东西取出来。<br>比较简单的递归过程是阶乘函数，你可以去看一下。但是递归的运算方法，往往决定了它的效率很低，因为数据要不断的进栈出栈。</p>
+<p>但是递归作为比较基础的算法，它的作用不能忽视。</p>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p><a href="https://zhuanlan.zhihu.com/p/24085518" target="_blank" rel="external">知乎</a></p>
+<p><a href="http://nxlhero.blog.51cto.com/962631/1231228" target="_blank" rel="external">漫谈递归和迭代</a></p>
+
+    
+  </div>
+</article>
+
+
+   
+  <div class="text-center donation">
+    <div class="inner-donation">
+      <span class="btn-donation">支持一下</span>
+      <div class="donation-body">
+        <div class="tip text-center">扫一扫，支持peck</div>
+        <ul class="theme.donation.items.length">
+        
+          <li class="item">
+            <img src="/images/wechat.jpeg" alt="">
+          </li>
+        
+          <li class="item">
+            <img src="/images/alipay.jpeg" alt="">
+          </li>
+        
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+   
+  <div class="box-prev-next clearfix">
+    <a class="show pull-left" href="/2017/08/11/DNS解析过程详解/">
+        <i class="icon icon-angle-left"></i>
+    </a>
+    <a class="hide pull-right" href="/">
+        <i class="icon icon-angle-right"></i>
+    </a>
+  </div>
+
+
+
+
+</div>
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/archives/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/category/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              分类
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/tag/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              标签
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/link/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              友链
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/about/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              关于我
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/atom.xml"
+              rel="noopener noreferrer"
+              target="_blank"
+              >
+              RSS
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/search/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              搜索
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+      <div class="fexo-comments comments-post">
+    
+
+    
+
+
+
+
+    
+
+    
+	
+  </div>
+
+  
+
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>
