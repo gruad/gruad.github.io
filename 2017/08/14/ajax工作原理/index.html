@@ -12,20 +12,21 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
   
-    <meta name="keywords" content="Peck,前端,Hexo主题,前端开发,用户体验,设计,frontend,design,nodejs,JavaScript" />
+    <meta name="keywords" content="ajax," />
   
 
-  <meta name="description" content="欢迎，这是我第一次利用github建立博客。">
+  <meta name="description" content="从XMLHttpRequest对象说起Can I Use XMLHttpRequest ajax为什么不刷新页面？因为ajax请求返回的服务端数据是给客户端js代码更新DOM的，不像提交表单需要刷新事件。 ajax为什么是异步的？JavaScript虽然是单线程的，但浏览器引擎（四大：webkit，gecko,trident,presto)是多线程的，这就牵扯到浏览器是如何工作的，参考how br">
+<meta name="keywords" content="ajax">
 <meta property="og:type" content="article">
 <meta property="og:title" content="ajax工作原理">
 <meta property="og:url" content="http://gruad.github.io/2017/08/14/ajax工作原理/index.html">
 <meta property="og:site_name" content="小锋子">
-<meta property="og:description" content="欢迎，这是我第一次利用github建立博客。">
+<meta property="og:description" content="从XMLHttpRequest对象说起Can I Use XMLHttpRequest ajax为什么不刷新页面？因为ajax请求返回的服务端数据是给客户端js代码更新DOM的，不像提交表单需要刷新事件。 ajax为什么是异步的？JavaScript虽然是单线程的，但浏览器引擎（四大：webkit，gecko,trident,presto)是多线程的，这就牵扯到浏览器是如何工作的，参考how br">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2017-08-14T06:46:48.000Z">
+<meta property="og:updated_time" content="2017-08-14T15:28:40.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ajax工作原理">
-<meta name="twitter:description" content="欢迎，这是我第一次利用github建立博客。">
+<meta name="twitter:description" content="从XMLHttpRequest对象说起Can I Use XMLHttpRequest ajax为什么不刷新页面？因为ajax请求返回的服务端数据是给客户端js代码更新DOM的，不像提交表单需要刷新事件。 ajax为什么是异步的？JavaScript虽然是单线程的，但浏览器引擎（四大：webkit，gecko,trident,presto)是多线程的，这就牵扯到浏览器是如何工作的，参考how br">
 
   
 
@@ -180,6 +181,11 @@
 </div>
 
 
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#从XMLHttpRequest对象说起"><span class="toc-text">从XMLHttpRequest对象说起</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ajax为什么不刷新页面？"><span class="toc-text">ajax为什么不刷新页面？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ajax为什么是异步的？"><span class="toc-text">ajax为什么是异步的？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#参考"><span class="toc-text">参考</span></a></li></ol>
+  </div>
+
 
 
 <div class="content content-post CENTER">
@@ -201,6 +207,11 @@
       
 
       
+  <span class="article-category">
+    <i class="icon-list"></i>
+    <a class="article-category-link" href="/categories/JavaScript/">JavaScript</a>
+  </span>
+
 
 
       
@@ -220,7 +231,11 @@
 
   <div class="article-content">
     
-      
+      <h3 id="从XMLHttpRequest对象说起"><a href="#从XMLHttpRequest对象说起" class="headerlink" title="从XMLHttpRequest对象说起"></a>从XMLHttpRequest对象说起</h3><p><a href="http://caniuse.com/#search=XMLHttpRequest" target="_blank" rel="external">Can I Use XMLHttpRequest</a></p>
+<h3 id="ajax为什么不刷新页面？"><a href="#ajax为什么不刷新页面？" class="headerlink" title="ajax为什么不刷新页面？"></a>ajax为什么不刷新页面？</h3><p>因为ajax请求返回的服务端数据是给客户端js代码更新DOM的，不像提交表单需要刷新事件。</p>
+<h3 id="ajax为什么是异步的？"><a href="#ajax为什么是异步的？" class="headerlink" title="ajax为什么是异步的？"></a>ajax为什么是异步的？</h3><p>JavaScript虽然是单线程的，但浏览器引擎（四大：webkit，gecko,trident,presto)是多线程的，这就牵扯到浏览器是如何工作的，参考<a href="http://taligarsiel.com/Projects/howbrowserswork1.htm" target="_blank" rel="external">how browsers work?</a><br><a href="http://www.cnblogs.com/yasmi/articles/5064588.html" target="_blank" rel="external">为什么JavaScript是单线程的却能让AJAX异步发送和回调请求</a></p>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p><a href="https://segmentfault.com/a/1190000004322487" target="_blank" rel="external">你真的会使用XMLHttpRequest吗？</a><br><a href="http://www.ruanyifeng.com/blog/2012/09/xmlhttprequest_level_2.html" target="_blank" rel="external">XMLHttpRequest Level 2 使用指南</a><br><a href="http://www.cnblogs.com/jackson0714/p/AJAX.html" target="_blank" rel="external">图文解析AJAX的原理</a><br><a href="http://www.cnblogs.com/yasmi/articles/5064588.html" target="_blank" rel="external">为什么JavaScript是单线程的却能让AJAX异步发送和回调请求</a></p>
+
     
   </div>
 </article>
