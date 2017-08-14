@@ -15,18 +15,18 @@
     <meta name="keywords" content="JSONP," />
   
 
-  <meta name="description" content="后端代码如何根据前端请求的参数动态生成返回给前端的代码：理解的重点关于前端跨域问题，说实话我从最开始接触前端到现在，一直都对这个有点怵。记得去年面试百度的时候，面试官问到了跨域，问都有那些跨域方式，我当时还是为了面试临时记得，对跨域理解的并不深，说了有什么,然后就GG了，面试官让我手写JSONP跨域代码的实现，当时那个囧啊。： 1. JSONP(需要服务器端配合）  window.name：原理：">
+  <meta name="description" content="后端代码如何根据前端请求的参数动态生成返回给前端的代码：理解的重点关于前端跨域问题，说实话我从最开始接触前端到现在，一直都对这个有点怵。记得去年面试百度的时候，面试官问到了跨域，问都有那些跨域方式，我当时还是为了面试临时记得，对跨域理解的并不深，说了有什么,然后就GG了，面试官让我手写JSONP跨域代码的实现，当时那个囧啊。  JSONP(需要服务器端配合） window.name：原理：利用wi">
 <meta name="keywords" content="JSONP">
 <meta property="og:type" content="article">
 <meta property="og:title" content="JSONP跨域原理详解">
 <meta property="og:url" content="http://gruad.github.io/2017/08/14/JSONP跨域原理详解/index.html">
 <meta property="og:site_name" content="小锋子">
-<meta property="og:description" content="后端代码如何根据前端请求的参数动态生成返回给前端的代码：理解的重点关于前端跨域问题，说实话我从最开始接触前端到现在，一直都对这个有点怵。记得去年面试百度的时候，面试官问到了跨域，问都有那些跨域方式，我当时还是为了面试临时记得，对跨域理解的并不深，说了有什么,然后就GG了，面试官让我手写JSONP跨域代码的实现，当时那个囧啊。： 1. JSONP(需要服务器端配合）  window.name：原理：">
+<meta property="og:description" content="后端代码如何根据前端请求的参数动态生成返回给前端的代码：理解的重点关于前端跨域问题，说实话我从最开始接触前端到现在，一直都对这个有点怵。记得去年面试百度的时候，面试官问到了跨域，问都有那些跨域方式，我当时还是为了面试临时记得，对跨域理解的并不深，说了有什么,然后就GG了，面试官让我手写JSONP跨域代码的实现，当时那个囧啊。  JSONP(需要服务器端配合） window.name：原理：利用wi">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2017-08-14T09:45:39.000Z">
+<meta property="og:updated_time" content="2017-08-14T09:47:14.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JSONP跨域原理详解">
-<meta name="twitter:description" content="后端代码如何根据前端请求的参数动态生成返回给前端的代码：理解的重点关于前端跨域问题，说实话我从最开始接触前端到现在，一直都对这个有点怵。记得去年面试百度的时候，面试官问到了跨域，问都有那些跨域方式，我当时还是为了面试临时记得，对跨域理解的并不深，说了有什么,然后就GG了，面试官让我手写JSONP跨域代码的实现，当时那个囧啊。： 1. JSONP(需要服务器端配合）  window.name：原理：">
+<meta name="twitter:description" content="后端代码如何根据前端请求的参数动态生成返回给前端的代码：理解的重点关于前端跨域问题，说实话我从最开始接触前端到现在，一直都对这个有点怵。记得去年面试百度的时候，面试官问到了跨域，问都有那些跨域方式，我当时还是为了面试临时记得，对跨域理解的并不深，说了有什么,然后就GG了，面试官让我手写JSONP跨域代码的实现，当时那个囧啊。  JSONP(需要服务器端配合） window.name：原理：利用wi">
 
   
 
@@ -231,8 +231,9 @@
 
   <div class="article-content">
     
-      <p><strong>后端代码如何根据前端请求的参数动态生成返回给前端的代码：理解的重点</strong><br>关于前端跨域问题，说实话我从最开始接触前端到现在，一直都对这个有点怵。记得去年面试百度的时候，面试官问到了跨域，问都有那些跨域方式，我当时还是为了面试临时记得，对跨域理解的并不深，说了有什么,然后就GG了，面试官让我手写JSONP跨域代码的实现，当时那个囧啊。<br>： 1. JSONP(需要服务器端配合）</p>
+      <p><strong>后端代码如何根据前端请求的参数动态生成返回给前端的代码：理解的重点</strong><br>关于前端跨域问题，说实话我从最开始接触前端到现在，一直都对这个有点怵。记得去年面试百度的时候，面试官问到了跨域，问都有那些跨域方式，我当时还是为了面试临时记得，对跨域理解的并不深，说了有什么,然后就GG了，面试官让我手写JSONP跨域代码的实现，当时那个囧啊。</p>
 <ol>
+<li>JSONP(需要服务器端配合）</li>
 <li>window.name：原理：利用window.name在一个窗口生命周期内，窗口载入的所有页面共享name，每个页面都对window.name有读写权限。所以是持久存在一个窗口载过得页面中，并不会因为最新页面的载入而进行重置。</li>
 <li>HTML5中新引进的window.postMessage方法：window.postMessage(message,targetOrigin)</li>
 <li>服务器代理：原理：先请求同域下的服务器代码，然后让代理服务器去在后端请求想要的数据，然后返回给代码服务器，然后在返回给请求者。</li>
