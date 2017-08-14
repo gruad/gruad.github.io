@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+
+
+  <html class="light page-post">
+
+
+<head>
+  <meta charset="utf-8">
+  
+  <title>JSONP跨域原理详解 | 小锋子</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="JSONP," />
+  
+
+  <meta name="description" content="后端代码如何根据前端请求的参数动态生成返回给前端的代码：理解的重点关于前端跨域问题，说实话我从最开始接触前端到现在，一直都对这个有点怵。记得去年面试百度的时候，面试官问到了跨域，问都有那些跨域方式，我当时还是为了面试临时记得，对跨域理解的并不深，说了有什么： 1. JSONP(需要服务器端配合）  window.name postMessage 服务器代理 document.domain等等一大堆">
+<meta name="keywords" content="JSONP">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JSONP跨域原理详解">
+<meta property="og:url" content="http://gruad.github.io/2017/08/14/JSONP跨域原理详解/index.html">
+<meta property="og:site_name" content="小锋子">
+<meta property="og:description" content="后端代码如何根据前端请求的参数动态生成返回给前端的代码：理解的重点关于前端跨域问题，说实话我从最开始接触前端到现在，一直都对这个有点怵。记得去年面试百度的时候，面试官问到了跨域，问都有那些跨域方式，我当时还是为了面试临时记得，对跨域理解的并不深，说了有什么： 1. JSONP(需要服务器端配合）  window.name postMessage 服务器代理 document.domain等等一大堆">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2017-08-14T09:30:05.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JSONP跨域原理详解">
+<meta name="twitter:description" content="后端代码如何根据前端请求的参数动态生成返回给前端的代码：理解的重点关于前端跨域问题，说实话我从最开始接触前端到现在，一直都对这个有点怵。记得去年面试百度的时候，面试官问到了跨域，问都有那些跨域方式，我当时还是为了面试临时记得，对跨域理解的并不深，说了有什么： 1. JSONP(需要服务器端配合）  window.name postMessage 服务器代理 document.domain等等一大堆">
+
+  
+
+  
+    <link rel="icon" href="/images/favicon.ico">
+  
+
+  <link href="/css/styles.css?v=c114cbe6" rel="stylesheet">
+
+
+  
+
+  
+
+  
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?0efcf264890b4bd5a8ae5f834bad299c";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+	(function(){
+	    var bp = document.createElement('script');
+	    var curProtocol = window.location.protocol.split(':')[0];
+	    if (curProtocol === 'https') {
+	        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+	    }
+	    else {
+	        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+	    }
+	    var s = document.getElementsByTagName("script")[0];
+	    s.parentNode.insertBefore(bp, s);
+	})();
+  </script>
+
+
+
+  
+    <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+
+  
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+</head>
+
+<body>
+
+
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">导航</span>
+  
+
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">导航</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/archives/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            博客
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/category/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            分类
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/tag/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            标签
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/link/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            友链
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/about/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            关于我
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/atom.xml"
+            rel="noopener noreferrer"
+            target="_blank"
+            >
+            RSS
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/search/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#为什么会有跨域"><span class="toc-text">为什么会有跨域</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#如何解决"><span class="toc-text">如何解决</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#JSONP跨域原理详解"><span class="toc-text">JSONP跨域原理详解</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#后端代码如何根据前端请求的参数动态生成返回给前端的代码"><span class="toc-text">后端代码如何根据前端请求的参数动态生成返回给前端的代码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#JQuery中封装实现了jsonp"><span class="toc-text">JQuery中封装实现了jsonp</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#参考"><span class="toc-text">参考</span></a></li></ol>
+  </div>
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-JSONP跨域原理详解" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">JSONP跨域原理详解</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2017.08.14</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>gruad</span>
+        </span>
+      
+
+      
+  <span class="article-category">
+    <i class="icon-list"></i>
+    <a class="article-category-link" href="/categories/跨域/">跨域</a>
+  </span>
+
+
+
+      
+
+      
+      <i class="fa fa-eye"></i> 
+        <span id="busuanzi_container_page_pv">
+           &nbsp热度 <span id="busuanzi_value_page_pv">
+           <i class="fa fa-spinner fa-spin"></i></span>℃
+        </span>
+      
+
+      
+      
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <p><strong>后端代码如何根据前端请求的参数动态生成返回给前端的代码：理解的重点</strong><br>关于前端跨域问题，说实话我从最开始接触前端到现在，一直都对这个有点怵。记得去年面试百度的时候，面试官问到了跨域，问都有那些跨域方式，我当时还是为了面试临时记得，对跨域理解的并不深，说了有什么<br>： 1. JSONP(需要服务器端配合）</p>
+<ol>
+<li>window.name</li>
+<li>postMessage</li>
+<li>服务器代理</li>
+<li>document.domain<br>等等一大堆，其实在实际中，我当时都没有运用过，所以还是只停留在表面。直到后来在国泰君安实习的时候遇到了在实际项目中遇到了这个问题，所以才深入理解运用了下，现在再次总结一下，以备以后复习使用。<h3 id="为什么会有跨域"><a href="#为什么会有跨域" class="headerlink" title="为什么会有跨域"></a>为什么会有跨域</h3>为什么会有跨域就不多说了，因为浏览器的同源策略原则（为了安全考虑），js脚本只能访问或者请求相同协议，相同domain(网址/ip)，相同端口的页面，才能相互访问资源。<h3 id="如何解决"><a href="#如何解决" class="headerlink" title="如何解决"></a>如何解决</h3>解决方法有很多，不在详述，遇到再运用即可。<h3 id="JSONP跨域原理详解"><a href="#JSONP跨域原理详解" class="headerlink" title="JSONP跨域原理详解"></a>JSONP跨域原理详解</h3>凡是带有src属性的标签，都可以访问（加载）其他域下面的资源，不受限制。script、img、iframe。<br><strong>而jsonp就是利用script标签的src属性，动态创建script标签，添加到页面，利用src属性加载其他页面的js文件。其他页面的js文件返回数据包裹在一个回调函数(callback)中，这个回调函数会在js文件加载成功之后运行，callback(需要的数据data)；而callback函数时定义在请求页面中的同名函数，这样这个同名函数就可以按照自己的需求处理得到的数据</strong><br><strong> 关于服务器端的data如何包裹早callback中，是后端代码很容易实现，根据get的url？后边的callback获取，然后动态生成一段js代码返回给客户端即可。</strong><h3 id="后端代码如何根据前端请求的参数动态生成返回给前端的代码"><a href="#后端代码如何根据前端请求的参数动态生成返回给前端的代码" class="headerlink" title="后端代码如何根据前端请求的参数动态生成返回给前端的代码"></a>后端代码如何根据前端请求的参数动态生成返回给前端的代码</h3>第一步：获取url后面的callback参数<br>String callbackfun = request.getParameter(“mycallback”);<br>第二步：拼接要返回给请求的内容（即返回的js文件中的script代码）<br>callbackfun += “(“ + obj + “)”;<br>第三步：返回给请求接口即可。整个后端步骤完成。<br>response.getWriter().println(callbackfun);<br>后端代码：<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@WebServlet</span>(<span class="string">"/JsonServlet"</span>)</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">JsonServlet</span> <span class="keyword">extends</span> <span class="title">HttpServlet</span> </span></div><div class="line"><span class="class"></span>&#123;</div><div class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">long</span> serialVersionUID = <span class="number">4335775212856826743L</span>;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">doPost</span><span class="params">(HttpServletRequest request, HttpServletResponse response)</span> </span></div><div class="line"><span class="function">            <span class="keyword">throws</span> ServletException, IOException </span></div><div class="line"><span class="function">    </span>&#123;</div><div class="line">        String callbackfun = request.getParameter(<span class="string">"mycallback"</span>);</div><div class="line">        System.out.println(callbackfun);    <span class="comment">// callbackFun</span></div><div class="line">        response.setContentType(<span class="string">"text/json;charset=utf-8"</span>);</div><div class="line">        </div><div class="line">        User user = <span class="keyword">new</span> User();</div><div class="line">        user.setName(<span class="string">"yuanfang"</span>);</div><div class="line">        user.setAge(<span class="number">100</span>);</div><div class="line">        Object obj = JSON.toJSON(user);</div><div class="line">        </div><div class="line">        System.out.println(user);            <span class="comment">// com.tz.servlet.User@164ff87</span></div><div class="line">        System.out.println(obj);            <span class="comment">// &#123;"age":100,"name":"yuanfang"&#125;</span></div><div class="line">        callbackfun += <span class="string">"("</span> + obj + <span class="string">")"</span>;    </div><div class="line">        System.out.println(callbackfun);    <span class="comment">// callbackFun(&#123;"age":100,"name":"yuanfang"&#125;)</span></div><div class="line">        </div><div class="line">        response.getWriter().println(callbackfun);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">doGet</span><span class="params">(HttpServletRequest request, HttpServletResponse response)</span> </span></div><div class="line"><span class="function">            <span class="keyword">throws</span> ServletException, IOException </span></div><div class="line"><span class="function">    </span>&#123;</div><div class="line">        <span class="keyword">this</span>.doPost(request, response);</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>简单实例：<br>请求页面http:localhost:8888（和请求的js文件不同域）中的script代码<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">&lt;script type=<span class="string">"text/javascript"</span>&gt;</div><div class="line"><span class="comment">// 动态创建script标签，利用src属性，引入不同域的js文件，运行这个返回的js文件中的同名函数即可。</span></div><div class="line"><span class="keyword">var</span> url=<span class="string">"http:localhost:8080/html2/jsonp_data.js"</span>;</div><div class="line"><span class="keyword">var</span> script=<span class="built_in">document</span>.createElement(<span class="string">'script'</span>);</div><div class="line">script.setAttribute(<span class="string">'src'</span>,url);</div><div class="line"><span class="built_in">document</span>.getElementsByTagName(<span class="string">'head'</span>)[<span class="number">0</span>].appendChild(script);</div><div class="line"><span class="keyword">var</span> callbackFunction=<span class="function"><span class="keyword">function</span>(<span class="params">data</span>)</span>&#123;</div><div class="line">	<span class="built_in">console</span>.log(data.name);</div><div class="line">	<span class="built_in">console</span>.log(data.age);</div><div class="line">&#125;</div><div class="line">&lt;<span class="regexp">/script&gt;</span></div></pre></td></tr></table></figure></p>
+<p>http:localhost:8080/html2/jsonp_data.js中jsonp_data.js文件中的代码<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">&lt;script type=<span class="string">"text/javascript"</span>&gt;</div><div class="line"><span class="comment">// 注释http:localhost:8080/html2/jsonp_data.js js文件内容</span></div><div class="line">callbackFunction(&#123;</div><div class="line">	<span class="string">"age"</span>:<span class="number">20</span>,</div><div class="line">	<span class="string">"name"</span>:<span class="string">"peck"</span></div><div class="line">&#125;);</div><div class="line">&lt;<span class="regexp">/script&gt;</span></div></pre></td></tr></table></figure></p>
+<h3 id="JQuery中封装实现了jsonp"><a href="#JQuery中封装实现了jsonp" class="headerlink" title="JQuery中封装实现了jsonp"></a>JQuery中封装实现了jsonp</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">$.ajax(&#123;</div><div class="line"><span class="comment">// 不管你type：“post”，“get"还是啥，其实jquery中源码实现都是转换成get方式的，不写就默认</span></div><div class="line">    url: <span class="string">"http://otherdomain.com"</span>,</div><div class="line">    jsonp: <span class="string">"callback"</span>,</div><div class="line">    dataType: <span class="string">"jsonp"</span>,</div><div class="line">    success: <span class="function"><span class="keyword">function</span>(<span class="params"> response </span>) </span>&#123;</div><div class="line">        <span class="built_in">console</span>.log( response );</div><div class="line">    &#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>实例：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line">&lt;!DOCTYPE html PUBLIC <span class="string">"-//W3C//DTD XHTML 1.0 Transitional//EN"</span> <span class="string">"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"</span>&gt;</div><div class="line"> &lt;html xmlns=<span class="string">"http://www.w3.org/1999/xhtml"</span> &gt;</div><div class="line"> &lt;head&gt;</div><div class="line">     &lt;title&gt;Untitled Page&lt;<span class="regexp">/title&gt;</span></div><div class="line"><span class="regexp">      &lt;script type="text/</span>javascript<span class="string">" src=jquery.min.js"</span>&gt;&lt;/script&gt;</div><div class="line">      &lt;script type=<span class="string">"text/javascript"</span>&gt;</div><div class="line">     jQuery(<span class="built_in">document</span>).ready(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123; </div><div class="line">        $.ajax(&#123;</div><div class="line">             type: <span class="string">"get"</span>,</div><div class="line">             <span class="keyword">async</span>: <span class="literal">false</span>,</div><div class="line">             url: <span class="string">"http://flightQuery.com/jsonp/flightResult.aspx?code=CA1998"</span>,</div><div class="line">             dataType: <span class="string">"jsonp"</span>,</div><div class="line">             jsonp: <span class="string">"callback"</span>,<span class="comment">//传递给请求处理程序或页面的，用以获得jsonp回调函数名的参数名(一般默认为:callback)</span></div><div class="line">             jsonpCallback:<span class="string">"flightHandler"</span>,<span class="comment">//自定义的jsonp回调函数名称，默认为jQuery自动生成的随机函数名，也可以写"?"，jQuery会自动为你处理数据</span></div><div class="line">             success: <span class="function"><span class="keyword">function</span>(<span class="params">json</span>)</span>&#123;</div><div class="line">                 alert(<span class="string">'您查询到航班信息：票价： '</span> + json.price + <span class="string">' 元，余票： '</span> + json.tickets + <span class="string">' 张。'</span>);</div><div class="line">             &#125;,</div><div class="line">             error: <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">                 alert(<span class="string">'fail'</span>);</div><div class="line">             &#125;</div><div class="line">         &#125;);</div><div class="line">     &#125;);</div><div class="line">     &lt;<span class="regexp">/script&gt;</span></div><div class="line"><span class="regexp">     &lt;/</span>head&gt;</div><div class="line">  &lt;body&gt;</div><div class="line">  &lt;<span class="regexp">/body&gt;</span></div><div class="line"><span class="regexp"> &lt;/</span>html&gt;</div></pre></td></tr></table></figure></p>
+<p>是不是有点奇怪，为甚有jsonpCallback和success两个函数，其实不写jsonpCallback:”flightHandler”，照样运行成功，<strong>这是因为jquery的功劳，它封装了在处理jsonp类型的ajax时，自动帮你生成了回调函数，并把数据取出来供success属性方法来调用。</strong></p>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p><a href="http://www.cnblogs.com/dowinning/archive/2012/04/19/json-jsonp-jquery.html" target="_blank" rel="external">什么是JSON？什么是JSONP？JSONP如何跨域</a><br><a href="http://www.cnblogs.com/digdeep/p/4170059.html" target="_blank" rel="external">深入剖析jsonp跨域原理</a><br><a href="http://www.cnblogs.com/2050/p/3191744.html" target="_blank" rel="external">几种跨域方式</a></p>
+
+    
+  </div>
+</article>
+
+
+   
+  <div class="text-center donation">
+    <div class="inner-donation">
+      <span class="btn-donation">支持一下</span>
+      <div class="donation-body">
+        <div class="tip text-center">扫一扫，支持peck</div>
+        <ul class="theme.donation.items.length">
+        
+          <li class="item">
+            <img src="/images/wechat.jpeg" alt="">
+          </li>
+        
+          <li class="item">
+            <img src="/images/alipay.jpeg" alt="">
+          </li>
+        
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+   
+  <div class="box-prev-next clearfix">
+    <a class="show pull-left" href="/2017/08/14/ajax工作原理/">
+        <i class="icon icon-angle-left"></i>
+    </a>
+    <a class="hide pull-right" href="/">
+        <i class="icon icon-angle-right"></i>
+    </a>
+  </div>
+
+
+
+
+</div>
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/archives/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/category/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              分类
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/tag/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              标签
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/link/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              友链
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/about/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              关于我
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/atom.xml"
+              rel="noopener noreferrer"
+              target="_blank"
+              >
+              RSS
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/search/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              搜索
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+      <div class="fexo-comments comments-post">
+    
+
+    
+
+
+
+
+    
+
+    
+	
+  </div>
+
+  
+
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>
