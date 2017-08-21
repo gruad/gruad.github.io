@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+
+
+  <html class="light page-post">
+
+
+<head>
+  <meta charset="utf-8">
+  
+  <title>子元素未知宽高的水平垂直居中实现方式总结 | 小锋子</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="HTML布局," />
+  
+
+  <meta name="description" content="前言关于水平垂直居中等一直以来都没有详细总结，都是遇到问题才开始去解决问题学习，关于布局中的水平垂直居中等，以前也总结过，可以参考把简单做好也不简单-css水平垂直居中而自己总结的在github上面，但关于未知宽高的垂直居中还没有详细总结过，今天就总结一下，以备开发学习查阅 DOM结构如未特殊说明DOM结构均为：123&amp;lt;div class=&quot;parent&quot;&amp;gt;    &amp;lt;div cl">
+<meta name="keywords" content="HTML布局">
+<meta property="og:type" content="article">
+<meta property="og:title" content="子元素未知宽高的水平垂直居中实现方式总结">
+<meta property="og:url" content="http://gruad.github.io/2017/08/21/子元素未知宽高的水平垂直居中实现方式总结/index.html">
+<meta property="og:site_name" content="小锋子">
+<meta property="og:description" content="前言关于水平垂直居中等一直以来都没有详细总结，都是遇到问题才开始去解决问题学习，关于布局中的水平垂直居中等，以前也总结过，可以参考把简单做好也不简单-css水平垂直居中而自己总结的在github上面，但关于未知宽高的垂直居中还没有详细总结过，今天就总结一下，以备开发学习查阅 DOM结构如未特殊说明DOM结构均为：123&amp;lt;div class=&quot;parent&quot;&amp;gt;    &amp;lt;div cl">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://gruad.github.io/img/c1.png">
+<meta property="og:image" content="http://gruad.github.io/img/c2.png">
+<meta property="og:updated_time" content="2017-08-21T08:34:07.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="子元素未知宽高的水平垂直居中实现方式总结">
+<meta name="twitter:description" content="前言关于水平垂直居中等一直以来都没有详细总结，都是遇到问题才开始去解决问题学习，关于布局中的水平垂直居中等，以前也总结过，可以参考把简单做好也不简单-css水平垂直居中而自己总结的在github上面，但关于未知宽高的垂直居中还没有详细总结过，今天就总结一下，以备开发学习查阅 DOM结构如未特殊说明DOM结构均为：123&amp;lt;div class=&quot;parent&quot;&amp;gt;    &amp;lt;div cl">
+<meta name="twitter:image" content="http://gruad.github.io/img/c1.png">
+
+  
+
+  
+    <link rel="icon" href="/images/favicon.ico">
+  
+
+  <link href="/css/styles.css?v=c114cbe6" rel="stylesheet">
+
+
+  
+
+  
+
+  
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?0efcf264890b4bd5a8ae5f834bad299c";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+	(function(){
+	    var bp = document.createElement('script');
+	    var curProtocol = window.location.protocol.split(':')[0];
+	    if (curProtocol === 'https') {
+	        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+	    }
+	    else {
+	        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+	    }
+	    var s = document.getElementsByTagName("script")[0];
+	    s.parentNode.insertBefore(bp, s);
+	})();
+  </script>
+
+
+
+  
+    <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+
+  
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+</head>
+
+<body>
+
+
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">导航</span>
+  
+
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">导航</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/archives/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            博客
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/category/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            分类
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/tag/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            标签
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/link/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            友链
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/about/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            关于我
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/atom.xml"
+            rel="noopener noreferrer"
+            target="_blank"
+            >
+            RSS
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/search/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#前言"><span class="toc-text">前言</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#DOM结构"><span class="toc-text">DOM结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#方法一：利用display-table"><span class="toc-text">方法一：利用display:table</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#方案二：利用transform-translate-50-50"><span class="toc-text">方案二：利用transform:translate(-50%,-50%)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#方案三：使用css3-flex布局"><span class="toc-text">方案三：使用css3 flex布局</span></a></li></ol>
+  </div>
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-子元素未知宽高的水平垂直居中实现方式总结" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">子元素未知宽高的水平垂直居中实现方式总结</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2017.08.21</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>gruad</span>
+        </span>
+      
+
+      
+  <span class="article-category">
+    <i class="icon-list"></i>
+    <a class="article-category-link" href="/categories/HTML/">HTML</a>
+  </span>
+
+
+
+      
+
+      
+      <i class="fa fa-eye"></i> 
+        <span id="busuanzi_container_page_pv">
+           &nbsp热度 <span id="busuanzi_value_page_pv">
+           <i class="fa fa-spinner fa-spin"></i></span>℃
+        </span>
+      
+
+      
+      
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p><em>关于水平垂直居中等一直以来都没有详细总结，都是遇到问题才开始去解决问题学习，关于布局中的水平垂直居中等，以前也总结过，可以参考<a href="https://xdlrt.github.io/2016/12/15/2016-12-15/" target="_blank" rel="external">把简单做好也不简单-css水平垂直居中</a><br>而自己总结的在github上面，但关于未知宽高的垂直居中还没有详细总结过，今天就总结一下，以备开发学习查阅</em></p>
+<h3 id="DOM结构"><a href="#DOM结构" class="headerlink" title="DOM结构"></a>DOM结构</h3><p>如未特殊说明DOM结构均为：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">"parent"</span>&gt;</div><div class="line">    &lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">"children"</span>&gt;hello world<span class="number">-1</span>&lt;<span class="regexp">/div&gt;</span></div><div class="line"><span class="regexp">&lt;/</span>div&gt;</div></pre></td></tr></table></figure></p>
+<h3 id="方法一：利用display-table"><a href="#方法一：利用display-table" class="headerlink" title="方法一：利用display:table"></a>方法一：利用display:table</h3><p>原理：<br>利用父标签为display:table，子标签dispaly:table;vertical-align:middle;（子元素与父元素的对准方式，控制垂直方向上对齐）text-align:center;（控制文字对其方式：水平方向对齐）实现<br>优点：父元素（parent）可以动态的改变高度（table元素的特性）<br>缺点：IE8以下不支持<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">.parent&#123;</div><div class="line">       width: <span class="number">300</span>px;</div><div class="line">       height: <span class="number">300</span>px;</div><div class="line">       background-color: #FD0C70;</div><div class="line">       display: table;</div><div class="line">   &#125;</div><div class="line">   .children&#123;</div><div class="line">       display:table-cell;</div><div class="line">       vertical-align: middle;</div><div class="line">       text-align: center;</div><div class="line">       color: #fff;</div><div class="line">       font-size: <span class="number">16</span>px;</div><div class="line">   &#125;</div></pre></td></tr></table></figure></p>
+<p>结果：<br><img src="/img/c1.png" alt="table method"></p>
+<h3 id="方案二：利用transform-translate-50-50"><a href="#方案二：利用transform-translate-50-50" class="headerlink" title="方案二：利用transform:translate(-50%,-50%)"></a>方案二：利用transform:translate(-50%,-50%)</h3><p>原理：和负margin:50%自身宽原理一样<br>优点：简单，思路清晰，同负-margin原理，易于理解<br>缺点：不支持IE9以下不支持transform属性，浏览器要求高caniuse查询浏览器是否支持该属性<a href="http://caniuse.com/" target="_blank" rel="external">caniuse</a><br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">.parent&#123;</div><div class="line">       width: <span class="number">300</span>px;</div><div class="line">       height: <span class="number">300</span>px;</div><div class="line">       background-color: #FD0C70;</div><div class="line">       position: relative;</div><div class="line">   &#125;</div><div class="line">   .children&#123;</div><div class="line">       position: absolute;</div><div class="line">       top:<span class="number">50</span>%;</div><div class="line">       left:<span class="number">50</span>%;</div><div class="line">       -webkit-transform: translate(<span class="number">-50</span>%,<span class="number">-50</span>%);</div><div class="line">       -moz-transform: translate(<span class="number">-50</span>%,<span class="number">-50</span>%);</div><div class="line">       -ms-transform: translate(<span class="number">-50</span>%,<span class="number">-50</span>%);</div><div class="line">       -o-transform: translate(<span class="number">-50</span>%,<span class="number">-50</span>%);</div><div class="line">       transform: translate(<span class="number">-50</span>%,<span class="number">-50</span>%);</div><div class="line">       color: #fff;</div><div class="line">       font-size: <span class="number">16</span>px;</div><div class="line">   &#125;</div></pre></td></tr></table></figure></p>
+<p>结果同上方案一</p>
+<h3 id="方案三：使用css3-flex布局"><a href="#方案三：使用css3-flex布局" class="headerlink" title="方案三：使用css3 flex布局"></a>方案三：使用css3 flex布局</h3><p>原理：flex布局<br>优点：简单，快捷<br>缺点：不太兼容，浏览器要求高caniuse查询浏览器是否支持该属性<a href="http://caniuse.com/#search=flex" target="_blank" rel="external">caniuse</a><br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">.parent&#123;</div><div class="line">       width: <span class="number">300</span>px;</div><div class="line">       height: <span class="number">300</span>px;</div><div class="line">       display: flex;</div><div class="line">       <span class="comment">/*控制水平方向*/</span></div><div class="line">       justify-content: center;</div><div class="line">       <span class="comment">/*控制垂直方向*/</span></div><div class="line">       align-items: center;</div><div class="line">       border:<span class="number">1</span>px solid black;</div><div class="line">   &#125;</div><div class="line">   .children&#123;</div><div class="line"></div><div class="line">   &#125;</div></pre></td></tr></table></figure></p>
+<p>结果：<br><img src="/img/c2.png" alt="justify-content:center;align-items:center;"></p>
+
+    
+  </div>
+</article>
+
+
+   
+  <div class="text-center donation">
+    <div class="inner-donation">
+      <span class="btn-donation">支持一下</span>
+      <div class="donation-body">
+        <div class="tip text-center">扫一扫，支持peck</div>
+        <ul class="theme.donation.items.length">
+        
+          <li class="item">
+            <img src="/images/wechat.jpeg" alt="">
+          </li>
+        
+          <li class="item">
+            <img src="/images/alipay.jpeg" alt="">
+          </li>
+        
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+   
+  <div class="box-prev-next clearfix">
+    <a class="show pull-left" href="/2017/08/21/JavaScript事件模型简单记录/">
+        <i class="icon icon-angle-left"></i>
+    </a>
+    <a class="hide pull-right" href="/">
+        <i class="icon icon-angle-right"></i>
+    </a>
+  </div>
+
+
+
+
+</div>
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/archives/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/category/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              分类
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/tag/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              标签
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/link/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              友链
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/about/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              关于我
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/atom.xml"
+              rel="noopener noreferrer"
+              target="_blank"
+              >
+              RSS
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/search/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              搜索
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+      <div class="fexo-comments comments-post">
+    
+
+    
+
+
+
+
+    
+
+    
+	
+  </div>
+
+  
+
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>
