@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+
+
+  <html class="light page-post">
+
+
+<head>
+  <meta charset="utf-8">
+  
+  <title>JS箭头函数归纳 | 小锋子</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="箭头函数," />
+  
+
+  <meta name="description" content="基本格式 ES6 允许使用“箭头”（=&amp;gt;）定义函数。1var f = v =&amp;gt; v;  上面的箭头函数等同于：123var f = function (v)&amp;#123;	return v;&amp;#125;; 箭头函数参数注意事项 如果箭头函数不需要参数或需要多个参数，就使用一个圆括号代表参数部分。123456789var f= () =&amp;gt; 5;// 等同于var f = functi">
+<meta name="keywords" content="箭头函数">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JS箭头函数归纳">
+<meta property="og:url" content="http://gruad.github.io/2017/08/24/JS箭头函数归纳/index.html">
+<meta property="og:site_name" content="小锋子">
+<meta property="og:description" content="基本格式 ES6 允许使用“箭头”（=&amp;gt;）定义函数。1var f = v =&amp;gt; v;  上面的箭头函数等同于：123var f = function (v)&amp;#123;	return v;&amp;#125;; 箭头函数参数注意事项 如果箭头函数不需要参数或需要多个参数，就使用一个圆括号代表参数部分。123456789var f= () =&amp;gt; 5;// 等同于var f = functi">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2017-08-24T13:25:44.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JS箭头函数归纳">
+<meta name="twitter:description" content="基本格式 ES6 允许使用“箭头”（=&amp;gt;）定义函数。1var f = v =&amp;gt; v;  上面的箭头函数等同于：123var f = function (v)&amp;#123;	return v;&amp;#125;; 箭头函数参数注意事项 如果箭头函数不需要参数或需要多个参数，就使用一个圆括号代表参数部分。123456789var f= () =&amp;gt; 5;// 等同于var f = functi">
+
+  
+
+  
+    <link rel="icon" href="/images/favicon.ico">
+  
+
+  <link href="/css/styles.css?v=c114cbe6" rel="stylesheet">
+
+
+  
+
+  
+
+  
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?0efcf264890b4bd5a8ae5f834bad299c";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+	(function(){
+	    var bp = document.createElement('script');
+	    var curProtocol = window.location.protocol.split(':')[0];
+	    if (curProtocol === 'https') {
+	        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+	    }
+	    else {
+	        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+	    }
+	    var s = document.getElementsByTagName("script")[0];
+	    s.parentNode.insertBefore(bp, s);
+	})();
+  </script>
+
+
+
+  
+    <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+
+  
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+</head>
+
+<body>
+
+
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">导航</span>
+  
+
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">导航</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/archives/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            博客
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/category/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            分类
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/tag/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            标签
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/link/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            友链
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/about/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            关于我
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/atom.xml"
+            rel="noopener noreferrer"
+            target="_blank"
+            >
+            RSS
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/search/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#基本格式"><span class="toc-text">基本格式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#箭头函数参数注意事项"><span class="toc-text">箭头函数参数注意事项</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#箭头函数函数块注意事项"><span class="toc-text">箭头函数函数块注意事项</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#箭头函数与变量解构结合使用"><span class="toc-text">箭头函数与变量解构结合使用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#箭头函数的优点"><span class="toc-text">箭头函数的优点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#箭头函数与rest参数结合"><span class="toc-text">箭头函数与rest参数结合</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#箭头函数使用注意事项"><span class="toc-text">箭头函数使用注意事项</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#为什么this指向定义它的对象实质"><span class="toc-text">为什么this指向定义它的对象实质</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#除了this外，还有三个变量在箭头函数内不存在"><span class="toc-text">除了this外，还有三个变量在箭头函数内不存在</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#不能用call-apply-bind改变箭头函数的this指向"><span class="toc-text">不能用call apply bind改变箭头函数的this指向</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#嵌套的箭头函数"><span class="toc-text">嵌套的箭头函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#尾递归"><span class="toc-text">尾递归</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#参考"><span class="toc-text">参考</span></a></li></ol>
+  </div>
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-JS箭头函数归纳" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">JS箭头函数归纳</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2017.08.24</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>gruad</span>
+        </span>
+      
+
+      
+  <span class="article-category">
+    <i class="icon-list"></i>
+    <a class="article-category-link" href="/categories/ES6/">ES6</a>
+  </span>
+
+
+
+      
+
+      
+      <i class="fa fa-eye"></i> 
+        <span id="busuanzi_container_page_pv">
+           &nbsp热度 <span id="busuanzi_value_page_pv">
+           <i class="fa fa-spinner fa-spin"></i></span>℃
+        </span>
+      
+
+      
+      
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <h3 id="基本格式"><a href="#基本格式" class="headerlink" title="基本格式"></a>基本格式</h3><blockquote>
+<p>ES6 允许使用“箭头”（=&gt;）定义函数。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> f = <span class="function"><span class="params">v</span> =&gt;</span> v;</div></pre></td></tr></table></figure></p>
+</blockquote>
+<p>上面的箭头函数等同于：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> f = <span class="function"><span class="keyword">function</span> (<span class="params">v</span>)</span>&#123;</div><div class="line">	<span class="keyword">return</span> v;</div><div class="line">&#125;;</div></pre></td></tr></table></figure></p>
+<h3 id="箭头函数参数注意事项"><a href="#箭头函数参数注意事项" class="headerlink" title="箭头函数参数注意事项"></a>箭头函数参数注意事项</h3><blockquote>
+<p>如果箭头函数不需要参数或需要多个参数，就使用一个圆括号代表参数部分。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> f= <span class="function"><span class="params">()</span> =&gt;</span> <span class="number">5</span>;</div><div class="line"><span class="comment">// 等同于</span></div><div class="line"><span class="keyword">var</span> f = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123; <span class="keyword">return</span> <span class="number">5</span> &#125;;</div><div class="line"></div><div class="line"><span class="keyword">var</span> sum = <span class="function">(<span class="params">num1,num2</span>) =&gt;</span> num1+num2;</div><div class="line"><span class="comment">// 等同于</span></div><div class="line"><span class="keyword">var</span> sum = <span class="function"><span class="keyword">function</span>(<span class="params">num1, num2</span>) </span>&#123;</div><div class="line">  <span class="keyword">return</span> num1 + num2;</div><div class="line">&#125;;</div></pre></td></tr></table></figure></p>
+</blockquote>
+<h3 id="箭头函数函数块注意事项"><a href="#箭头函数函数块注意事项" class="headerlink" title="箭头函数函数块注意事项"></a>箭头函数函数块注意事项</h3><blockquote>
+<p>如果箭头函数的代码块部分多于一条语句，就要使用大括号将它们括起来，并且使用return语句返回。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> sum = <span class="function">(<span class="params">num1,num2</span>) =&gt;</span> &#123; <span class="keyword">return</span> sum1+sum2; &#125;</div></pre></td></tr></table></figure></p>
+<p>由于大括号被解释为代码块，所以如果箭头函数直接返回一个对象，必须在对象外面加上括号。<br><strong>没有return 是因为确实返回的值就是对象，不是多个语句。</strong><br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> getTempItem = <span class="function"><span class="params">id</span> =&gt;</span> (&#123; <span class="attr">id</span>:id,<span class="attr">name</span>:<span class="string">"Temp"</span> &#125;);</div></pre></td></tr></table></figure></p>
+</blockquote>
+<h3 id="箭头函数与变量解构结合使用"><a href="#箭头函数与变量解构结合使用" class="headerlink" title="箭头函数与变量解构结合使用"></a>箭头函数与变量解构结合使用</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> full = <span class="function">(<span class="params">&#123; first, last &#125;</span>) =&gt;</span> first + <span class="string">' '</span> + last;</div><div class="line"></div><div class="line"><span class="comment">// 等同于</span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">full</span>(<span class="params">person</span>) </span>&#123;</div><div class="line">  <span class="keyword">return</span> person.first + <span class="string">' '</span> + person.last;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="箭头函数的优点"><a href="#箭头函数的优点" class="headerlink" title="箭头函数的优点"></a>箭头函数的优点</h3><ol>
+<li>箭头函数使得表达更加简洁。<br>下面代码只用了两行，就定义了两个简单的工具函数。如果不用箭头函数，可能就要占用多行，而且还不如现在这样写醒目。<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> isEven = <span class="function"><span class="params">n</span> =&gt;</span> n % <span class="number">2</span> == <span class="number">0</span>;</div><div class="line"><span class="keyword">const</span> square = <span class="function"><span class="params">n</span> =&gt;</span> n * n;</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>箭头函数的一个用处是简化回调函数。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 正常函数写法</span></div><div class="line">[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>].map(<span class="function"><span class="keyword">function</span> (<span class="params">x</span>) </span>&#123;</div><div class="line">  <span class="keyword">return</span> x * x;</div><div class="line">&#125;);</div><div class="line"></div><div class="line"><span class="comment">// 箭头函数写法</span></div><div class="line">[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>].map(<span class="function"><span class="params">x</span> =&gt;</span> x * x);</div></pre></td></tr></table></figure></p>
+<h3 id="箭头函数与rest参数结合"><a href="#箭头函数与rest参数结合" class="headerlink" title="箭头函数与rest参数结合"></a>箭头函数与rest参数结合</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> numbers=<span class="function">(<span class="params">...nums</span>) =&gt;</span> nums;</div><div class="line">numbers(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>);</div><div class="line"><span class="comment">// [1,2,3,4,5]</span></div><div class="line"></div><div class="line"><span class="keyword">const</span> headAndTail = <span class="function">(<span class="params">head, ...tail</span>) =&gt;</span> [head, tail];</div><div class="line"></div><div class="line">headAndTail(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>);</div><div class="line"><span class="comment">// [1,[2,3,4,5]]</span></div></pre></td></tr></table></figure>
+<h3 id="箭头函数使用注意事项"><a href="#箭头函数使用注意事项" class="headerlink" title="箭头函数使用注意事项"></a>箭头函数使用注意事项</h3><p>（1）函数体内的this对象，就是定义时所在的对象，而不是使用时所在的对象。<br>（2）不可以当作构造函数，也就是说，不可以使用new命令，否则会抛出一个错误。（因为它根本没有this）<br>（3）不可以使用arguments对象，该对象在函数体内不存在。如果要用，可以用 rest 参数代替。<br>（4）不可以使用yield命令，因此箭头函数不能用作 Generator 函数。<br>上面四点中，第一点尤其值得注意。this对象的指向是可变的，但是在箭头函数中，它是固定的。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>)</span>&#123;</div><div class="line">	setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</div><div class="line">		<span class="built_in">console</span>.log(<span class="string">'id:'</span>,<span class="keyword">this</span>.id);</div><div class="line">	&#125;,<span class="number">100</span>);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">var</span> id=<span class="number">21</span>;</div><div class="line"></div><div class="line">foo.call(&#123;<span class="attr">id</span>:<span class="number">42</span>&#125;);</div><div class="line"><span class="comment">// id:42</span></div></pre></td></tr></table></figure></p>
+<p>上面代码中，setTimeout的参数是一个箭头函数，这个箭头函数的定义生效是在foo函数生成时，而它的真正执行要等到100毫秒后。如果是普通函数，执行时this应该指向全局对象window，这时应该输出21。但是，箭头函数导致this总是指向函数定义生效时所在的对象（本例是{id: 42}），所以输出的是42。</p>
+<p>箭头函数可以让setTimeout里面的this，绑定定义时所在的作用域，而不是指向运行时所在的作用域。下面是另一个例子。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">Timer</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="keyword">this</span>.s1 = <span class="number">0</span>;</div><div class="line">  <span class="keyword">this</span>.s2 = <span class="number">0</span>;</div><div class="line">  <span class="comment">// 箭头函数</span></div><div class="line">  setInterval(<span class="function"><span class="params">()</span> =&gt;</span> <span class="keyword">this</span>.s1++, <span class="number">1000</span>);</div><div class="line">  <span class="comment">// 普通函数</span></div><div class="line">  setInterval(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="keyword">this</span>.s2++;</div><div class="line">  &#125;, <span class="number">1000</span>);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">var</span> timer = <span class="keyword">new</span> Timer();</div><div class="line"></div><div class="line">setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> <span class="built_in">console</span>.log(<span class="string">'s1: '</span>, timer.s1), <span class="number">3100</span>);</div><div class="line">setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> <span class="built_in">console</span>.log(<span class="string">'s2: '</span>, timer.s2), <span class="number">3100</span>);</div><div class="line"><span class="comment">// s1: 3</span></div><div class="line"><span class="comment">// s2: 0</span></div></pre></td></tr></table></figure></p>
+<p>上面代码中，Timer函数内部设置了两个定时器，分别使用了箭头函数和普通函数。前者的this绑定定义时所在的作用域（即Timer函数），后者的this指向运行时所在的作用域（即全局对象）。所以，3100毫秒之后，timer.s1被更新了3次，而timer.s2一次都没更新。</p>
+<p>箭头函数可以让this指向固定化，这种特性很有利于封装回调函数。下面是一个例子，DOM 事件的回调函数封装在一个对象里面<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> handler = &#123;</div><div class="line">  id: <span class="string">'123456'</span>,</div><div class="line"></div><div class="line">  init: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="built_in">document</span>.addEventListener(<span class="string">'click'</span>,</div><div class="line">      event =&gt; <span class="keyword">this</span>.doSomething(event.type), <span class="literal">false</span>);</div><div class="line">  &#125;,</div><div class="line"></div><div class="line">  doSomething: <span class="function"><span class="keyword">function</span>(<span class="params">type</span>) </span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">'Handling '</span> + type  + <span class="string">' for '</span> + <span class="keyword">this</span>.id);</div><div class="line">  &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure></p>
+<p>上面代码的init方法中，使用了箭头函数，这导致这个箭头函数里面的this，总是指向handler对象。否则，回调函数运行时，this.doSomething这一行会报错，因为此时this指向document对象。</p>
+<h3 id="为什么this指向定义它的对象实质"><a href="#为什么this指向定义它的对象实质" class="headerlink" title="为什么this指向定义它的对象实质"></a>为什么this指向定义它的对象实质</h3><blockquote>
+<p>this指向的固定化，并不是因为箭头函数内部有绑定this的机制，实际原因是箭头函数根本没有自己的this，导致内部的this就是外层代码块的this。正是因为它没有this，所以也就不能用作构造函数。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// ES6</span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">'id:'</span>, <span class="keyword">this</span>.id);</div><div class="line">  &#125;, <span class="number">100</span>);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">// ES5</span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="keyword">var</span> _this = <span class="keyword">this</span>;</div><div class="line"></div><div class="line">  setTimeout(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">'id:'</span>, _this.id);</div><div class="line">  &#125;, <span class="number">100</span>);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+</blockquote>
+<p>上面代码中，转换后的ES5版本清楚地说明了，箭头函数里面根本没有自己的this，而是引用外层的this。</p>
+<h3 id="除了this外，还有三个变量在箭头函数内不存在"><a href="#除了this外，还有三个变量在箭头函数内不存在" class="headerlink" title="除了this外，还有三个变量在箭头函数内不存在"></a>除了this外，还有三个变量在箭头函数内不存在</h3><blockquote>
+<p>除了this，以下三个变量在箭头函数之中也是不存在的，指向外层函数的对应变量：arguments、super、new.target。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">'args:'</span>, <span class="built_in">arguments</span>);</div><div class="line">  &#125;, <span class="number">100</span>);</div><div class="line">&#125;</div><div class="line"></div><div class="line">foo(<span class="number">2</span>, <span class="number">4</span>, <span class="number">6</span>, <span class="number">8</span>)</div><div class="line"><span class="comment">// args: [2, 4, 6, 8]</span></div></pre></td></tr></table></figure></p>
+</blockquote>
+<p>上面代码中，箭头函数内部的变量arguments，其实是函数foo的arguments变量。</p>
+<h3 id="不能用call-apply-bind改变箭头函数的this指向"><a href="#不能用call-apply-bind改变箭头函数的this指向" class="headerlink" title="不能用call apply bind改变箭头函数的this指向"></a>不能用call apply bind改变箭头函数的this指向</h3><blockquote>
+<p>另外，由于箭头函数没有自己的this，所以当然也就不能用call()、apply()、bind()这些方法去改变this的指向。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="keyword">return</span> [</div><div class="line">    (<span class="function"><span class="params">()</span> =&gt;</span> <span class="keyword">this</span>.x).bind(&#123; <span class="attr">x</span>: <span class="string">'inner'</span> &#125;)()</div><div class="line">  ];</div><div class="line">&#125;).call(&#123; <span class="attr">x</span>: <span class="string">'outer'</span> &#125;);</div><div class="line"><span class="comment">// ['outer']</span></div></pre></td></tr></table></figure></p>
+</blockquote>
+<p>上面代码中，箭头函数没有自己的this，所以bind方法无效，内部的this指向外部的this。</p>
+<blockquote>
+<p>长期以来，JavaScript 语言的this对象一直是一个令人头痛的问题，在对象方法中使用this，必须非常小心。箭头函数”绑定”this，很大程度上解决了这个困扰。</p>
+<h3 id="嵌套的箭头函数"><a href="#嵌套的箭头函数" class="headerlink" title="嵌套的箭头函数"></a>嵌套的箭头函数</h3><p>箭头函数内部，还可以再使用箭头函数。下面是一个 ES5 语法的多重嵌套函数。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">insert</span>(<span class="params">value</span>) </span>&#123;</div><div class="line"><span class="comment">// 返回一个对象，拥有一个into的函数</span></div><div class="line">  <span class="keyword">return</span> &#123;<span class="attr">into</span>: <span class="function"><span class="keyword">function</span> (<span class="params">array</span>) </span>&#123;</div><div class="line">  <span class="comment">// 返回一个对象，拥有一个after的函数，此函数一个参数，在此参数后面插入value值</span></div><div class="line">    <span class="keyword">return</span> &#123;<span class="attr">after</span>: <span class="function"><span class="keyword">function</span> (<span class="params">afterValue</span>) </span>&#123;</div><div class="line">      array.splice(array.indexOf(afterValue) + <span class="number">1</span>, <span class="number">0</span>, value);</div><div class="line">      <span class="keyword">return</span> array;</div><div class="line">    &#125;&#125;;</div><div class="line">  &#125;&#125;;</div><div class="line">&#125;</div><div class="line"></div><div class="line">insert(<span class="number">2</span>).into([<span class="number">1</span>, <span class="number">3</span>]).after(<span class="number">1</span>); <span class="comment">//[1, 2, 3]</span></div></pre></td></tr></table></figure></p>
+</blockquote>
+<p>根据上面注释分析，上面这个函数，可以使用箭头函数改写。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> insert = <span class="function">(<span class="params">value</span>) =&gt;</span> (&#123;<span class="attr">into</span>: <span class="function">(<span class="params">array</span>) =&gt;</span> (&#123;<span class="attr">after</span>: <span class="function">(<span class="params">afterValue</span>) =&gt;</span> &#123;</div><div class="line">  array.splice(array.indexOf(afterValue) + <span class="number">1</span>, <span class="number">0</span>, value);</div><div class="line">  <span class="keyword">return</span> array;</div><div class="line">&#125;&#125;)&#125;);</div><div class="line"></div><div class="line">insert(<span class="number">2</span>).into([<span class="number">1</span>, <span class="number">3</span>]).after(<span class="number">1</span>); <span class="comment">//[1, 2, 3]</span></div></pre></td></tr></table></figure></p>
+<p>下面是一个部署管道机制（pipeline）的例子，即前一个函数的输出是后一个函数的输入。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> pipeline = <span class="function">(<span class="params">...funcs</span>) =&gt;</span></div><div class="line">  val =&gt; funcs.reduce(<span class="function">(<span class="params">a, b</span>) =&gt;</span> b(a), val);</div><div class="line"></div><div class="line"><span class="keyword">const</span> plus1 = <span class="function"><span class="params">a</span> =&gt;</span> a + <span class="number">1</span>;</div><div class="line"><span class="keyword">const</span> mult2 = <span class="function"><span class="params">a</span> =&gt;</span> a * <span class="number">2</span>;</div><div class="line"><span class="keyword">const</span> addThenMult = pipeline(plus1, mult2);</div><div class="line"></div><div class="line">addThenMult(<span class="number">5</span>)</div><div class="line"><span class="comment">// 12</span></div></pre></td></tr></table></figure></p>
+<p>如果觉得上面的写法可读性比较差，也可以采用下面的写法。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> plus1 = <span class="function"><span class="params">a</span> =&gt;</span> a + <span class="number">1</span>;</div><div class="line"><span class="keyword">const</span> mult2 = <span class="function"><span class="params">a</span> =&gt;</span> a * <span class="number">2</span>;</div><div class="line"></div><div class="line">mult2(plus1(<span class="number">5</span>))</div><div class="line"><span class="comment">// 12</span></div></pre></td></tr></table></figure></p>
+<p>箭头函数还有一个功能，就是可以很方便地改写λ演算。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// λ演算的写法</span></div><div class="line">fix = λf.(λx.f(λv.x(x)(v)))(λx.f(λv.x(x)(v)))</div><div class="line"></div><div class="line"><span class="comment">// ES6的写法</span></div><div class="line"><span class="keyword">var</span> fix = <span class="function"><span class="params">f</span> =&gt;</span> (<span class="function"><span class="params">x</span> =&gt;</span> f(<span class="function"><span class="params">v</span> =&gt;</span> x(x)(v)))</div><div class="line">               (<span class="function"><span class="params">x</span> =&gt;</span> f(<span class="function"><span class="params">v</span> =&gt;</span> x(x)(v)));</div></pre></td></tr></table></figure></p>
+<p>上面两种写法，几乎是一一对应的。由于λ演算对于计算机科学非常重要，这使得我们可以用ES6作为替代工具，探索计算机科学。</p>
+<h3 id="尾递归"><a href="#尾递归" class="headerlink" title="尾递归"></a>尾递归</h3><p>函数调用自身，称为递归。如果尾调用自身，就称为尾递归。</p>
+<p>递归非常耗费内存，因为需要同时保存成千上百个调用帧，很容易发生“栈溢出”错误（stack overflow）。但对于尾递归来说，由于只存在一个调用帧，所以永远不会发生“栈溢出”错误。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">factorial</span>(<span class="params">n</span>) </span>&#123;</div><div class="line">  <span class="keyword">if</span> (n === <span class="number">1</span>) <span class="keyword">return</span> <span class="number">1</span>;</div><div class="line">  <span class="keyword">return</span> n * factorial(n - <span class="number">1</span>);</div><div class="line">&#125;</div><div class="line"></div><div class="line">factorial(<span class="number">5</span>) <span class="comment">// 120</span></div></pre></td></tr></table></figure></p>
+<p>上面代码是一个阶乘函数，计算n的阶乘，最多需要保存n个调用记录，复杂度 O(n) 。</p>
+<p>如果改写成尾递归，只保留一个调用记录，复杂度 O(1) 。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">factorial</span>(<span class="params">n, total</span>)</span>&#123;</div><div class="line">	<span class="keyword">if</span>(n===<span class="number">1</span>) <span class="keyword">return</span> total;</div><div class="line">	<span class="keyword">return</span> factorial(n<span class="number">-1</span>,n*total);</div><div class="line">&#125;</div><div class="line"></div><div class="line">factorial(<span class="number">5</span>, <span class="number">1</span>) <span class="comment">// 120</span></div></pre></td></tr></table></figure></p>
+<p>还有一个比较著名的例子，就是计算 Fibonacci 数列，也能充分说明尾递归优化的重要性。</p>
+<p>非尾递归的 Fibonacci 数列实现如下。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">Fibonacci</span> (<span class="params">n</span>) </span>&#123;</div><div class="line">  <span class="keyword">if</span> ( n &lt;= <span class="number">1</span> ) &#123;<span class="keyword">return</span> <span class="number">1</span>&#125;;</div><div class="line"></div><div class="line">  <span class="keyword">return</span> Fibonacci(n - <span class="number">1</span>) + Fibonacci(n - <span class="number">2</span>);</div><div class="line">&#125;</div><div class="line"></div><div class="line">Fibonacci(<span class="number">10</span>) <span class="comment">// 89</span></div><div class="line">Fibonacci(<span class="number">100</span>) <span class="comment">// 堆栈溢出</span></div><div class="line">Fibonacci(<span class="number">500</span>) <span class="comment">// 堆栈溢出</span></div></pre></td></tr></table></figure></p>
+<p>尾递归优化过的 Fibonacci 数列实现如下。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">Fibonacci2</span> (<span class="params">n , ac1 = <span class="number">1</span> , ac2 = <span class="number">1</span></span>) </span>&#123;</div><div class="line">  <span class="keyword">if</span>( n &lt;= <span class="number">1</span> ) &#123;<span class="keyword">return</span> ac2&#125;;</div><div class="line"></div><div class="line">  <span class="keyword">return</span> Fibonacci2 (n - <span class="number">1</span>, ac2, ac1 + ac2);</div><div class="line">&#125;</div><div class="line"></div><div class="line">Fibonacci2(<span class="number">100</span>) <span class="comment">// 573147844013817200000</span></div><div class="line">Fibonacci2(<span class="number">1000</span>) <span class="comment">// 7.0330367711422765e+208</span></div><div class="line">Fibonacci2(<span class="number">10000</span>) <span class="comment">// Infinity</span></div></pre></td></tr></table></figure></p>
+<p>由此可见，“尾调用优化”对递归操作意义重大，所以一些函数式编程语言将其写入了语言规格。ES6 是如此，第一次明确规定，所有 ECMAScript 的实现，都必须部署“尾调用优化”。这就是说，ES6 中只要使用尾递归，就不会发生栈溢出，相对节省内存。</p>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p><a href="http://es6.ruanyifeng.com/#docs/function#函数参数的默认值" target="_blank" rel="external">阮一峰ES6标准教程</a></p>
+
+    
+  </div>
+</article>
+
+
+   
+  <div class="text-center donation">
+    <div class="inner-donation">
+      <span class="btn-donation">支持一下</span>
+      <div class="donation-body">
+        <div class="tip text-center">扫一扫，支持peck</div>
+        <ul class="theme.donation.items.length">
+        
+          <li class="item">
+            <img src="/images/wechat.jpeg" alt="">
+          </li>
+        
+          <li class="item">
+            <img src="/images/alipay.jpeg" alt="">
+          </li>
+        
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+   
+  <div class="box-prev-next clearfix">
+    <a class="show pull-left" href="/2017/08/21/子元素未知宽高的水平垂直居中实现方式总结/">
+        <i class="icon icon-angle-left"></i>
+    </a>
+    <a class="hide pull-right" href="/">
+        <i class="icon icon-angle-right"></i>
+    </a>
+  </div>
+
+
+
+
+</div>
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/archives/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/category/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              分类
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/tag/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              标签
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/link/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              友链
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/about/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              关于我
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/atom.xml"
+              rel="noopener noreferrer"
+              target="_blank"
+              >
+              RSS
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/search/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              搜索
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+      <div class="fexo-comments comments-post">
+    
+
+    
+
+
+
+
+    
+
+    
+	
+  </div>
+
+  
+
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>
