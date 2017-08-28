@@ -7,7 +7,7 @@
 <head>
   <meta charset="utf-8">
   
-  <title>如果微信死掉了，你觉得下一个现象级app会是什么? | 小锋子</title>
+  <title>如果微信死掉了，你觉得下一个现象级互联网产品会是什么? | 小锋子</title>
 
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -15,18 +15,18 @@
     <meta name="keywords" content="微信," />
   
 
-  <meta name="description" content="简单记录一下自己所想，以便行文记录，会随时进行补充，想到什么写什么本文中有很多关于时间点正确性的和数据的来源正确性等无法一一详细考证，但大多都是查阅互联网之后的数据，本人也注明来源引用等，所以如有错误，请联系本人，给予改正，谢谢总所周知，微信现在应该算是一个生活中离不开的app啦，那么从它2011年1月21日正式推出，到2012年9月17日，微信注册用户过2亿。可以说它是一款很成功的产品。但是我想">
+  <meta name="description" content="前言本文只是记录一下自己所感所想，会随时进行补充，想到什么写什么。本文可能会因为我的认知偏差和知识水平等多因素限制，导致你不同意本文观点或出现错误，还请指出，本人将非常感谢。另外文中有很多关于时间正确性的和数据的来源正确性等无法一一详细考证，但大多都是查阅互联网之后的数据，本人也注明来源引用等，所以如有错误，请联系本人，给予改正，本人将非常感谢。——2017年08月27日于华中科技大学图书馆。总所">
 <meta name="keywords" content="微信">
 <meta property="og:type" content="article">
-<meta property="og:title" content="如果微信死掉了，你觉得下一个现象级app会是什么?">
-<meta property="og:url" content="http://gruad.github.io/2017/08/27/如果微信死掉了，你觉得下一个现象级app会是什么/index.html">
+<meta property="og:title" content="如果微信死掉了，你觉得下一个现象级互联网产品会是什么?">
+<meta property="og:url" content="http://gruad.github.io/2017/08/27/如果微信死掉了，你觉得下一个现象级互联网产品会是什么">
 <meta property="og:site_name" content="小锋子">
-<meta property="og:description" content="简单记录一下自己所想，以便行文记录，会随时进行补充，想到什么写什么本文中有很多关于时间点正确性的和数据的来源正确性等无法一一详细考证，但大多都是查阅互联网之后的数据，本人也注明来源引用等，所以如有错误，请联系本人，给予改正，谢谢总所周知，微信现在应该算是一个生活中离不开的app啦，那么从它2011年1月21日正式推出，到2012年9月17日，微信注册用户过2亿。可以说它是一款很成功的产品。但是我想">
+<meta property="og:description" content="前言本文只是记录一下自己所感所想，会随时进行补充，想到什么写什么。本文可能会因为我的认知偏差和知识水平等多因素限制，导致你不同意本文观点或出现错误，还请指出，本人将非常感谢。另外文中有很多关于时间正确性的和数据的来源正确性等无法一一详细考证，但大多都是查阅互联网之后的数据，本人也注明来源引用等，所以如有错误，请联系本人，给予改正，本人将非常感谢。——2017年08月27日于华中科技大学图书馆。总所">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2017-08-27T14:27:17.000Z">
+<meta property="og:updated_time" content="2017-08-28T02:09:30.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="如果微信死掉了，你觉得下一个现象级app会是什么?">
-<meta name="twitter:description" content="简单记录一下自己所想，以便行文记录，会随时进行补充，想到什么写什么本文中有很多关于时间点正确性的和数据的来源正确性等无法一一详细考证，但大多都是查阅互联网之后的数据，本人也注明来源引用等，所以如有错误，请联系本人，给予改正，谢谢总所周知，微信现在应该算是一个生活中离不开的app啦，那么从它2011年1月21日正式推出，到2012年9月17日，微信注册用户过2亿。可以说它是一款很成功的产品。但是我想">
+<meta name="twitter:title" content="如果微信死掉了，你觉得下一个现象级互联网产品会是什么?">
+<meta name="twitter:description" content="前言本文只是记录一下自己所感所想，会随时进行补充，想到什么写什么。本文可能会因为我的认知偏差和知识水平等多因素限制，导致你不同意本文观点或出现错误，还请指出，本人将非常感谢。另外文中有很多关于时间正确性的和数据的来源正确性等无法一一详细考证，但大多都是查阅互联网之后的数据，本人也注明来源引用等，所以如有错误，请联系本人，给予改正，本人将非常感谢。——2017年08月27日于华中科技大学图书馆。总所">
 
   
 
@@ -183,15 +183,15 @@
 
   <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
-    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#从最初的校内网说起"><span class="toc-text">从最初的校内网说起</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#为什么腾讯的朋友网会死去"><span class="toc-text">为什么腾讯的朋友网会死去</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#从朋友圈说起微信的社交化平台尝试"><span class="toc-text">从朋友圈说起微信的社交化平台尝试</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#为什么马云想要的社交产品一直推广不开"><span class="toc-text">为什么马云想要的社交产品一直推广不开</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#微信与QQ相比有那么优势"><span class="toc-text">微信与QQ相比有那么优势</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#微信现在存在的问题"><span class="toc-text">微信现在存在的问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#缅怀哪些死去的现象级产品"><span class="toc-text">缅怀哪些死去的现象级产品</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#参考"><span class="toc-text">参考</span></a></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#前言"><span class="toc-text">前言</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#从最初的校内网说起"><span class="toc-text">从最初的校内网说起</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#为什么腾讯的朋友网会死去"><span class="toc-text">为什么腾讯的朋友网会死去</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#微信的社交化平台尝试"><span class="toc-text">微信的社交化平台尝试</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#为什么马云想要的社交产品一直推广不开"><span class="toc-text">为什么马云想要的社交产品一直推广不开</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#微信与QQ相比有那么优势"><span class="toc-text">微信与QQ相比有那么优势</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#微信现在存在的问题"><span class="toc-text">微信现在存在的问题</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#缅怀哪些死去的现象级产品"><span class="toc-text">缅怀哪些死去的现象级产品</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#参考"><span class="toc-text">参考</span></a></li></ol>
   </div>
 
 
 
 <div class="content content-post CENTER">
-   <article id="post-如果微信死掉了，你觉得下一个现象级app会是什么" class="article article-type-post" itemprop="blogPost">
+   <article id="post-如果微信死掉了，你觉得下一个现象级互联网产品会是什么?" class="article article-type-post" itemprop="blogPost">
   <header class="article-header">
-    <h1 class="post-title">如果微信死掉了，你觉得下一个现象级app会是什么?</h1>
+    <h1 class="post-title">如果微信死掉了，你觉得下一个现象级互联网产品会是什么?</h1>
 
     <div class="article-meta">
       <span>
@@ -231,9 +231,14 @@
 
   <div class="article-content">
     
-      <p><em>简单记录一下自己所想，以便行文记录，会随时进行补充，想到什么写什么</em><br><strong>本文中有很多关于时间点正确性的和数据的来源正确性等无法一一详细考证，但大多都是查阅互联网之后的数据，本人也注明来源引用等，所以如有错误，请联系本人，给予改正，谢谢</strong><br>总所周知，微信现在应该算是一个生活中离不开的app啦，那么从它2011年1月21日正式推出，到2012年9月17日，微信注册用户过2亿。可以说它是一款很成功的产品。但是我想要说的是，从2011年到如今的2017年的7年里，微信虽然有功能上的不断丰富，但外观和基本布局基本没有大的改变过。可是在用户使用过程中，微信的性质却悄然发生了改变。</p>
-<h3 id="从最初的校内网说起"><a href="#从最初的校内网说起" class="headerlink" title="从最初的校内网说起"></a>从最初的校内网说起</h3><h3 id="为什么腾讯的朋友网会死去"><a href="#为什么腾讯的朋友网会死去" class="headerlink" title="为什么腾讯的朋友网会死去"></a>为什么腾讯的朋友网会死去</h3><h3 id="从朋友圈说起微信的社交化平台尝试"><a href="#从朋友圈说起微信的社交化平台尝试" class="headerlink" title="从朋友圈说起微信的社交化平台尝试"></a>从朋友圈说起微信的社交化平台尝试</h3><h3 id="为什么马云想要的社交产品一直推广不开"><a href="#为什么马云想要的社交产品一直推广不开" class="headerlink" title="为什么马云想要的社交产品一直推广不开"></a>为什么马云想要的社交产品一直推广不开</h3><h3 id="微信与QQ相比有那么优势"><a href="#微信与QQ相比有那么优势" class="headerlink" title="微信与QQ相比有那么优势"></a>微信与QQ相比有那么优势</h3><p>或者说腾讯有了QQ类似的产品，为什么还会敢推出微信</p>
+      <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p><em>本文只是记录一下自己所感所想，会随时进行补充，想到什么写什么。</em>本文可能会因为我的认知偏差和知识水平等多因素限制，导致你不同意本文观点或出现错误，还请指出，本人将非常感谢。<br>另外文中有很多关于时间正确性的和数据的来源正确性等无法一一详细考证，但大多都是查阅互联网之后的数据，本人也注明来源引用等，所以如有错误，请联系本人，给予改正，本人将非常感谢。——2017年08月27日于华中科技大学图书馆。<br>总所周知，如果让你说出一个生活中你离不开的互联网产品，那么我想大概一定是微信啦，微信现在应该算是一个生活中你离不开的app啦，那么从它2011年1月21日正式推出，到2012年9月17日，微信注册用户过2亿。这个速度可以说它是一款很成功的产品，微信在不断的改变我们的交流方式的同时，我们作为用户也在悄然改变着微信。从2011年到如今2017年的6年里，微信虽然有功能上的不断丰富，但外观和基本布局基本没有大的改变过。可是在用户使用微信的过程中，微信的性质却悄然发生了改变。</p>
+<h3 id="从最初的校内网说起"><a href="#从最初的校内网说起" class="headerlink" title="从最初的校内网说起"></a>从最初的校内网说起</h3><p>正真意义上广泛社交的兴起。</p>
+<h3 id="为什么腾讯的朋友网会死去"><a href="#为什么腾讯的朋友网会死去" class="headerlink" title="为什么腾讯的朋友网会死去"></a>为什么腾讯的朋友网会死去</h3><p>可以把腾讯微博和和腾讯的朋友网一起比较。</p>
+<h3 id="微信的社交化平台尝试"><a href="#微信的社交化平台尝试" class="headerlink" title="微信的社交化平台尝试"></a>微信的社交化平台尝试</h3><p>朋友圈功能的推出</p>
+<h3 id="为什么马云想要的社交产品一直推广不开"><a href="#为什么马云想要的社交产品一直推广不开" class="headerlink" title="为什么马云想要的社交产品一直推广不开"></a>为什么马云想要的社交产品一直推广不开</h3><p>对比Facebook，推特，新浪微博，等</p>
+<h3 id="微信与QQ相比有那么优势"><a href="#微信与QQ相比有那么优势" class="headerlink" title="微信与QQ相比有那么优势"></a>微信与QQ相比有那么优势</h3><p>或者说腾讯有了QQ类似的产品，为什么还会敢推出微信</p>
 <h3 id="微信现在存在的问题"><a href="#微信现在存在的问题" class="headerlink" title="微信现在存在的问题"></a>微信现在存在的问题</h3><p>那么就是微信的社交平台的变味，微信从最初的一个熟人社交平台，变成了工作平台或者说微商泛滥。说个生活中的例子，比如生活中和人见一面，别人都会说价格微信啥的，但是你又不能拒绝，导致最后微信的朋友中出现越来越多的非熟人，那么在发朋友圈的时候，就出想不让某些人看到，于是乎设置大量分组。可是当你设置对谁不可见后，却发现你已经没有了发出去的愿望。索性就删除不发了。</p>
+<p>### </p>
 <h3 id="缅怀哪些死去的现象级产品"><a href="#缅怀哪些死去的现象级产品" class="headerlink" title="缅怀哪些死去的现象级产品"></a>缅怀哪些死去的现象级产品</h3><p>校内网，QQ农场，</p>
 <h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3>
     
