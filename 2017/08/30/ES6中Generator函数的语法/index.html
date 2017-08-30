@@ -7,26 +7,25 @@
 <head>
   <meta charset="utf-8">
   
-  <title>深入浅出ES6的promise | 小锋子</title>
+  <title>ES6中Generator函数的语法 | 小锋子</title>
 
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
   
-    <meta name="keywords" content="promise," />
+    <meta name="keywords" content="Peck,前端,Hexo主题,前端开发,用户体验,设计,frontend,design,nodejs,JavaScript" />
   
 
-  <meta name="description" content="前言算了，我就不写了吧，感觉自己还没有理解深刻。以后在实际应用中，理解深刻了，在写吧。下面留下参看。JavaScript Promise迷你书（中文版）谈谈 ES6 的 Promise 对象 简单实例入手123456789101112131415function helloWord(ready)&amp;#123;	return new Promise(function(resolve,reject)&amp;#">
-<meta name="keywords" content="promise">
+  <meta name="description" content="欢迎，这是我第一次利用github建立博客。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="深入浅出ES6的promise">
-<meta property="og:url" content="http://gruad.github.io/2017/08/02/深入浅出ES6的promise/index.html">
+<meta property="og:title" content="ES6中Generator函数的语法">
+<meta property="og:url" content="http://gruad.github.io/2017/08/30/ES6中Generator函数的语法/index.html">
 <meta property="og:site_name" content="小锋子">
-<meta property="og:description" content="前言算了，我就不写了吧，感觉自己还没有理解深刻。以后在实际应用中，理解深刻了，在写吧。下面留下参看。JavaScript Promise迷你书（中文版）谈谈 ES6 的 Promise 对象 简单实例入手123456789101112131415function helloWord(ready)&amp;#123;	return new Promise(function(resolve,reject)&amp;#">
+<meta property="og:description" content="欢迎，这是我第一次利用github建立博客。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2017-08-23T03:39:54.000Z">
+<meta property="og:updated_time" content="2017-08-30T03:40:37.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="深入浅出ES6的promise">
-<meta name="twitter:description" content="前言算了，我就不写了吧，感觉自己还没有理解深刻。以后在实际应用中，理解深刻了，在写吧。下面留下参看。JavaScript Promise迷你书（中文版）谈谈 ES6 的 Promise 对象 简单实例入手123456789101112131415function helloWord(ready)&amp;#123;	return new Promise(function(resolve,reject)&amp;#">
+<meta name="twitter:title" content="ES6中Generator函数的语法">
+<meta name="twitter:description" content="欢迎，这是我第一次利用github建立博客。">
 
   
 
@@ -181,22 +180,17 @@
 </div>
 
 
-  <div id="toc" class="toc-article">
-    <strong class="toc-title">文章目录</strong>
-    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#前言"><span class="toc-text">前言</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#简单实例入手"><span class="toc-text">简单实例入手</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#分析与理解"><span class="toc-text">分析与理解</span></a></li></ol>
-  </div>
-
 
 
 <div class="content content-post CENTER">
-   <article id="post-深入浅出ES6的promise" class="article article-type-post" itemprop="blogPost">
+   <article id="post-ES6中Generator函数的语法" class="article article-type-post" itemprop="blogPost">
   <header class="article-header">
-    <h1 class="post-title">深入浅出ES6的promise</h1>
+    <h1 class="post-title">ES6中Generator函数的语法</h1>
 
     <div class="article-meta">
       <span>
         <i class="icon-calendar"></i>
-        <span>2017.08.02</span>
+        <span>2017.08.30</span>
       </span>
 
       
@@ -207,11 +201,6 @@
       
 
       
-  <span class="article-category">
-    <i class="icon-list"></i>
-    <a class="article-category-link" href="/categories/ES6/">ES6</a>
-  </span>
-
 
 
       
@@ -231,14 +220,7 @@
 
   <div class="article-content">
     
-      <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p><strong>算了，我就不写了吧，感觉自己还没有理解深刻。以后在实际应用中，理解深刻了，在写吧。下面留下参看。</strong><br><a href="http://liubin.org/promises-book/#_" target="_blank" rel="external">JavaScript Promise迷你书（中文版）</a><br><a href="https://segmentfault.com/a/1190000002928371" target="_blank" rel="external">谈谈 ES6 的 Promise 对象</a></p>
-<h3 id="简单实例入手"><a href="#简单实例入手" class="headerlink" title="简单实例入手"></a>简单实例入手</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">helloWord</span>(<span class="params">ready</span>)</span>&#123;</div><div class="line">	<span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="keyword">function</span>(<span class="params">resolve,reject</span>)</span>&#123;</div><div class="line">		<span class="keyword">if</span>(ready)&#123;</div><div class="line">		resolve(<span class="string">"Hello peck !"</span>);</div><div class="line">	&#125;esle&#123;</div><div class="line">		reject(<span class="string">"Error Good Bye !"</span>);</div><div class="line">	&#125;</div><div class="line">	&#125;)</div><div class="line">&#125;</div><div class="line"><span class="comment">// 调用</span></div><div class="line">helloWord(<span class="literal">true</span>).then(<span class="function"><span class="keyword">function</span>(<span class="params">message</span>)</span>&#123;</div><div class="line">	alert(message);</div><div class="line">&#125;,<span class="function"><span class="keyword">function</span>(<span class="params">error</span>)</span>&#123;</div><div class="line">	alert(error);</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
-<h3 id="分析与理解"><a href="#分析与理解" class="headerlink" title="分析与理解"></a>分析与理解</h3><ol>
-<li>Promise对象有三种状态。<br>1.1 Fullfilled   理解为成功的状态<br>1.2 Rejected     理解为失败的状态<br>1.3 Pending      既不是 Fulfilld 也不是 Rejected 的状态，可以理解为 Promise 对象实例创建时候的初始状态</li>
-<li>Promise对象的then方法then(onFulfilld, onRejected)可以链式调用，每次都返回一个promise对象。</li>
-<li>then每一次执行该方法时总是会返回一个 Promise 对象。另外，在 then onFulfilled 的函数当中的返回值，可以作为后续操作的参数。</li>
-</ol>
-
+      
     
   </div>
 </article>
@@ -268,10 +250,10 @@
 
    
   <div class="box-prev-next clearfix">
-    <a class="show pull-left" href="/2017/03/16/webpack学习笔记（一）/">
+    <a class="show pull-left" href="/2017/08/30/ES6对象中属性和方法的新写法/">
         <i class="icon icon-angle-left"></i>
     </a>
-    <a class="show pull-right" href="/2017/08/04/JavaScript作用域链理解/">
+    <a class="hide pull-right" href="/">
         <i class="icon icon-angle-right"></i>
     </a>
   </div>
