@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+
+
+  <html class="light page-post">
+
+
+<head>
+  <meta charset="utf-8">
+  
+  <title>ES6中...运算符总结 | 小锋子</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="ES6运算符...," />
+  
+
+  <meta name="description" content="前言…运算符用于操作数组，有两种层面 一.展开运算符(spread operator)作用是和字面意思一样，就是把东西展开。可以用在array和object上都行。12345678// 作用于数组let a=[1,2,3];let b=[0,...a,4] // [0,1,2,3,4];// 作用于对象let obj=&amp;#123;a:1,b:2&amp;#125;;let obj2=&amp;#123;...ob">
+<meta name="keywords" content="ES6运算符...">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ES6中...运算符总结">
+<meta property="og:url" content="http://gruad.github.io/2017/08/30/ES6中-运算符总结/index.html">
+<meta property="og:site_name" content="小锋子">
+<meta property="og:description" content="前言…运算符用于操作数组，有两种层面 一.展开运算符(spread operator)作用是和字面意思一样，就是把东西展开。可以用在array和object上都行。12345678// 作用于数组let a=[1,2,3];let b=[0,...a,4] // [0,1,2,3,4];// 作用于对象let obj=&amp;#123;a:1,b:2&amp;#125;;let obj2=&amp;#123;...ob">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2017-08-30T07:59:36.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ES6中...运算符总结">
+<meta name="twitter:description" content="前言…运算符用于操作数组，有两种层面 一.展开运算符(spread operator)作用是和字面意思一样，就是把东西展开。可以用在array和object上都行。12345678// 作用于数组let a=[1,2,3];let b=[0,...a,4] // [0,1,2,3,4];// 作用于对象let obj=&amp;#123;a:1,b:2&amp;#125;;let obj2=&amp;#123;...ob">
+
+  
+
+  
+    <link rel="icon" href="/images/favicon.ico">
+  
+
+  <link href="/css/styles.css?v=c114cbe6" rel="stylesheet">
+
+
+  
+
+  
+
+  
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?0efcf264890b4bd5a8ae5f834bad299c";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+	(function(){
+	    var bp = document.createElement('script');
+	    var curProtocol = window.location.protocol.split(':')[0];
+	    if (curProtocol === 'https') {
+	        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+	    }
+	    else {
+	        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+	    }
+	    var s = document.getElementsByTagName("script")[0];
+	    s.parentNode.insertBefore(bp, s);
+	})();
+  </script>
+
+
+
+  
+    <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+
+  
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+</head>
+
+<body>
+
+
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">导航</span>
+  
+
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">导航</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/archives/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            博客
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/category/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            分类
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/tag/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            标签
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/link/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            友链
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/about/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            关于我
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/atom.xml"
+            rel="noopener noreferrer"
+            target="_blank"
+            >
+            RSS
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/search/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#前言"><span class="toc-text">前言</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#一-展开运算符-spread-operator"><span class="toc-text">一.展开运算符(spread operator)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#二-剩余操作符-rest-operator-：作用于赋值操作"><span class="toc-text">二.剩余操作符(rest operator)：作用于赋值操作</span></a></li></ol>
+  </div>
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-ES6中-运算符总结" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">ES6中...运算符总结</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2017.08.30</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>gruad</span>
+        </span>
+      
+
+      
+  <span class="article-category">
+    <i class="icon-list"></i>
+    <a class="article-category-link" href="/categories/ES6/">ES6</a>
+  </span>
+
+
+
+      
+
+      
+      <i class="fa fa-eye"></i> 
+        <span id="busuanzi_container_page_pv">
+           &nbsp热度 <span id="busuanzi_value_page_pv">
+           <i class="fa fa-spinner fa-spin"></i></span>℃
+        </span>
+      
+
+      
+      
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>…运算符用于操作<strong>数组</strong>，有两种层面</p>
+<h3 id="一-展开运算符-spread-operator"><a href="#一-展开运算符-spread-operator" class="headerlink" title="一.展开运算符(spread operator)"></a>一.展开运算符(spread operator)</h3><p>作用是和字面意思一样，就是把东西展开。<strong>可以用在array和object上都行</strong>。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 作用于数组</span></div><div class="line"><span class="keyword">let</span> a=[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>];</div><div class="line"><span class="keyword">let</span> b=[<span class="number">0</span>,...a,<span class="number">4</span>] <span class="comment">// [0,1,2,3,4];</span></div><div class="line"></div><div class="line"><span class="comment">// 作用于对象</span></div><div class="line"><span class="keyword">let</span> obj=&#123;<span class="attr">a</span>:<span class="number">1</span>,<span class="attr">b</span>:<span class="number">2</span>&#125;;</div><div class="line"><span class="keyword">let</span> obj2=&#123;...obj,<span class="attr">c</span>:<span class="number">3</span>&#125;; <span class="comment">// &#123;a:1,b:2,c:3&#125;</span></div><div class="line"><span class="keyword">let</span> obj3=&#123;...obj,<span class="attr">a</span>:<span class="number">3</span>&#125;; <span class="comment">// &#123;a:3,b:2&#125;</span></div></pre></td></tr></table></figure></p>
+<h3 id="二-剩余操作符-rest-operator-：作用于赋值操作"><a href="#二-剩余操作符-rest-operator-：作用于赋值操作" class="headerlink" title="二.剩余操作符(rest operator)：作用于赋值操作"></a>二.剩余操作符(rest operator)：作用于赋值操作</h3><p> 第二个，第三个叫做 剩余操作符(rest operator），是解构的一种，意思就是把剩余的东西放到一个array里面赋值给它。一般只针对array的解构，其他的没见过。。。<br>比如：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> a=[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>];</div><div class="line"><span class="keyword">let</span> [b,...c]=a;</div><div class="line">b; <span class="comment">// 1</span></div><div class="line">c; <span class="comment">// [2,3]</span></div></pre></td></tr></table></figure>
+<p>也可以:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> a = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>];  </div><div class="line"><span class="keyword">let</span> [b, ...[c,d,e]] = a;  </div><div class="line">b; <span class="comment">// 1  </span></div><div class="line">c; <span class="comment">// 2  </span></div><div class="line">d; <span class="comment">// 3  </span></div><div class="line">e; <span class="comment">// undefined</span></div></pre></td></tr></table></figure>
+<p>也可以：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">test(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>);</div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">test</span>(<span class="params">a,...rest</span>)</span>&#123;</div><div class="line">	<span class="built_in">console</span>.log(a); <span class="comment">// 1</span></div><div class="line">	<span class="built_in">console</span>.log(rest); <span class="comment">// [2,3]</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>还有类似的：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="keyword">let</span> array = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>];  </div><div class="line"><span class="keyword">const</span> &#123; x, y, ...z &#125; = array;  </div><div class="line"><span class="comment">// 其中z=[3, 4, 5]，注意如果由于array的length不足以完成析构，则会导致z为[]  </span></div><div class="line">对象：  </div><div class="line"><span class="keyword">let</span> obj = &#123; <span class="attr">name</span>: <span class="string">'zhangsan'</span>, <span class="attr">age</span>: <span class="number">30</span>, <span class="attr">city</span>: <span class="string">'shenzhen'</span> &#125;;  </div><div class="line"><span class="keyword">const</span> &#123;name, ...others&#125; = obj;  </div><div class="line"><span class="built_in">console</span>.log(name); <span class="comment">// 'zhangsan'  </span></div><div class="line"><span class="built_in">console</span>.log(others); <span class="comment">// &#123;age: 30, city: 'shenzhen'&#125;</span></div></pre></td></tr></table></figure></p>
+
+    
+  </div>
+</article>
+
+
+   
+  <div class="text-center donation">
+    <div class="inner-donation">
+      <span class="btn-donation">支持一下</span>
+      <div class="donation-body">
+        <div class="tip text-center">扫一扫，支持peck</div>
+        <ul class="theme.donation.items.length">
+        
+          <li class="item">
+            <img src="/images/wechat.jpeg" alt="">
+          </li>
+        
+          <li class="item">
+            <img src="/images/alipay.jpeg" alt="">
+          </li>
+        
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+   
+  <div class="box-prev-next clearfix">
+    <a class="show pull-left" href="/2017/08/30/ES6中Generator函数的语法/">
+        <i class="icon icon-angle-left"></i>
+    </a>
+    <a class="hide pull-right" href="/">
+        <i class="icon icon-angle-right"></i>
+    </a>
+  </div>
+
+
+
+
+</div>
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/archives/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/category/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              分类
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/tag/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              标签
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/link/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              友链
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/about/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              关于我
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/atom.xml"
+              rel="noopener noreferrer"
+              target="_blank"
+              >
+              RSS
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/search/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              搜索
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+      <div class="fexo-comments comments-post">
+    
+
+    
+
+
+
+
+    
+
+    
+	
+  </div>
+
+  
+
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>
