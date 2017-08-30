@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+
+
+  <html class="light page-post">
+
+
+<head>
+  <meta charset="utf-8">
+  
+  <title>ES6对象中属性和方法的新写法 | 小锋子</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="ES6对象的扩展简写," />
+  
+
+  <meta name="description" content="前言在vue实际开发过程中，应用了大量的ES6新语法，特别是这个对象中属性的简洁表示法，今天就总结一下。 对象属性的简洁表示法 ES6 允许直接写入变量和函数，作为对象的属性和方法。这样的书写更加简洁。属性名为变量名, 属性值为变量的值  123456var foo=&quot;baz&quot;;var obj=&amp;#123;foo&amp;#125;;obj //&amp;#123;foo:&quot;baz&quot;&amp;#125;// 等同于var">
+<meta name="keywords" content="ES6对象的扩展简写">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ES6对象中属性和方法的新写法">
+<meta property="og:url" content="http://gruad.github.io/2017/08/30/ES6对象中属性和方法的新写法/index.html">
+<meta property="og:site_name" content="小锋子">
+<meta property="og:description" content="前言在vue实际开发过程中，应用了大量的ES6新语法，特别是这个对象中属性的简洁表示法，今天就总结一下。 对象属性的简洁表示法 ES6 允许直接写入变量和函数，作为对象的属性和方法。这样的书写更加简洁。属性名为变量名, 属性值为变量的值  123456var foo=&quot;baz&quot;;var obj=&amp;#123;foo&amp;#125;;obj //&amp;#123;foo:&quot;baz&quot;&amp;#125;// 等同于var">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2017-08-30T03:37:42.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ES6对象中属性和方法的新写法">
+<meta name="twitter:description" content="前言在vue实际开发过程中，应用了大量的ES6新语法，特别是这个对象中属性的简洁表示法，今天就总结一下。 对象属性的简洁表示法 ES6 允许直接写入变量和函数，作为对象的属性和方法。这样的书写更加简洁。属性名为变量名, 属性值为变量的值  123456var foo=&quot;baz&quot;;var obj=&amp;#123;foo&amp;#125;;obj //&amp;#123;foo:&quot;baz&quot;&amp;#125;// 等同于var">
+
+  
+
+  
+    <link rel="icon" href="/images/favicon.ico">
+  
+
+  <link href="/css/styles.css?v=c114cbe6" rel="stylesheet">
+
+
+  
+
+  
+
+  
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?0efcf264890b4bd5a8ae5f834bad299c";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+	(function(){
+	    var bp = document.createElement('script');
+	    var curProtocol = window.location.protocol.split(':')[0];
+	    if (curProtocol === 'https') {
+	        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+	    }
+	    else {
+	        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+	    }
+	    var s = document.getElementsByTagName("script")[0];
+	    s.parentNode.insertBefore(bp, s);
+	})();
+  </script>
+
+
+
+  
+    <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+
+  
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+</head>
+
+<body>
+
+
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">导航</span>
+  
+
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">导航</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/archives/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            博客
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/category/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            分类
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/tag/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            标签
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/link/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            友链
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/about/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            关于我
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/atom.xml"
+            rel="noopener noreferrer"
+            target="_blank"
+            >
+            RSS
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/search/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#前言"><span class="toc-text">前言</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#对象属性的简洁表示法"><span class="toc-text">对象属性的简洁表示法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#后记"><span class="toc-text">后记</span></a></li></ol>
+  </div>
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-ES6对象中属性和方法的新写法" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">ES6对象中属性和方法的新写法</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2017.08.30</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>gruad</span>
+        </span>
+      
+
+      
+  <span class="article-category">
+    <i class="icon-list"></i>
+    <a class="article-category-link" href="/categories/ES6/">ES6</a>
+  </span>
+
+
+
+      
+
+      
+      <i class="fa fa-eye"></i> 
+        <span id="busuanzi_container_page_pv">
+           &nbsp热度 <span id="busuanzi_value_page_pv">
+           <i class="fa fa-spinner fa-spin"></i></span>℃
+        </span>
+      
+
+      
+      
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>在vue实际开发过程中，应用了大量的ES6新语法，特别是这个对象中属性的简洁表示法，今天就总结一下。</p>
+<h3 id="对象属性的简洁表示法"><a href="#对象属性的简洁表示法" class="headerlink" title="对象属性的简洁表示法"></a>对象属性的简洁表示法</h3><blockquote>
+<p>ES6 允许直接写入变量和函数，作为对象的属性和方法。这样的书写更加简洁。<br><strong>属性名为变量名, 属性值为变量的值</strong></p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> foo=<span class="string">"baz"</span>;</div><div class="line"><span class="keyword">var</span> obj=&#123;foo&#125;;</div><div class="line">obj <span class="comment">//&#123;foo:"baz"&#125;</span></div><div class="line"></div><div class="line"><span class="comment">// 等同于</span></div><div class="line"><span class="keyword">var</span> obj=&#123;<span class="attr">foo</span>:foo&#125;;</div></pre></td></tr></table></figure>
+<p>上面代码表明，ES6 允许在对象之中，直接写变量。这时，<strong>属性名为变量名, 属性值为变量的值</strong>。下面是另一个例子。<br>函数中的对象简写：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">f</span>(<span class="params">x,y</span>)</span>&#123;</div><div class="line">	<span class="keyword">return</span> &#123;x,y&#125;;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">// 等同于</span></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">f</span>(<span class="params">x, y</span>) </span>&#123;</div><div class="line">  <span class="keyword">return</span> &#123;<span class="attr">x</span>: x, <span class="attr">y</span>: y&#125;;</div><div class="line">&#125;</div><div class="line"></div><div class="line">f(<span class="number">1</span>, <span class="number">2</span>) <span class="comment">// Object &#123;x: 1, y: 2&#125;</span></div></pre></td></tr></table></figure></p>
+<p><strong>除了属性简写，方法也可以简写</strong><br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> o=&#123;</div><div class="line">	method() &#123;</div><div class="line">	<span class="keyword">return</span> <span class="string">"Hello!"</span>;</div><div class="line">&#125;</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="comment">// 等同于</span></div><div class="line"></div><div class="line"><span class="keyword">var</span> o = &#123;</div><div class="line">  method: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="keyword">return</span> <span class="string">"Hello!"</span>;</div><div class="line">  &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure></p>
+<p>下面是一个实际的例子:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> birth=<span class="string">"2000/01/03"</span>;</div><div class="line"><span class="keyword">var</span> Person =&#123;</div><div class="line">	name:<span class="string">"peck,</span></div><div class="line"><span class="string">	//等同于birth: birth</span></div><div class="line"><span class="string">	birth,</span></div><div class="line"><span class="string">	// 等同于hello: function ()...</span></div><div class="line"><span class="string">	hello() &#123;</span></div><div class="line"><span class="string">	console.log('我的名字是', this.name);</span></div><div class="line"><span class="string">	&#125;</span></div><div class="line"><span class="string">&#125;;</span></div></pre></td></tr></table></figure>
+<p>这种写法用于函数的返回值，将会非常方便</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">getPoint</span>(<span class="params"></span>)</span>&#123;</div><div class="line">	<span class="keyword">var</span> x=<span class="number">1</span>;</div><div class="line">	<span class="keyword">var</span> y=<span class="number">10</span>;</div><div class="line">	<span class="keyword">return</span> &#123;x,y&#125;;</div><div class="line">&#125;</div><div class="line"></div><div class="line">getPoint();</div><div class="line"><span class="comment">// &#123;x:1, y:10&#125;</span></div></pre></td></tr></table></figure>
+<p>CommonJS 模块输出一组变量，就非常合适使用简洁写法</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> ms=&#123;&#125;;</div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">getItem</span>(<span class="params">key</span>)</span>&#123;</div><div class="line">	<span class="keyword">return</span> key <span class="keyword">in</span> ms ? ms[key] : <span class="literal">null</span> ;</div><div class="line">&#125;</div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">setItem</span>(<span class="params">key ,value</span>)</span>&#123;</div><div class="line">	ms[key] = value;</div><div class="line">&#125;</div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">clear</span>(<span class="params"></span>)</span>&#123;</div><div class="line">	ms = &#123;&#125;;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="built_in">module</span>.exports = &#123;getItem, setItem, clear&#125;;</div><div class="line"></div><div class="line"><span class="comment">// 等同于</span></div><div class="line"><span class="built_in">module</span>.exports = &#123;</div><div class="line">  getItem: getItem,</div><div class="line">  setItem: setItem,</div><div class="line">  clear: clear</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<p>属性的赋值器（setter）和取值器（getter），事实上也是采用这种写法</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> cart = &#123;</div><div class="line">	_wheels:<span class="number">4</span>,</div><div class="line">	get wheels () &#123;</div><div class="line">		<span class="keyword">return</span> <span class="keyword">this</span>._wheels;</div><div class="line">	&#125;,</div><div class="line">	set wheels (value) &#123;</div><div class="line">		<span class="keyword">if</span>(value&lt;<span class="keyword">this</span>._wheels)&#123;</div><div class="line">			<span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">'数值太小了！'</span>);</div><div class="line">		&#125;</div><div class="line">		<span class="keyword">this</span>._wheels = value;</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>注意，简洁写法的属性名总是字符串，这会导致一些看上去比较奇怪的结果<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> obj = &#123;</div><div class="line">  <span class="class"><span class="keyword">class</span> () </span>&#123;&#125;</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="comment">// 等同于</span></div><div class="line"></div><div class="line"><span class="keyword">var</span> obj = &#123;</div><div class="line">  <span class="string">'class'</span>: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;&#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure></p>
+<p>上面代码中，class是字符串，所以不会因为它属于关键字，而导致语法解析报错。</p>
+<p>如果某个方法的值是一个 Generator 函数，前面需要加上星号。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> obj = &#123;</div><div class="line">	* m() &#123;</div><div class="line">		<span class="keyword">yield</span> <span class="string">'hello world'</span>;</div><div class="line">	&#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure></p>
+<h3 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h3><p>随时补充。。。</p>
+
+    
+  </div>
+</article>
+
+
+   
+  <div class="text-center donation">
+    <div class="inner-donation">
+      <span class="btn-donation">支持一下</span>
+      <div class="donation-body">
+        <div class="tip text-center">扫一扫，支持peck</div>
+        <ul class="theme.donation.items.length">
+        
+          <li class="item">
+            <img src="/images/wechat.jpeg" alt="">
+          </li>
+        
+          <li class="item">
+            <img src="/images/alipay.jpeg" alt="">
+          </li>
+        
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+   
+  <div class="box-prev-next clearfix">
+    <a class="show pull-left" href="/2017/08/30/ES6中变量的解构赋值应用/">
+        <i class="icon icon-angle-left"></i>
+    </a>
+    <a class="hide pull-right" href="/">
+        <i class="icon icon-angle-right"></i>
+    </a>
+  </div>
+
+
+
+
+</div>
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/archives/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/category/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              分类
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/tag/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              标签
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/link/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              友链
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/about/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              关于我
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/atom.xml"
+              rel="noopener noreferrer"
+              target="_blank"
+              >
+              RSS
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/search/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              搜索
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+      <div class="fexo-comments comments-post">
+    
+
+    
+
+
+
+
+    
+
+    
+	
+  </div>
+
+  
+
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>
