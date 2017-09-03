@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+
+
+  <html class="light page-post">
+
+
+<head>
+  <meta charset="utf-8">
+  
+  <title>自己深入实践理解JavaScript中原型链，可能大家都把它弄复杂了 | 小锋子</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="JavaScript原型链," />
+  
+
+  <meta name="description" content="2017年9月4日中午于华中科技大学东图书馆————补写 前言关于原型链，我觉得大家好像把它弄复杂了，面试中很爱问，最近我试着从官网文档中去理解它，动手实践运行了下，得到了很好的解惑。 大家都知道，javascript是一门面向对象的弱类型脚本语言，而且是动态的，无编译，由解释器直接执行。因为是面向对象的语言，所以肯定要实现继承。官网上也说了，对于Java和C++的开发者来说，没有类，不好继承。（">
+<meta name="keywords" content="JavaScript原型链">
+<meta property="og:type" content="article">
+<meta property="og:title" content="自己深入实践理解JavaScript中原型链，可能大家都把它弄复杂了">
+<meta property="og:url" content="http://gruad.github.io/2017/09/04/JavaScript中原型链理解/index.html">
+<meta property="og:site_name" content="小锋子">
+<meta property="og:description" content="2017年9月4日中午于华中科技大学东图书馆————补写 前言关于原型链，我觉得大家好像把它弄复杂了，面试中很爱问，最近我试着从官网文档中去理解它，动手实践运行了下，得到了很好的解惑。 大家都知道，javascript是一门面向对象的弱类型脚本语言，而且是动态的，无编译，由解释器直接执行。因为是面向对象的语言，所以肯定要实现继承。官网上也说了，对于Java和C++的开发者来说，没有类，不好继承。（">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://gruad.github.io/img/proto1.png">
+<meta property="og:image" content="http://gruad.github.io/img/proto2.png">
+<meta property="og:image" content="http://gruad.github.io/img/proto3.png">
+<meta property="og:image" content="http://gruad.github.io/img/proto4.png">
+<meta property="og:image" content="http://gruad.github.io/img/proto5.png">
+<meta property="og:image" content="http://gruad.github.io/img/proto6.png">
+<meta property="og:image" content="http://gruad.github.io/2017/09/04/JavaScript中原型链理解/proto7.png">
+<meta property="og:image" content="http://gruad.github.io/2017/09/04/JavaScript中原型链理解/proto8.png">
+<meta property="og:updated_time" content="2017-09-03T09:07:39.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="自己深入实践理解JavaScript中原型链，可能大家都把它弄复杂了">
+<meta name="twitter:description" content="2017年9月4日中午于华中科技大学东图书馆————补写 前言关于原型链，我觉得大家好像把它弄复杂了，面试中很爱问，最近我试着从官网文档中去理解它，动手实践运行了下，得到了很好的解惑。 大家都知道，javascript是一门面向对象的弱类型脚本语言，而且是动态的，无编译，由解释器直接执行。因为是面向对象的语言，所以肯定要实现继承。官网上也说了，对于Java和C++的开发者来说，没有类，不好继承。（">
+<meta name="twitter:image" content="http://gruad.github.io/img/proto1.png">
+
+  
+
+  
+    <link rel="icon" href="/images/favicon.ico">
+  
+
+  <link href="/css/styles.css?v=c114cbe6" rel="stylesheet">
+
+
+  
+
+  
+
+  
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?0efcf264890b4bd5a8ae5f834bad299c";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+	(function(){
+	    var bp = document.createElement('script');
+	    var curProtocol = window.location.protocol.split(':')[0];
+	    if (curProtocol === 'https') {
+	        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+	    }
+	    else {
+	        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+	    }
+	    var s = document.getElementsByTagName("script")[0];
+	    s.parentNode.insertBefore(bp, s);
+	})();
+  </script>
+
+
+
+  
+    <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+
+  
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+</head>
+
+<body>
+
+
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">导航</span>
+  
+
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">导航</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/archives/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            博客
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/category/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            分类
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/tag/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            标签
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/link/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            友链
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/about/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            关于我
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/atom.xml"
+            rel="noopener noreferrer"
+            target="_blank"
+            >
+            RSS
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/search/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#前言"><span class="toc-text">前言</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#原型链原理揭秘"><span class="toc-text">原型链原理揭秘</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#关于属性的继承"><span class="toc-text">关于属性的继承</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#方法继承"><span class="toc-text">方法继承</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#创建对象和生成原型链的不同方法"><span class="toc-text">创建对象和生成原型链的不同方法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-使用普通语法创建对象"><span class="toc-text">1.使用普通语法创建对象</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-通过构造函数创建对象"><span class="toc-text">2.通过构造函数创建对象</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-通过Object-create函数创建对象"><span class="toc-text">3. 通过Object.create函数创建对象</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-通过ES6中的class"><span class="toc-text">4. 通过ES6中的class</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#参考"><span class="toc-text">参考</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#扩充前"><span class="toc-text">扩充前</span></a></li></ol>
+  </div>
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-JavaScript中原型链理解" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">自己深入实践理解JavaScript中原型链，可能大家都把它弄复杂了</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2017.09.04</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>gruad</span>
+        </span>
+      
+
+      
+  <span class="article-category">
+    <i class="icon-list"></i>
+    <a class="article-category-link" href="/categories/JavaScript/">JavaScript</a>
+  </span>
+
+
+
+      
+
+      
+      <i class="fa fa-eye"></i> 
+        <span id="busuanzi_container_page_pv">
+           &nbsp热度 <span id="busuanzi_value_page_pv">
+           <i class="fa fa-spinner fa-spin"></i></span>℃
+        </span>
+      
+
+      
+      
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <p><strong>2017年9月4日中午于华中科技大学东图书馆————补写</strong></p>
+<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>关于原型链，我觉得大家好像把它弄复杂了，面试中很爱问，最近我试着从官网文档中去理解它，动手实践运行了下，得到了很好的解惑。</p>
+<p>大家都知道，javascript是一门面向对象的弱类型脚本语言，而且是动态的，无编译，由解释器直接执行。因为是面向对象的语言，所以肯定要实现继承。官网上也说了，对于Java和C++的开发者来说，没有类，不好继承。（当然ES6中现在有类了，但是只是原型的语法糖，实现还是靠原型）。但是javascript的设计者，发明了用原型去解决继承。</p>
+<p>原文：</p>
+<blockquote>
+<p>JavaScript is a bit confusing for developers experienced in class-based languages (like Java or C++), as it is dynamic and does not provide a class implementation per se (the class keyword is introduced in ES2015, but is syntactical sugar, JavaScript remains prototype-based).</p>
+</blockquote>
+<h3 id="原型链原理揭秘"><a href="#原型链原理揭秘" class="headerlink" title="原型链原理揭秘"></a>原型链原理揭秘</h3><p>官网原话：</p>
+<blockquote>
+<p><strong>When it comes to inheritance, JavaScript only has one construct: objects. Each object has a private property (referred to as [[Prototype]] ) which holds a link to another object called its prototype.</strong> That prototype object has a prototype of its own, and so on until an object is reached with null as its prototype. By definition, null has no prototype, and acts as the final link in this prototype chain.</p>
+</blockquote>
+<p>其中重点有：</p>
+<p><strong>When it comes to inheritance, JavaScript only has one construct: objects. Each object has a private property (referred to as [[Prototype]] ) which holds a link to another object called its prototype.</strong></p>
+<p>翻译：</p>
+<p><strong>实现继承，javascript仅利用的是一个数据结构————对象。每个对象都有一个私有属性（称为[[Prototype]]）即为常见的<strong>proto</strong>，它指向另一个对象————这个对象叫做它的原型（prototype）。这个对象又有它自己的原型，即这个对象的<strong>proto</strong>指向另一个对象，依次下去，知道原型链的终点为null</strong></p>
+<p>举例说明：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="keyword">var</span> obj=&#123;<span class="attr">a</span>:<span class="number">1</span>&#125;;</div><div class="line"></div><div class="line">obj.__proto__===<span class="built_in">Object</span>.prototype <span class="comment">//true</span></div><div class="line"></div><div class="line">obj.prototype; <span class="comment">// undefined</span></div></pre></td></tr></table></figure>
+<p><img src="/img/proto1.png" alt=""><br><img src="/img/proto2.png" alt=""><br><img src="/img/proto3.png" alt=""></p>
+<p>原始对象即构造函数的prototype:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">Array</span>.prototype;</div><div class="line"><span class="built_in">Object</span>.prototype;</div><div class="line"><span class="built_in">Number</span>.prototype;</div></pre></td></tr></table></figure>
+<p><img src="/img/proto4.png" alt=""><br><img src="/img/proto5.png" alt=""><br><img src="/img/proto6.png" alt=""></p>
+<p>从上面我们可以至少得到以下几点：</p>
+<ol>
+<li><p>所有的对象都有<strong>proto</strong>属性。prototype属性也是都有。</p>
+</li>
+<li><p>只是如果它的prototype没有主动定义，那么那么它上面就是什么也没有，someObject.prototype=undefined。</p>
+</li>
+<li><p>除javascript中的(Boolean,Number,Array,String,Symbol,Object,Function)的构造函数，Object.prototype,Boolean.prototype,Array.prototype,String.prototype,Symbol.prototype,Object.prototype,Function.prototype上面有内容。</p>
+</li>
+<li><p>构造函数可以直接Constructor.prototype这样表示。它指向是它本身的原型。或它就是原型。</p>
+</li>
+<li><p>而普通对象（或者叫字面量创建的对象，它的prototype=undefined，可以理解为它本身作为原型，还没有定义，所以还没有可供其他对象继承的属性）。</p>
+</li>
+</ol>
+<p><strong>对于上面官网这样写：someObject.[[Prototype]]符号是用于指向 someObject 的原型。</strong><br><strong>Object.prototype属性表示Object的原型对象。</strong></p>
+<p><img src="proto7.png" alt=""></p>
+<h3 id="关于属性的继承"><a href="#关于属性的继承" class="headerlink" title="关于属性的继承"></a>关于属性的继承</h3><p>规则：继承的规则很简单</p>
+<ol>
+<li><p>就是沿着原型链依次找下去，如果自己有这个属性，则取自己的，自己没有就去原型链上找。</p>
+</li>
+<li><p>如果自己有，原型链上也有，则还是取自己的（property shadowing），不会覆盖。</p>
+</li>
+<li><p>直到找到原型链的末端null，都没找到，则取undefined。</p>
+</li>
+</ol>
+<p>实例：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// Let's assume we have object o, with its own properties a and b:</span></div><div class="line"><span class="comment">// &#123;a: 1, b: 2&#125;</span></div><div class="line"><span class="comment">// o.[[Prototype]] has properties b and c:</span></div><div class="line"><span class="comment">// &#123;b: 3, c: 4&#125;</span></div><div class="line"><span class="comment">// Finally, o.[[Prototype]].[[Prototype]] is null.</span></div><div class="line"><span class="comment">// This is the end of the prototype chain, as null,</span></div><div class="line"><span class="comment">// by definition, has no [[Prototype]].</span></div><div class="line"><span class="comment">// Thus, the full prototype chain looks like:</span></div><div class="line"><span class="comment">// &#123;a: 1, b: 2&#125; ---&gt; &#123;b: 3, c: 4&#125; ---&gt; null</span></div><div class="line"></div><div class="line"><span class="built_in">console</span>.log(o.a); <span class="comment">// 1</span></div><div class="line"><span class="comment">// Is there an 'a' own property on o? Yes, and its value is 1.</span></div><div class="line"></div><div class="line"><span class="built_in">console</span>.log(o.b); <span class="comment">// 2</span></div><div class="line"><span class="comment">// Is there a 'b' own property on o? Yes, and its value is 2.</span></div><div class="line"><span class="comment">// The prototype also has a 'b' property, but it's not visited. </span></div><div class="line"><span class="comment">// This is called "property shadowing."</span></div><div class="line"></div><div class="line"><span class="built_in">console</span>.log(o.c); <span class="comment">// 4</span></div><div class="line"><span class="comment">// Is there a 'c' own property on o? No, check its prototype.</span></div><div class="line"><span class="comment">// Is there a 'c' own property on o.[[Prototype]]? Yes, its value is 4.</span></div><div class="line"></div><div class="line"><span class="built_in">console</span>.log(o.d); <span class="comment">// undefined</span></div><div class="line"><span class="comment">// Is there a 'd' own property on o? No, check its prototype.</span></div><div class="line"><span class="comment">// Is there a 'd' own property on o.[[Prototype]]? No, check its prototype.</span></div><div class="line"><span class="comment">// o.[[Prototype]].[[Prototype]] is null, stop searching,</span></div><div class="line"><span class="comment">// no property found, return undefined.</span></div></pre></td></tr></table></figure>
+<h3 id="方法继承"><a href="#方法继承" class="headerlink" title="方法继承"></a>方法继承</h3><p>规则：</p>
+<ol>
+<li>和其他任何属性一样，javascript中函数可以被直接添加给任何对象做属性。</li>
+</ol>
+<p>注意：</p>
+<ol>
+<li>唯一注意的区别是继承过来的方法中的this，指向当前对象，而不是（原来的）原型链的对象。</li>
+</ol>
+<p>实例：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> o = &#123;</div><div class="line">  a: <span class="number">2</span>,</div><div class="line">  m: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.a + <span class="number">1</span>;</div><div class="line">  &#125;</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="built_in">console</span>.log(o.m()); <span class="comment">// 3</span></div><div class="line"><span class="comment">// When calling o.m in this case, 'this' refers to o</span></div><div class="line"></div><div class="line"><span class="keyword">var</span> p = <span class="built_in">Object</span>.create(o);</div><div class="line"><span class="comment">// p is an object that inherits from o</span></div><div class="line"></div><div class="line">p.a = <span class="number">4</span>; <span class="comment">// creates an own property 'a' on p</span></div><div class="line"><span class="built_in">console</span>.log(p.m()); <span class="comment">// 5</span></div><div class="line"><span class="comment">// when p.m is called, 'this' refers to p.</span></div><div class="line"><span class="comment">// So when p inherits the function m of o, </span></div><div class="line"><span class="comment">// 'this.a' means p.a, the own property 'a' of p</span></div></pre></td></tr></table></figure>
+<h3 id="创建对象和生成原型链的不同方法"><a href="#创建对象和生成原型链的不同方法" class="headerlink" title="创建对象和生成原型链的不同方法"></a>创建对象和生成原型链的不同方法</h3><h4 id="1-使用普通语法创建对象"><a href="#1-使用普通语法创建对象" class="headerlink" title="1.使用普通语法创建对象"></a>1.使用普通语法创建对象</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> o = &#123;<span class="attr">a</span>: <span class="number">1</span>&#125;;</div><div class="line"></div><div class="line"><span class="comment">// The newly created object o has Object.prototype as its [[Prototype]]</span></div><div class="line"><span class="comment">// o has no own property named 'hasOwnProperty'</span></div><div class="line"><span class="comment">// hasOwnProperty is an own property of Object.prototype. </span></div><div class="line"><span class="comment">// So o inherits hasOwnProperty from Object.prototype</span></div><div class="line"><span class="comment">// Object.prototype has null as its prototype.</span></div><div class="line"><span class="comment">// o ---&gt; Object.prototype ---&gt; null</span></div><div class="line"></div><div class="line"><span class="keyword">var</span> b = [<span class="string">'yo'</span>, <span class="string">'whadup'</span>, <span class="string">'?'</span>];</div><div class="line"></div><div class="line"><span class="comment">// Arrays inherit from Array.prototype </span></div><div class="line"><span class="comment">// (which has methods indexOf, forEach, etc.)</span></div><div class="line"><span class="comment">// The prototype chain looks like:</span></div><div class="line"><span class="comment">// b ---&gt; Array.prototype ---&gt; Object.prototype ---&gt; null</span></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">f</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="keyword">return</span> <span class="number">2</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">// Functions inherit from Function.prototype </span></div><div class="line"><span class="comment">// (which has methods call, bind, etc.)</span></div><div class="line"><span class="comment">// f ---&gt; Function.prototype ---&gt; Object.prototype ---&gt; null</span></div></pre></td></tr></table></figure>
+<h4 id="2-通过构造函数创建对象"><a href="#2-通过构造函数创建对象" class="headerlink" title="2.通过构造函数创建对象"></a>2.通过构造函数创建对象</h4><p>构造函数的官方定义：</p>
+<blockquote>
+<p>A “constructor” in JavaScript is “just” a function that happens to be called with the new operator.<br>翻译：构造函数在javascript中就是一个函数，它是用new 操作符来使用。（另外一般在js中约定成俗的构造函数开头大写）</p>
+</blockquote>
+<p>实例：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">Graph</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="keyword">this</span>.vertices = [];</div><div class="line">  <span class="keyword">this</span>.edges = [];</div><div class="line">&#125;</div><div class="line"></div><div class="line">Graph.prototype = &#123;</div><div class="line">  addVertex: <span class="function"><span class="keyword">function</span>(<span class="params">v</span>) </span>&#123;</div><div class="line">    <span class="keyword">this</span>.vertices.push(v);</div><div class="line">  &#125;</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="keyword">var</span> g = <span class="keyword">new</span> Graph();</div><div class="line"><span class="comment">// g is an object with own properties 'vertices' and 'edges'.</span></div><div class="line"><span class="comment">// g.[[Prototype]] is the value of Graph.prototype when new Graph() is executed.</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="3-通过Object-create函数创建对象"><a href="#3-通过Object-create函数创建对象" class="headerlink" title="3. 通过Object.create函数创建对象"></a>3. 通过Object.create函数创建对象</h4><p>用法：</p>
+<ol>
+<li><p>ECMAScript 5 introduced a new method: Object.create().</p>
+</li>
+<li><p>可以调用这个方法来创建一个新对象。新对象的原型就是调用 create 方法时传入的第一个参数。</p>
+</li>
+</ol>
+<p>实例：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> a = &#123;<span class="attr">a</span>: <span class="number">1</span>&#125;; </div><div class="line"><span class="comment">// a ---&gt; Object.prototype ---&gt; null</span></div><div class="line"></div><div class="line"><span class="keyword">var</span> b = <span class="built_in">Object</span>.create(a);</div><div class="line"><span class="comment">// b ---&gt; a ---&gt; Object.prototype ---&gt; null</span></div><div class="line"><span class="built_in">console</span>.log(b.a); <span class="comment">// 1 (inherited)</span></div><div class="line"></div><div class="line"><span class="keyword">var</span> c = <span class="built_in">Object</span>.create(b);</div><div class="line"><span class="comment">// c ---&gt; b ---&gt; a ---&gt; Object.prototype ---&gt; null</span></div><div class="line"></div><div class="line"><span class="keyword">var</span> d = <span class="built_in">Object</span>.create(<span class="literal">null</span>);</div><div class="line"><span class="comment">// d ---&gt; null</span></div><div class="line"><span class="built_in">console</span>.log(d.hasOwnProperty); </div><div class="line"><span class="comment">// undefined, because d doesn't inherit from Object.prototype</span></div></pre></td></tr></table></figure>
+<p><img src="proto8.png" alt="">;</p>
+<h3 id="4-通过ES6中的class"><a href="#4-通过ES6中的class" class="headerlink" title="4. 通过ES6中的class"></a>4. 通过ES6中的class</h3><blockquote>
+<p>ECMAScript 2015 introduced a new set of keywords implementing classes. Although these constructs look like those familiar to developers of class-based languages, they are not the same. JavaScript remains prototype-based. The new keywords include class, constructor, static, extends, and super.</p>
+</blockquote>
+<p>实例：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"><span class="meta">'use strict'</span>;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Polygon</span> </span>&#123;</div><div class="line">  <span class="keyword">constructor</span>(height, width) &#123;</div><div class="line">    <span class="keyword">this</span>.height = height;</div><div class="line">    <span class="keyword">this</span>.width = width;</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Square</span> <span class="keyword">extends</span> <span class="title">Polygon</span> </span>&#123;</div><div class="line">  <span class="keyword">constructor</span>(sideLength) &#123;</div><div class="line">    <span class="keyword">super</span>(sideLength, sideLength);</div><div class="line">  &#125;</div><div class="line">  get area() &#123;</div><div class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.height * <span class="keyword">this</span>.width;</div><div class="line">  &#125;</div><div class="line">  set sideLength(newLength) &#123;</div><div class="line">    <span class="keyword">this</span>.height = newLength;</div><div class="line">    <span class="keyword">this</span>.width = newLength;</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">var</span> square = <span class="keyword">new</span> Square(<span class="number">2</span>);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Inheritance_and_the_prototype_chain" target="_blank" rel="external">MDN</a></p>
+<h3 id="扩充前"><a href="#扩充前" class="headerlink" title="扩充前"></a>扩充前</h3><p>关于原型链和JavaScript继承，我一直都是属于理解之后就忘得那种，可能是在开发过程中使用的少的原因。很快就忘了。我就不总结了，感觉没理解好，总结了也是白费。可以参考一下博文<a href="http://hyuhan.com/2016/08/28/JavaScript-prototype/" target="_blank" rel="external">hyuhan</a>、<a href="http://cnodejs.org/topic/56e2d7488023c6146ec3ff05" target="_blank" rel="external">cnodejs总结</a>、阮一峰的可以看它的来源<a href="http://www.ruanyifeng.com/blog/2011/06/designing_ideas_of_inheritance_mechanism_in_javascript.html" target="_blank" rel="external">Javascript继承机制的设计思想</a>和<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Inheritance_and_the_prototype_chain" target="_blank" rel="external">MDN</a></p>
+
+    
+  </div>
+</article>
+
+
+   
+  <div class="text-center donation">
+    <div class="inner-donation">
+      <span class="btn-donation">支持一下</span>
+      <div class="donation-body">
+        <div class="tip text-center">扫一扫，支持peck</div>
+        <ul class="theme.donation.items.length">
+        
+          <li class="item">
+            <img src="/images/wechat.jpeg" alt="">
+          </li>
+        
+          <li class="item">
+            <img src="/images/alipay.jpeg" alt="">
+          </li>
+        
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+   
+  <div class="box-prev-next clearfix">
+    <a class="show pull-left" href="/2017/09/04/自己深入实践理解JavaScript中原型链，可能大家都把它弄复杂了/">
+        <i class="icon icon-angle-left"></i>
+    </a>
+    <a class="hide pull-right" href="/">
+        <i class="icon icon-angle-right"></i>
+    </a>
+  </div>
+
+
+
+
+</div>
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/archives/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/category/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              分类
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/tag/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              标签
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/link/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              友链
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/about/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              关于我
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/atom.xml"
+              rel="noopener noreferrer"
+              target="_blank"
+              >
+              RSS
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/search/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              搜索
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+      <div class="fexo-comments comments-post">
+    
+
+    
+
+
+
+
+    
+
+    
+	
+  </div>
+
+  
+
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>
