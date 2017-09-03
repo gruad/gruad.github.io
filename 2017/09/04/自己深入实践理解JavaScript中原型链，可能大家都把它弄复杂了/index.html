@@ -29,9 +29,9 @@
 <meta property="og:image" content="http://gruad.github.io/img/proto4.png">
 <meta property="og:image" content="http://gruad.github.io/img/proto5.png">
 <meta property="og:image" content="http://gruad.github.io/img/proto6.png">
-<meta property="og:image" content="http://gruad.github.io/2017/09/04/自己深入实践理解JavaScript中原型链，可能大家都把它弄复杂了/proto7.png">
-<meta property="og:image" content="http://gruad.github.io/2017/09/04/自己深入实践理解JavaScript中原型链，可能大家都把它弄复杂了/proto8.png">
-<meta property="og:updated_time" content="2017-09-03T09:02:31.000Z">
+<meta property="og:image" content="http://gruad.github.io/img/proto7.png">
+<meta property="og:image" content="http://gruad.github.io/img/proto8.png">
+<meta property="og:updated_time" content="2017-09-03T09:13:47.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="自己深入实践理解JavaScript中原型链，可能大家都把它弄复杂了">
 <meta name="twitter:description" content="2017年9月4日中午于华中科技大学东图书馆————补写 前言关于原型链，我觉得大家好像把它弄复杂了，面试中很爱问，最近我试着从官网文档中去理解它，得到了很好的解惑。大家都知道，javascript是一门面向对象的弱类型脚本语言，而且是动态的，无编译，由解释器直接执行。因为是面向对象的语言，所以肯定要实现继承。官网上也说了，对于Java和C++的开发者来说，没有类，不好继承。（当然ES6中现在有类">
@@ -266,7 +266,7 @@
 <li>而普通对象（或者叫字面量创建的对象，它的prototype=undefined，可以理解为它本身作为原型，还没有定义，所以还没有可供其他对象继承的属性）。</li>
 </ol>
 <p><strong>对于上面官网这样写：someObject.[[Prototype]]符号是用于指向 someObject 的原型。</strong><br><strong>Object.prototype属性表示Object的原型对象。</strong></p>
-<p><img src="proto7.png" alt=""></p>
+<p><img src="/img/proto7.png" alt=""></p>
 <h3 id="关于属性的继承"><a href="#关于属性的继承" class="headerlink" title="关于属性的继承"></a>关于属性的继承</h3><p>规则：继承的规则很简单</p>
 <ol>
 <li><p>就是沿着原型链依次找下去，如果自己有这个属性，则取自己的，自己没有就去原型链上找。</p>
@@ -304,7 +304,7 @@
 </ol>
 <p>实例：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> a = &#123;<span class="attr">a</span>: <span class="number">1</span>&#125;; </div><div class="line"><span class="comment">// a ---&gt; Object.prototype ---&gt; null</span></div><div class="line"></div><div class="line"><span class="keyword">var</span> b = <span class="built_in">Object</span>.create(a);</div><div class="line"><span class="comment">// b ---&gt; a ---&gt; Object.prototype ---&gt; null</span></div><div class="line"><span class="built_in">console</span>.log(b.a); <span class="comment">// 1 (inherited)</span></div><div class="line"></div><div class="line"><span class="keyword">var</span> c = <span class="built_in">Object</span>.create(b);</div><div class="line"><span class="comment">// c ---&gt; b ---&gt; a ---&gt; Object.prototype ---&gt; null</span></div><div class="line"></div><div class="line"><span class="keyword">var</span> d = <span class="built_in">Object</span>.create(<span class="literal">null</span>);</div><div class="line"><span class="comment">// d ---&gt; null</span></div><div class="line"><span class="built_in">console</span>.log(d.hasOwnProperty); </div><div class="line"><span class="comment">// undefined, because d doesn't inherit from Object.prototype</span></div></pre></td></tr></table></figure>
-<p><img src="proto8.png" alt="">;</p>
+<p><img src="/img/proto8.png" alt="">;</p>
 <h3 id="4-通过ES6中的class"><a href="#4-通过ES6中的class" class="headerlink" title="4. 通过ES6中的class"></a>4. 通过ES6中的class</h3><p>官方解释：</p>
 <blockquote>
 <p>ECMAScript 2015 introduced a new set of keywords implementing classes. Although these constructs look like those familiar to developers of class-based languages, they are not the same. JavaScript remains prototype-based. The new keywords include class, constructor, static, extends, and super.</p>
