@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+
+
+  <html class="light page-post">
+
+
+<head>
+  <meta charset="utf-8">
+  
+  <title>图片懒加载的实现 | 小锋子</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="懒加载," />
+  
+
+  <meta name="description" content="图片懒加载的原理简单思想： 就是进入窗口可视区才去加载图片，防止页面一次性向服务器请求大量数据，导致服务器响应慢，页面卡顿或崩溃等问题。 模拟实现步骤：  先将图片img的src链接设为同一张占位的空白图片。将真正的图片地址存在img自定义的data-src属性中。  当javascript监听到该图片进入可视窗口时，就把src属性的值替换成data-src中存储的真正要的值。达到懒加载效果">
+<meta name="keywords" content="懒加载">
+<meta property="og:type" content="article">
+<meta property="og:title" content="图片懒加载的实现">
+<meta property="og:url" content="http://gruad.github.io/2017/09/04/图片懒加载的实现/index.html">
+<meta property="og:site_name" content="小锋子">
+<meta property="og:description" content="图片懒加载的原理简单思想： 就是进入窗口可视区才去加载图片，防止页面一次性向服务器请求大量数据，导致服务器响应慢，页面卡顿或崩溃等问题。 模拟实现步骤：  先将图片img的src链接设为同一张占位的空白图片。将真正的图片地址存在img自定义的data-src属性中。  当javascript监听到该图片进入可视窗口时，就把src属性的值替换成data-src中存储的真正要的值。达到懒加载效果">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2017-09-04T10:24:26.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="图片懒加载的实现">
+<meta name="twitter:description" content="图片懒加载的原理简单思想： 就是进入窗口可视区才去加载图片，防止页面一次性向服务器请求大量数据，导致服务器响应慢，页面卡顿或崩溃等问题。 模拟实现步骤：  先将图片img的src链接设为同一张占位的空白图片。将真正的图片地址存在img自定义的data-src属性中。  当javascript监听到该图片进入可视窗口时，就把src属性的值替换成data-src中存储的真正要的值。达到懒加载效果">
+
+  
+
+  
+    <link rel="icon" href="/images/favicon.ico">
+  
+
+  <link href="/css/styles.css?v=c114cbe6" rel="stylesheet">
+
+
+  
+
+  
+
+  
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?0efcf264890b4bd5a8ae5f834bad299c";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+	(function(){
+	    var bp = document.createElement('script');
+	    var curProtocol = window.location.protocol.split(':')[0];
+	    if (curProtocol === 'https') {
+	        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+	    }
+	    else {
+	        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+	    }
+	    var s = document.getElementsByTagName("script")[0];
+	    s.parentNode.insertBefore(bp, s);
+	})();
+  </script>
+
+
+
+  
+    <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+
+  
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+</head>
+
+<body>
+
+
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">导航</span>
+  
+
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">导航</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/archives/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            博客
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/category/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            分类
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/tag/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            标签
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/link/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            友链
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/about/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            关于我
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/atom.xml"
+            rel="noopener noreferrer"
+            target="_blank"
+            >
+            RSS
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/search/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#图片懒加载的原理"><span class="toc-text">图片懒加载的原理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#模拟实现"><span class="toc-text">模拟实现</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#实现代码"><span class="toc-text">实现代码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#在线运行"><span class="toc-text">在线运行</span></a></li></ol>
+  </div>
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-图片懒加载的实现" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">图片懒加载的实现</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2017.09.04</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>gruad</span>
+        </span>
+      
+
+      
+  <span class="article-category">
+    <i class="icon-list"></i>
+    <a class="article-category-link" href="/categories/前端/">前端</a>
+  </span>
+
+
+
+      
+
+      
+      <i class="fa fa-eye"></i> 
+        <span id="busuanzi_container_page_pv">
+           &nbsp热度 <span id="busuanzi_value_page_pv">
+           <i class="fa fa-spinner fa-spin"></i></span>℃
+        </span>
+      
+
+      
+      
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <h3 id="图片懒加载的原理"><a href="#图片懒加载的原理" class="headerlink" title="图片懒加载的原理"></a>图片懒加载的原理</h3><p>简单思想：</p>
+<p>就是进入窗口可视区才去加载图片，防止页面一次性向服务器请求大量数据，导致服务器响应慢，页面卡顿或崩溃等问题。</p>
+<h3 id="模拟实现"><a href="#模拟实现" class="headerlink" title="模拟实现"></a>模拟实现</h3><p>步骤：</p>
+<ol>
+<li><p>先将图片img的src链接设为同一张占位的空白图片。将真正的图片地址存在img自定义的data-src属性中。</p>
+</li>
+<li><p>当javascript监听到该图片进入可视窗口时，就把src属性的值替换成data-src中存储的真正要的值。达到懒加载效果</p>
+</li>
+</ol>
+<h3 id="实现代码"><a href="#实现代码" class="headerlink" title="实现代码"></a>实现代码</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div><div class="line">128</div><div class="line">129</div><div class="line">130</div><div class="line">131</div><div class="line">132</div><div class="line">133</div><div class="line">134</div><div class="line">135</div><div class="line">136</div><div class="line">137</div><div class="line">138</div><div class="line">139</div><div class="line">140</div><div class="line">141</div><div class="line">142</div><div class="line">143</div><div class="line">144</div><div class="line">145</div><div class="line">146</div><div class="line">147</div><div class="line">148</div><div class="line">149</div><div class="line">150</div><div class="line">151</div><div class="line">152</div><div class="line">153</div><div class="line">154</div><div class="line">155</div><div class="line">156</div><div class="line">157</div><div class="line">158</div><div class="line">159</div><div class="line">160</div><div class="line">161</div><div class="line">162</div><div class="line">163</div><div class="line">164</div><div class="line">165</div><div class="line">166</div><div class="line">167</div><div class="line">168</div><div class="line">169</div><div class="line">170</div></pre></td><td class="code"><pre><div class="line">&lt;!DOCTYPE html&gt;</div><div class="line">&lt;html lang=<span class="string">"en"</span>&gt;</div><div class="line">&lt;head&gt;</div><div class="line">    &lt;meta charset=<span class="string">"UTF-8"</span>&gt;</div><div class="line">    &lt;title&gt;图片懒加载实现&lt;<span class="regexp">/title&gt;</span></div><div class="line"><span class="regexp">    &lt;style&gt;</span></div><div class="line"><span class="regexp">        * &#123;</span></div><div class="line"><span class="regexp">            padding: 0;</span></div><div class="line"><span class="regexp">            margin: 0;</span></div><div class="line"><span class="regexp">            text-decoration: none;</span></div><div class="line"><span class="regexp">            list-style: none;</span></div><div class="line"><span class="regexp">        &#125;</span></div><div class="line"><span class="regexp"></span></div><div class="line"><span class="regexp">        .layout &#123;</span></div><div class="line"><span class="regexp">            width: 1000px;</span></div><div class="line"><span class="regexp">            margin: 0 auto;</span></div><div class="line"><span class="regexp">        &#125;</span></div><div class="line"><span class="regexp"></span></div><div class="line"><span class="regexp">        .item &#123;</span></div><div class="line"><span class="regexp">            float: left;</span></div><div class="line"><span class="regexp">            margin-left: 20px;</span></div><div class="line"><span class="regexp">            margin-bottom: 30px;</span></div><div class="line"><span class="regexp"></span></div><div class="line"><span class="regexp">        &#125;</span></div><div class="line"><span class="regexp"></span></div><div class="line"><span class="regexp">        /</span>*清除浮动*<span class="regexp">/</span></div><div class="line"><span class="regexp">        .clearfix:after &#123;</span></div><div class="line"><span class="regexp">            content: '.';</span></div><div class="line"><span class="regexp">            display: block;</span></div><div class="line"><span class="regexp">            height: 0;</span></div><div class="line"><span class="regexp">            clear: both;</span></div><div class="line"><span class="regexp">            visibility: hidden;</span></div><div class="line"><span class="regexp">        &#125;</span></div><div class="line"><span class="regexp"></span></div><div class="line"><span class="regexp">        .lazyload img &#123;</span></div><div class="line"><span class="regexp">            width: 300px;</span></div><div class="line"><span class="regexp">            height: 400px;</span></div><div class="line"><span class="regexp">        &#125;</span></div><div class="line"><span class="regexp">    &lt;/</span>style&gt;</div><div class="line">&lt;<span class="regexp">/head&gt;</span></div><div class="line"><span class="regexp">&lt;body&gt;</span></div><div class="line"><span class="regexp">&lt;div class="lazyload"&gt;</span></div><div class="line"><span class="regexp">    &lt;div class="layout"&gt;</span></div><div class="line"><span class="regexp">    &lt;span&gt;向下滑动加载图片&lt;/</span>span&gt;</div><div class="line">        &lt;ul <span class="class"><span class="keyword">class</span></span>=<span class="string">"clearfix"</span>&gt;</div><div class="line">            &lt;li <span class="class"><span class="keyword">class</span></span>=<span class="string">"item"</span>&gt;</div><div class="line">                &lt;a href=<span class="string">"javascript:void(0)"</span>&gt;</div><div class="line">                    &lt;img data-img=<span class="string">"img/load.jpeg"</span> src=<span class="string">"img/blank.jpg"</span> alt=<span class="string">"laayload test"</span>&gt;</div><div class="line">                &lt;<span class="regexp">/a&gt;</span></div><div class="line"><span class="regexp">            &lt;/</span>li&gt;</div><div class="line">            &lt;li <span class="class"><span class="keyword">class</span></span>=<span class="string">"item"</span>&gt;</div><div class="line">                &lt;a href=<span class="string">"javascript:void(0)"</span>&gt;</div><div class="line">                    &lt;img data-img=<span class="string">"img/load.jpeg"</span> src=<span class="string">"img/blank.jpg"</span> alt=<span class="string">"laayload test"</span>&gt;</div><div class="line">                &lt;<span class="regexp">/a&gt;</span></div><div class="line"><span class="regexp">            &lt;/</span>li&gt;</div><div class="line">            &lt;li <span class="class"><span class="keyword">class</span></span>=<span class="string">"item"</span>&gt;</div><div class="line">                &lt;a href=<span class="string">"javascript:void(0)"</span>&gt;</div><div class="line">                    &lt;img data-img=<span class="string">"img/load.jpeg"</span> src=<span class="string">"img/blank.jpg"</span> alt=<span class="string">"laayload test"</span>&gt;</div><div class="line">                &lt;<span class="regexp">/a&gt;</span></div><div class="line"><span class="regexp">            &lt;/</span>li&gt;</div><div class="line">            &lt;li <span class="class"><span class="keyword">class</span></span>=<span class="string">"item"</span>&gt;</div><div class="line">                &lt;a href=<span class="string">"javascript:void(0)"</span>&gt;</div><div class="line">                    &lt;img data-img=<span class="string">"img/load.jpeg"</span> src=<span class="string">"img/blank.jpg"</span> alt=<span class="string">"laayload test"</span>&gt;</div><div class="line">                &lt;<span class="regexp">/a&gt;</span></div><div class="line"><span class="regexp">            &lt;/</span>li&gt;</div><div class="line">            &lt;li <span class="class"><span class="keyword">class</span></span>=<span class="string">"item"</span>&gt;</div><div class="line">                &lt;a href=<span class="string">"javascript:void(0)"</span>&gt;</div><div class="line">                    &lt;img data-img=<span class="string">"img/load.jpeg"</span> src=<span class="string">"img/blank.jpg"</span> alt=<span class="string">"laayload test"</span>&gt;</div><div class="line">                &lt;<span class="regexp">/a&gt;</span></div><div class="line"><span class="regexp">            &lt;/</span>li&gt;</div><div class="line">            &lt;li <span class="class"><span class="keyword">class</span></span>=<span class="string">"item"</span>&gt;</div><div class="line">                &lt;a href=<span class="string">"javascript:void(0)"</span>&gt;</div><div class="line">                    &lt;img data-img=<span class="string">"img/load.jpeg"</span> src=<span class="string">"img/blank.jpg"</span> alt=<span class="string">"laayload test"</span>&gt;</div><div class="line">                &lt;<span class="regexp">/a&gt;</span></div><div class="line"><span class="regexp">            &lt;/</span>li&gt;</div><div class="line">            &lt;li <span class="class"><span class="keyword">class</span></span>=<span class="string">"item"</span>&gt;</div><div class="line">                &lt;a href=<span class="string">"javascript:void(0)"</span>&gt;</div><div class="line">                    &lt;img data-img=<span class="string">"img/load.jpeg"</span> src=<span class="string">"img/blank.jpg"</span> alt=<span class="string">"laayload test"</span>&gt;</div><div class="line">                &lt;<span class="regexp">/a&gt;</span></div><div class="line"><span class="regexp">            &lt;/</span>li&gt;</div><div class="line">            &lt;li <span class="class"><span class="keyword">class</span></span>=<span class="string">"item"</span>&gt;</div><div class="line">                &lt;a href=<span class="string">"javascript:void(0)"</span>&gt;</div><div class="line">                    &lt;img data-img=<span class="string">"img/load.jpeg"</span> src=<span class="string">"img/blank.jpg"</span> alt=<span class="string">"laayload test"</span>&gt;</div><div class="line">                &lt;<span class="regexp">/a&gt;</span></div><div class="line"><span class="regexp">            &lt;/</span>li&gt;</div><div class="line">            &lt;li <span class="class"><span class="keyword">class</span></span>=<span class="string">"item"</span>&gt;</div><div class="line">                &lt;a href=<span class="string">"javascript:void(0)"</span>&gt;</div><div class="line">                    &lt;img data-img=<span class="string">"img/load.jpeg"</span> src=<span class="string">"img/blank.jpg"</span> alt=<span class="string">"laayload test"</span>&gt;</div><div class="line">                &lt;<span class="regexp">/a&gt;</span></div><div class="line"><span class="regexp">            &lt;/</span>li&gt;</div><div class="line">            &lt;li <span class="class"><span class="keyword">class</span></span>=<span class="string">"item"</span>&gt;</div><div class="line">                &lt;a href=<span class="string">"javascript:void(0)"</span>&gt;</div><div class="line">                    &lt;img data-img=<span class="string">"img/load.jpeg"</span> src=<span class="string">"img/blank.jpg"</span> alt=<span class="string">"laayload test"</span>&gt;</div><div class="line">                &lt;<span class="regexp">/a&gt;</span></div><div class="line"><span class="regexp">            &lt;/</span>li&gt;</div><div class="line">            &lt;li <span class="class"><span class="keyword">class</span></span>=<span class="string">"item"</span>&gt;</div><div class="line">                &lt;a href=<span class="string">"javascript:void(0)"</span>&gt;</div><div class="line">                    &lt;img data-img=<span class="string">"img/load.jpeg"</span> src=<span class="string">"img/blank.jpg"</span> alt=<span class="string">"laayload test"</span>&gt;</div><div class="line">                &lt;<span class="regexp">/a&gt;</span></div><div class="line"><span class="regexp">            &lt;/</span>li&gt;</div><div class="line">            &lt;li <span class="class"><span class="keyword">class</span></span>=<span class="string">"item"</span>&gt;</div><div class="line">                &lt;a href=<span class="string">"javascript:void(0)"</span>&gt;</div><div class="line">                    &lt;img data-img=<span class="string">"img/load.jpeg"</span> src=<span class="string">"img/blank.jpg"</span> alt=<span class="string">"laayload test"</span>&gt;</div><div class="line">                &lt;<span class="regexp">/a&gt;</span></div><div class="line"><span class="regexp">            &lt;/</span>li&gt;</div><div class="line">        &lt;<span class="regexp">/ul&gt;</span></div><div class="line"><span class="regexp">    &lt;/</span>div&gt;</div><div class="line">&lt;<span class="regexp">/div&gt;</span></div><div class="line"><span class="regexp">&lt;script</span></div><div class="line"><span class="regexp">        src="https:/</span><span class="regexp">/code.jquery.com/</span>jquery<span class="number">-3.2</span><span class="number">.1</span>.slim.js<span class="string">"</span></div><div class="line"><span class="string">        integrity="</span>sha256-tA8y0XqiwnpwmOIl3SGAcFl2RvxHjA8qp0+<span class="number">1</span>uCGmRmg=<span class="string">"</span></div><div class="line"><span class="string">        crossorigin="</span>anonymous<span class="string">"&gt;&lt;/script&gt;</span></div><div class="line"><span class="string">&lt;script type="</span>text/javascript<span class="string">"&gt;</span></div><div class="line"><span class="string">    var lazyload = (function () &#123;</span></div><div class="line"><span class="string"></span></div><div class="line"><span class="string">        var timer;</span></div><div class="line"><span class="string"></span></div><div class="line"><span class="string">        function init() &#123;</span></div><div class="line"><span class="string">            $(window).on('scroll', function () &#123;</span></div><div class="line"><span class="string">                // 设置定时器</span></div><div class="line"><span class="string">                if (timer) &#123;</span></div><div class="line"><span class="string">                    clearTimeout(timer);</span></div><div class="line"><span class="string">                &#125;</span></div><div class="line"><span class="string">                timer = setTimeout(function () &#123;</span></div><div class="line"><span class="string">                    checkShow();</span></div><div class="line"><span class="string">                &#125;, 200);</span></div><div class="line"><span class="string">            &#125;)</span></div><div class="line"><span class="string">        &#125;</span></div><div class="line"><span class="string">        // 检查是否显示</span></div><div class="line"><span class="string">        function checkShow() &#123;</span></div><div class="line"><span class="string">            $('.lazyload img').each(function () &#123;</span></div><div class="line"><span class="string">                var $current = $(this);</span></div><div class="line"><span class="string">                if ($current.attr('isLoaded')) &#123;</span></div><div class="line"><span class="string">                    return;</span></div><div class="line"><span class="string">                    //showImg($current);</span></div><div class="line"><span class="string">                &#125;</span></div><div class="line"><span class="string">                if (shouldShow($current)) &#123;</span></div><div class="line"><span class="string">                    showImg($current);</span></div><div class="line"><span class="string">                &#125;</span></div><div class="line"><span class="string">            &#125;);</span></div><div class="line"><span class="string">        &#125;</span></div><div class="line"><span class="string"></span></div><div class="line"><span class="string">        // 判断node是否进入可视区</span></div><div class="line"><span class="string">        function shouldShow($node) &#123;</span></div><div class="line"><span class="string">            var scrollH = $(window).scrollTop();</span></div><div class="line"><span class="string">            var windowH = $(window).height();</span></div><div class="line"><span class="string">            var nodeH = $node.offset().top;</span></div><div class="line"><span class="string"></span></div><div class="line"><span class="string">            if (nodeH &lt; scrollH + windowH) &#123;</span></div><div class="line"><span class="string">                return true;</span></div><div class="line"><span class="string">            &#125; else &#123;</span></div><div class="line"><span class="string">                return false;</span></div><div class="line"><span class="string">            &#125;</span></div><div class="line"><span class="string">        &#125;</span></div><div class="line"><span class="string"></span></div><div class="line"><span class="string">        // 显示图片动作</span></div><div class="line"><span class="string">        function showImg($node) &#123;</span></div><div class="line"><span class="string">            $node.attr('src', $node.attr('data-img'));</span></div><div class="line"><span class="string">            $node.attr('isLoaded', true);</span></div><div class="line"><span class="string">        &#125;</span></div><div class="line"><span class="string"></span></div><div class="line"><span class="string">        return &#123;</span></div><div class="line"><span class="string">            init: init</span></div><div class="line"><span class="string">        &#125;</span></div><div class="line"><span class="string">    &#125;)();</span></div><div class="line"><span class="string"></span></div><div class="line"><span class="string">    lazyload.init();</span></div><div class="line"><span class="string">&lt;/script&gt;</span></div><div class="line"><span class="string">&lt;/body&gt;</span></div><div class="line"><span class="string">&lt;/html&gt;</span></div></pre></td></tr></table></figure>
+<h3 id="在线运行"><a href="#在线运行" class="headerlink" title="在线运行"></a>在线运行</h3><p><a href="">点击实例运行</a></p>
+
+    
+  </div>
+</article>
+
+
+   
+  <div class="text-center donation">
+    <div class="inner-donation">
+      <span class="btn-donation">支持一下</span>
+      <div class="donation-body">
+        <div class="tip text-center">扫一扫，支持peck</div>
+        <ul class="theme.donation.items.length">
+        
+          <li class="item">
+            <img src="/images/wechat.jpeg" alt="">
+          </li>
+        
+          <li class="item">
+            <img src="/images/alipay.jpeg" alt="">
+          </li>
+        
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+   
+  <div class="box-prev-next clearfix">
+    <a class="show pull-left" href="/2017/08/30/ES6中-运算符总结/">
+        <i class="icon icon-angle-left"></i>
+    </a>
+    <a class="show pull-right" href="/2017/09/04/自己深入实践理解JavaScript中原型链，可能大家都把它弄复杂了/">
+        <i class="icon icon-angle-right"></i>
+    </a>
+  </div>
+
+
+
+
+</div>
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">关闭</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/archives/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/category/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              分类
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/tag/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              标签
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/link/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              友链
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/about/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              关于我
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/atom.xml"
+              rel="noopener noreferrer"
+              target="_blank"
+              >
+              RSS
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/search/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              搜索
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+      <div class="fexo-comments comments-post">
+    
+
+    
+
+
+
+
+    
+
+    
+	
+  </div>
+
+  
+
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>
