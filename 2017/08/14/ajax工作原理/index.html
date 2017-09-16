@@ -15,23 +15,25 @@
     <meta name="keywords" content="ajax," />
   
 
-  <meta name="description" content="前言关于具体原理我就不一一写了，下面行文我从问题开始，一一阐述。 1.ajax为什么会出现？ 传统的Web网站，提交表单，需要重新加载整个页面。 如果服务器长时间未能返回Response，则客户端将无法响应，用户体验极差。 服务端返回Response后，浏览器需要加载整个页面，对浏览器的负担也很大。 浏览器提交表单后，发送的数据量大，造成网络的性能问题。   1.局部刷新。 2. 异步。  3.什">
+  <meta name="description" content="前言关于具体原理我就不一一写了，下面行文我从问题开始，一一阐述。 我们项目用的ajax全局设置（含XSRF防御(3种方法)3.验证自定义的HTTP。1.验证http的Referer字段。2.在请求地址上加token。 123456789101112// $.ajaxSetup(settings)函数// 该函数用于更改jQuery中AJAX请求的默认设置选项。之后执行的所有AJAX请求，如果对应的">
 <meta name="keywords" content="ajax">
 <meta property="og:type" content="article">
 <meta property="og:title" content="ajax工作原理">
 <meta property="og:url" content="http://gruad.github.io/2017/08/14/ajax工作原理/index.html">
 <meta property="og:site_name" content="小锋子">
-<meta property="og:description" content="前言关于具体原理我就不一一写了，下面行文我从问题开始，一一阐述。 1.ajax为什么会出现？ 传统的Web网站，提交表单，需要重新加载整个页面。 如果服务器长时间未能返回Response，则客户端将无法响应，用户体验极差。 服务端返回Response后，浏览器需要加载整个页面，对浏览器的负担也很大。 浏览器提交表单后，发送的数据量大，造成网络的性能问题。   1.局部刷新。 2. 异步。  3.什">
+<meta property="og:description" content="前言关于具体原理我就不一一写了，下面行文我从问题开始，一一阐述。 我们项目用的ajax全局设置（含XSRF防御(3种方法)3.验证自定义的HTTP。1.验证http的Referer字段。2.在请求地址上加token。 123456789101112// $.ajaxSetup(settings)函数// 该函数用于更改jQuery中AJAX请求的默认设置选项。之后执行的所有AJAX请求，如果对应的">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://gruad.github.io/img/ajax5.png">
+<meta property="og:image" content="http://gruad.github.io/img/ajaxSetup.png">
 <meta property="og:image" content="http://gruad.github.io/img/ajax1.png">
 <meta property="og:image" content="http://gruad.github.io/img/ajax2.png">
 <meta property="og:image" content="http://gruad.github.io/img/ajax3.jpg">
 <meta property="og:image" content="http://gruad.github.io/img/flash.png">
-<meta property="og:updated_time" content="2017-09-16T09:05:21.000Z">
+<meta property="og:updated_time" content="2017-09-16T09:43:47.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ajax工作原理">
-<meta name="twitter:description" content="前言关于具体原理我就不一一写了，下面行文我从问题开始，一一阐述。 1.ajax为什么会出现？ 传统的Web网站，提交表单，需要重新加载整个页面。 如果服务器长时间未能返回Response，则客户端将无法响应，用户体验极差。 服务端返回Response后，浏览器需要加载整个页面，对浏览器的负担也很大。 浏览器提交表单后，发送的数据量大，造成网络的性能问题。   1.局部刷新。 2. 异步。  3.什">
-<meta name="twitter:image" content="http://gruad.github.io/img/ajax1.png">
+<meta name="twitter:description" content="前言关于具体原理我就不一一写了，下面行文我从问题开始，一一阐述。 我们项目用的ajax全局设置（含XSRF防御(3种方法)3.验证自定义的HTTP。1.验证http的Referer字段。2.在请求地址上加token。 123456789101112// $.ajaxSetup(settings)函数// 该函数用于更改jQuery中AJAX请求的默认设置选项。之后执行的所有AJAX请求，如果对应的">
+<meta name="twitter:image" content="http://gruad.github.io/img/ajax5.png">
 
   
 
@@ -188,7 +190,7 @@
 
   <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
-    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#前言"><span class="toc-text">前言</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-ajax为什么会出现？"><span class="toc-text">1.ajax为什么会出现？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-什么是ajax"><span class="toc-text">3.什么是ajax?</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-ajax的优缺点？"><span class="toc-text">4.ajax的优缺点？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-ajax的同步和异步？"><span class="toc-text">4.ajax的同步和异步？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ajax可以传输什么（哪些）数据类型？"><span class="toc-text">ajax可以传输什么（哪些）数据类型？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-ajax的过程？"><span class="toc-text">4.ajax的过程？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#从XMLHttpRequest对象说起"><span class="toc-text">从XMLHttpRequest对象说起</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ajax为什么不刷新页面？"><span class="toc-text">ajax为什么不刷新页面？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ajax为什么是异步的？-如何实现异步的：回调函数"><span class="toc-text">ajax为什么是异步的？(如何实现异步的：回调函数)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#参考"><span class="toc-text">参考</span></a></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#前言"><span class="toc-text">前言</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#我们项目用的ajax全局设置（含XSRF防御-3种方法"><span class="toc-text">我们项目用的ajax全局设置（含XSRF防御(3种方法)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-ajax为什么会出现？"><span class="toc-text">1.ajax为什么会出现？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-什么是ajax"><span class="toc-text">3.什么是ajax?</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-ajax的优缺点？"><span class="toc-text">4.ajax的优缺点？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-ajax的同步和异步？"><span class="toc-text">4.ajax的同步和异步？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ajax可以传输什么（哪些）数据类型？"><span class="toc-text">ajax可以传输什么（哪些）数据类型？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-ajax的过程？"><span class="toc-text">4.ajax的过程？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#从XMLHttpRequest对象说起"><span class="toc-text">从XMLHttpRequest对象说起</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ajax为什么不刷新页面？"><span class="toc-text">ajax为什么不刷新页面？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ajax为什么是异步的？-如何实现异步的：回调函数"><span class="toc-text">ajax为什么是异步的？(如何实现异步的：回调函数)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#参考"><span class="toc-text">参考</span></a></li></ol>
   </div>
 
 
@@ -237,6 +239,9 @@
   <div class="article-content">
     
       <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>关于具体原理我就不一一写了，下面行文我从问题开始，一一阐述。</p>
+<h3 id="我们项目用的ajax全局设置（含XSRF防御-3种方法"><a href="#我们项目用的ajax全局设置（含XSRF防御-3种方法" class="headerlink" title="我们项目用的ajax全局设置（含XSRF防御(3种方法)"></a>我们项目用的ajax全局设置（含XSRF防御(3种方法)</h3><p><strong>3.验证自定义的HTTP。1.验证http的Referer字段。2.在请求地址上加token。</strong></p>
+<p><img src="/img/ajax5.png" alt=""><br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// $.ajaxSetup(settings)函数</span></div><div class="line"><span class="comment">// 该函数用于更改jQuery中AJAX请求的默认设置选项。之后执行的所有AJAX请求，如果对应的选项参数没有设置，将使用</span></div><div class="line"><span class="comment">// 更改后的默认设置。</span></div><div class="line">	$.ajaxSetup(&#123;</div><div class="line">		type:<span class="string">"POST"</span>,</div><div class="line">		headers:&#123;<span class="comment">// 默认的请求头</span></div><div class="line">			<span class="string">'X-CSRF-TOKEN'</span>:$(<span class="string">"meta[name=_csrf_token]"</span>).attr(<span class="string">"content"</span>)</div><div class="line">		&#125;,</div><div class="line">		error:<span class="function"><span class="keyword">function</span>(<span class="params">jqHXR,textStatus,errorMsg</span>)</span>&#123;</div><div class="line">			<span class="comment">// 出错是默认的处理函数</span></div><div class="line">		&#125;</div><div class="line">		&#125;);</div></pre></td></tr></table></figure></p>
+<p><img src="/img/ajaxSetup.png" alt=""></p>
 <h3 id="1-ajax为什么会出现？"><a href="#1-ajax为什么会出现？" class="headerlink" title="1.ajax为什么会出现？"></a>1.ajax为什么会出现？</h3><ol>
 <li>传统的Web网站，提交表单，需要重新加载整个页面。</li>
 <li>如果服务器长时间未能返回Response，则客户端将无法响应，用户体验极差。</li>
