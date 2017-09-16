@@ -15,20 +15,23 @@
     <meta name="keywords" content="ajax," />
   
 
-  <meta name="description" content="从XMLHttpRequest对象说起Can I Use XMLHttpRequest ajax为什么不刷新页面？因为ajax请求返回的服务端数据是利用了客户端的js代码进行对数据更新，因为使用js对数据进行更新是不需要整个页面更新的，不像提交表单需要刷新事件。 ajax为什么是异步的？JavaScript虽然是单线程的，但浏览器引擎（四大：webkit，gecko,trident,presto)">
+  <meta name="description" content="前言关于具体原理我就不一一写了，下面行文我从问题开始，一一阐述。 1.ajax为什么会出现？ 传统的Web网站，提交表单，需要重新加载整个页面。 如果服务器长时间未能返回Response，则客户端将无法响应，用户体验极差。 服务端返回Response后，浏览器需要加载整个页面，对浏览器的负担也很大。 浏览器提交表单后，发送的数据量大，造成网络的性能问题。   1.局部刷新。 2. 异步。  3.什">
 <meta name="keywords" content="ajax">
 <meta property="og:type" content="article">
 <meta property="og:title" content="ajax工作原理">
 <meta property="og:url" content="http://gruad.github.io/2017/08/14/ajax工作原理/index.html">
 <meta property="og:site_name" content="小锋子">
-<meta property="og:description" content="从XMLHttpRequest对象说起Can I Use XMLHttpRequest ajax为什么不刷新页面？因为ajax请求返回的服务端数据是利用了客户端的js代码进行对数据更新，因为使用js对数据进行更新是不需要整个页面更新的，不像提交表单需要刷新事件。 ajax为什么是异步的？JavaScript虽然是单线程的，但浏览器引擎（四大：webkit，gecko,trident,presto)">
+<meta property="og:description" content="前言关于具体原理我就不一一写了，下面行文我从问题开始，一一阐述。 1.ajax为什么会出现？ 传统的Web网站，提交表单，需要重新加载整个页面。 如果服务器长时间未能返回Response，则客户端将无法响应，用户体验极差。 服务端返回Response后，浏览器需要加载整个页面，对浏览器的负担也很大。 浏览器提交表单后，发送的数据量大，造成网络的性能问题。   1.局部刷新。 2. 异步。  3.什">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://gruad.github.io/img/ajax1.png">
+<meta property="og:image" content="http://gruad.github.io/img/ajax2.png">
+<meta property="og:image" content="http://gruad.github.io/img/ajax3.jpg">
 <meta property="og:image" content="http://gruad.github.io/img/flash.png">
-<meta property="og:updated_time" content="2017-08-15T02:38:30.000Z">
+<meta property="og:updated_time" content="2017-09-16T09:05:21.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ajax工作原理">
-<meta name="twitter:description" content="从XMLHttpRequest对象说起Can I Use XMLHttpRequest ajax为什么不刷新页面？因为ajax请求返回的服务端数据是利用了客户端的js代码进行对数据更新，因为使用js对数据进行更新是不需要整个页面更新的，不像提交表单需要刷新事件。 ajax为什么是异步的？JavaScript虽然是单线程的，但浏览器引擎（四大：webkit，gecko,trident,presto)">
-<meta name="twitter:image" content="http://gruad.github.io/img/flash.png">
+<meta name="twitter:description" content="前言关于具体原理我就不一一写了，下面行文我从问题开始，一一阐述。 1.ajax为什么会出现？ 传统的Web网站，提交表单，需要重新加载整个页面。 如果服务器长时间未能返回Response，则客户端将无法响应，用户体验极差。 服务端返回Response后，浏览器需要加载整个页面，对浏览器的负担也很大。 浏览器提交表单后，发送的数据量大，造成网络的性能问题。   1.局部刷新。 2. 异步。  3.什">
+<meta name="twitter:image" content="http://gruad.github.io/img/ajax1.png">
 
   
 
@@ -185,7 +188,7 @@
 
   <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
-    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#从XMLHttpRequest对象说起"><span class="toc-text">从XMLHttpRequest对象说起</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ajax为什么不刷新页面？"><span class="toc-text">ajax为什么不刷新页面？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ajax为什么是异步的？"><span class="toc-text">ajax为什么是异步的？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#参考"><span class="toc-text">参考</span></a></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#前言"><span class="toc-text">前言</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-ajax为什么会出现？"><span class="toc-text">1.ajax为什么会出现？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-什么是ajax"><span class="toc-text">3.什么是ajax?</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-ajax的优缺点？"><span class="toc-text">4.ajax的优缺点？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-ajax的同步和异步？"><span class="toc-text">4.ajax的同步和异步？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ajax可以传输什么（哪些）数据类型？"><span class="toc-text">ajax可以传输什么（哪些）数据类型？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-ajax的过程？"><span class="toc-text">4.ajax的过程？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#从XMLHttpRequest对象说起"><span class="toc-text">从XMLHttpRequest对象说起</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ajax为什么不刷新页面？"><span class="toc-text">ajax为什么不刷新页面？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ajax为什么是异步的？-如何实现异步的：回调函数"><span class="toc-text">ajax为什么是异步的？(如何实现异步的：回调函数)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#参考"><span class="toc-text">参考</span></a></li></ol>
   </div>
 
 
@@ -233,9 +236,36 @@
 
   <div class="article-content">
     
-      <h3 id="从XMLHttpRequest对象说起"><a href="#从XMLHttpRequest对象说起" class="headerlink" title="从XMLHttpRequest对象说起"></a>从XMLHttpRequest对象说起</h3><p><a href="http://caniuse.com/#search=XMLHttpRequest" target="_blank" rel="external">Can I Use XMLHttpRequest</a></p>
-<h3 id="ajax为什么不刷新页面？"><a href="#ajax为什么不刷新页面？" class="headerlink" title="ajax为什么不刷新页面？"></a>ajax为什么不刷新页面？</h3><p>因为ajax请求返回的服务端数据是利用了客户端的js代码进行对数据更新，因为使用js对数据进行更新是不需要整个页面更新的，不像提交表单需要刷新事件。<br><img src="/img/flash.png" alt=""></p>
-<h3 id="ajax为什么是异步的？"><a href="#ajax为什么是异步的？" class="headerlink" title="ajax为什么是异步的？"></a>ajax为什么是异步的？</h3><p>JavaScript虽然是单线程的，但浏览器引擎（四大：webkit，gecko,trident,presto)是多线程的，这就牵扯到浏览器是如何工作的，参考<a href="http://taligarsiel.com/Projects/howbrowserswork1.htm" target="_blank" rel="external">how browsers work?</a><br><a href="http://www.cnblogs.com/yasmi/articles/5064588.html" target="_blank" rel="external">为什么JavaScript是单线程的却能让AJAX异步发送和回调请求</a></p>
+      <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>关于具体原理我就不一一写了，下面行文我从问题开始，一一阐述。</p>
+<h3 id="1-ajax为什么会出现？"><a href="#1-ajax为什么会出现？" class="headerlink" title="1.ajax为什么会出现？"></a>1.ajax为什么会出现？</h3><ol>
+<li>传统的Web网站，提交表单，需要重新加载整个页面。</li>
+<li>如果服务器长时间未能返回Response，则客户端将无法响应，用户体验极差。</li>
+<li>服务端返回Response后，浏览器需要加载整个页面，对浏览器的负担也很大。</li>
+<li>浏览器提交表单后，发送的数据量大，造成网络的性能问题。</li>
+</ol>
+<blockquote>
+<p>1.局部刷新。 2. 异步。</p>
+</blockquote>
+<h3 id="3-什么是ajax"><a href="#3-什么是ajax" class="headerlink" title="3.什么是ajax?"></a>3.什么是ajax?</h3><ol>
+<li>ajax是异步javascript and XML的简写。</li>
+<li>ajax是一种新的解决方案，并不是一门新技术，是一种用于创建动态网页的新技术。</li>
+<li>通过在后台与服务器进行少量的数据交换，可以使网页实现异步更新。</li>
+<li>可以在不重新加载整个网页的情况下，对网页的某部分进行更新。(iframe也可以实现局部更新)<br><img src="/img/ajax1.png" alt=""></li>
+</ol>
+<h3 id="4-ajax的优缺点？"><a href="#4-ajax的优缺点？" class="headerlink" title="4.ajax的优缺点？"></a>4.ajax的优缺点？</h3><p><img src="/img/ajax2.png" alt=""></p>
+<h3 id="4-ajax的同步和异步？"><a href="#4-ajax的同步和异步？" class="headerlink" title="4.ajax的同步和异步？"></a>4.ajax的同步和异步？</h3><p>异步是ajax默认的请求方式，用户体验好。<br>同步也可以，同步时候，必须等待服务器返回数据才能进行下一步操作，页面假死，当这个AJAX执行完毕后才会继续运行其他代码页面假死状态解除。这个时候可以在等待过程中给个遮罩层给予提示。jquery实现方式是在beforeSend:设置一个函数即可。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">before:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">	showLoading($(<span class="string">'#container'</span>));</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="ajax可以传输什么（哪些）数据类型？"><a href="#ajax可以传输什么（哪些）数据类型？" class="headerlink" title="ajax可以传输什么（哪些）数据类型？"></a>ajax可以传输什么（哪些）数据类型？</h3><p>原生的：responseText,responseXML<br><a href="http://blog.csdn.net/accountwcx/article/details/47734129" target="_blank" rel="external">可以传输的类型</a><br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// jquery的几种对应写法</span></div><div class="line"><span class="comment">// 1.json格式：</span></div><div class="line">dataType:<span class="string">'json'</span></div><div class="line"><span class="comment">// 2. xml格式：</span></div><div class="line">dataTpye:<span class="string">'text'</span></div><div class="line"><span class="keyword">var</span> xml=$.parseXML(text);</div><div class="line"><span class="comment">// 3. html格式</span></div><div class="line">dataTpye:<span class="string">'text'</span></div><div class="line"><span class="keyword">var</span> xml=$.parseHTML(text);</div><div class="line"><span class="comment">// 4.自定义数据格式</span></div><div class="line"><span class="comment">// 5. jsonp</span></div><div class="line">dataType:<span class="string">'jsonp'</span></div></pre></td></tr></table></figure></p>
+<p>jsonp并不属于ajax，jsonp和ajax实现的原理不一样，jsonp的出现只是为了弥补ajax不能跨域请求的缺点(ajax不能跨域请求是浏览器做的限制)。虽然jsonp不属于ajax，jQuery为了方便还是把jsonp放在ajax方法里调用，把dataType设置为jsonp即可。</p>
+<blockquote>
+<p>ajax在浏览器和服务器端传输数据的本质是文本内容(不支持二进制数据)，这些文本内容可以是json、xml、html或者纯文本格式，浏览器端把服务端返回的文本内容转为JavaScript的json对象、xml对象或者html对象。目前主流的JavaScript库都提供了ajax请求的封装。</p>
+</blockquote>
+<p><strong>通过ajax异步传输的数据格式有3中，JSON,XML,HTML,</strong></p>
+<h3 id="4-ajax的过程？"><a href="#4-ajax的过程？" class="headerlink" title="4.ajax的过程？"></a>4.ajax的过程？</h3><p><img src="/img/ajax3.jpg" alt=""></p>
+<h3 id="从XMLHttpRequest对象说起"><a href="#从XMLHttpRequest对象说起" class="headerlink" title="从XMLHttpRequest对象说起"></a>从XMLHttpRequest对象说起</h3><p><a href="http://caniuse.com/#search=XMLHttpRequest" target="_blank" rel="external">Can I Use XMLHttpRequest</a></p>
+<h3 id="ajax为什么不刷新页面？"><a href="#ajax为什么不刷新页面？" class="headerlink" title="ajax为什么不刷新页面？"></a>ajax为什么不刷新页面？</h3><p>因为ajax请求返回的服务端数据是利用了客户端的js代码进行对数据更新，因为使用js对数据进行更新是不需要整个页面更新的，不像提交表单需要刷新事件。</p>
+<p><img src="/img/flash.png" alt=""></p>
+<h3 id="ajax为什么是异步的？-如何实现异步的：回调函数"><a href="#ajax为什么是异步的？-如何实现异步的：回调函数" class="headerlink" title="ajax为什么是异步的？(如何实现异步的：回调函数)"></a>ajax为什么是异步的？(如何实现异步的：回调函数)</h3><p>JavaScript虽然是单线程的，但浏览器引擎（四大：webkit，gecko,trident,presto)是多线程的，这就牵扯到浏览器是如何工作的，参考<a href="http://taligarsiel.com/Projects/howbrowserswork1.htm" target="_blank" rel="external">how browsers work?</a><br><a href="http://www.cnblogs.com/yasmi/articles/5064588.html" target="_blank" rel="external">为什么JavaScript是单线程的却能让AJAX异步发送和回调请求</a></p>
 <h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><p><a href="https://segmentfault.com/a/1190000004322487" target="_blank" rel="external">你真的会使用XMLHttpRequest吗？</a><br><a href="http://www.ruanyifeng.com/blog/2012/09/xmlhttprequest_level_2.html" target="_blank" rel="external">XMLHttpRequest Level 2 使用指南</a><br><a href="http://www.cnblogs.com/jackson0714/p/AJAX.html" target="_blank" rel="external">图文解析AJAX的原理</a><br><a href="http://www.cnblogs.com/yasmi/articles/5064588.html" target="_blank" rel="external">为什么JavaScript是单线程的却能让AJAX异步发送和回调请求</a></p>
 
     
